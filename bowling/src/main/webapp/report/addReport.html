@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Add report</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+	<h1>Insert Form</h1>
+	<div id="getGame">
+		<h2>GetTeam</h2>
+		
+		<!-- hometeam 선택 -->
+		<select id = "getHomeTeam">
+			<option>팀 선택</option>
+		</select>
+		
+		<!-- hometeam 선수 선택 -->
+		<select id = "getHomeTeamPlayer">
+			<option value=0>선수 선택</option>
+		</select>
+		
+		<!-- awayteam 선택 -->
+		<select id = "getAwayTeam">
+			<option>팀 선택</option>
+		</select>
+		
+		<!-- awayteam 선수 선택 -->
+		<select id = "getAwayTeamPlayer">
+			<option value=0>선수 선택</option>
+		</select>
+	</div>
+	
+	<button id="gameStartBtn">게임시작</button>
+	
+	<div id="addPin">
+		<h2>Insert Pin</h2>
+		<table border="1">
+		<!-- addReport폼 생성, Check 박스 생성 -->
+			<tr>
+				<td>1<input class="pinCheck" type="checkbox" id="pin1"></td>
+				<td>2<input class="pinCheck" type="checkbox" id="pin2"></td>
+				<td>3<input class="pinCheck" type="checkbox" id="pin3"></td>
+				<td>4<input class="pinCheck" type="checkbox" id="pin4"></td>
+				<td>5<input class="pinCheck" type="checkbox" id="pin5"></td>
+				<td>6<input class="pinCheck" type="checkbox" id="pin6"></td>
+				<td>7<input class="pinCheck" type="checkbox" id="pin7"></td>
+				<td>8<input class="pinCheck" type="checkbox" id="pin8"></td>
+				<td>9<input class="pinCheck" type="checkbox" id="pin9"></td>
+				<td>10<input class="pinCheck" type="checkbox" id="pin10"></td>
+			</tr>
+		</table>
+		<button type="button" id="addPinBtn">쓰러진 핀 입력</button>
+		<div>
+			<button type="button" id="strikeBtn">스트라이크</button>
+			<button type="button" id="spareBtn">스페어</button>
+			<button type="button" id="resetBtn">초기화</button>
+		</div>
+	</div>
+</body>
+<script>
+	$(document).ready(function(){
+		// 변수
+		// pin : 볼링 핀의 배열 초기값은 0으로 설정 
+		let pin = [0,0,0,0,0,0,0,0,0,0];
+		// pinSum : 쓰러트린 핀의 갯수
+		let pinSum = 0;
+		// turn : 해당선수의 회차
+		let turn = 1;
+		// frame : 해당선수의 프레임
+		let frame = 1;
+		// player : 선수의 차례를 구분하기위한 변수
+		// player의 값이 1 : awayTeamPlayer
+		// player의 값이 2 : homeTeamPlayer
+		let player = 1;
+		
+		$("#addPin").hide();
+		$("#homeTeamPlayerSelect").empty();
+
+		//게임시작 버튼 클릭시 경기의 데이터를 기록할 수 있다
+		$("#gameStartBtn").on("click",function(){
+			if($("#getHomeTeamPlayer").val()!=0	&& $("#getAwayTeamPlayer").val()!=0){
+				$("#gameStartBtn").hide();
+				$("#getGame").hide();
+				$("#addPin").show();
+			}else{
+				alert("팀과 선수를 입력해주세요!");
+			}
+		});
+		
+		// homeTeam 팀 명단을 불러오는 함수
+		$.ajax({
+			url:"/getHomeTeam",
+			method:"POST",
+			success:function(json){
+				$(json).each(function(index, item){
+					temp = "<option value='";
+					temp += item.teamName;
+					temp += "'>";
+					temp += item.teamName;
+					temp += "</option>";
+					$("#getHomeTeam").append(temp);
+				});
+			}
+		});
+		
+		// hometeam 선수를 불러오는 함수
+		$("#getHomeTeam").change(function(){
+			$.ajax({
+				url:"/getHomeTeamPlayer",
+				method:"POST",
+				data:{"teamName":$("#getHomeTeam").val()},
+				success:function(json){
+					$("#getHomeTeamPlayer").empty();
+					$("#getHomeTeamPlayer").append("<option value=0>선수 선택</option>");
+					$(json).each(function(index, item){
+						console.log("히오스");
+						temp = "<option value='";
+						temp += item.playerNo;
+						temp += "'>";
+						temp += item.playerName;
+						temp += "</option>";
+						$("#getHomeTeamPlayer").append(temp);
+					});
+				}
+			});
+		});
+		
+		// away team을 불러오는 함수
+		$("#getHomeTeam").change(function(){
+			$.ajax({
+				url:"/getAwayTeam",
+				method:"POST",
+				data:{"teamName":$("#getHomeTeam").val()},
+				success:function(json){
+					$("#getAwayTeam").empty();
+					$("#getAwayTeam").append("<option value=0>팀 선택</option>");
+					$(json).each(function(index, item){
+						temp = "<option value='";
+						temp += item.teamName;
+						temp += "'>";
+						temp += item.teamName;
+						temp += "</option>";
+						$("#getAwayTeam").append(temp);
+					});
+				}
+			});
+		});
+		
+		// away team 선수를 불러오는 함수
+		$("#getAwayTeam").change(function(){
+			$.ajax({
+				url:"/getHomeTeamPlayer",
+				method:"POST",
+				data:{"teamName":$("#getAwayTeam").val()},
+				success:function(json){
+					$("#getAwayTeamPlayer").empty();
+					$("#getAwayTeamPlayer").append("<option value=0>선수 선택</option>");
+					$(json).each(function(index, item){
+						temp = "<option value='";
+						temp += item.playerNo;
+						temp += "'>";
+						temp += item.playerName;
+						temp += "</option>";
+						$("#getAwayTeamPlayer").append(temp);
+					});
+				}
+			});
+		});
+		
+		$("#strikeBtn").on("click",function(){
+			$(".pinCheck").prop("checked", true);
+		});
+		
+		$("#resetBtn").on("click",function(){
+			$(".pinCheck").prop("checked", false);
+		});
+		
+		$("#addPinBtn").on("click",function(){
+			console.log("버튼클릭");
+			console.log("turn :",turn);
+			console.log("player :",player);
+			
+			// 볼링핀을 체크박스로 설정하여 체크한 핀의 배열 인덱스 값을 1로 설정
+			// 인덱스 값이 1은  쓰러트린 핀, 인덱스 값이 0 은 쓰러트리지 않은 핀
+			if($("input:checkbox[id='pin1']").is(":checked") == true){
+				$("#pin1").attr("disabled",true);
+				pin[0]=1;
+			}
+			
+			if($("input:checkbox[id='pin2']").is(":checked") == true){
+				$("#pin2").attr("disabled",true);
+				pin[1]=1;
+			}
+			
+			if($("input:checkbox[id='pin3']").is(":checked") == true){
+				$("#pin3").attr("disabled",true);
+				pin[2]=1;
+			}
+			
+			if($("input:checkbox[id='pin4']").is(":checked") == true){
+				$("#pin4").attr("disabled",true);
+				pin[3]=1;
+			}
+			
+			if($("input:checkbox[id='pin5']").is(":checked") == true){
+				$("#pin5").attr("disabled",true);
+				pin[4]=1;
+			}
+			
+			if($("input:checkbox[id='pin6']").is(":checked") == true){
+				$("#pin6").attr("disabled",true);
+				pin[5]=1;
+			}
+			
+			if($("input:checkbox[id='pin7']").is(":checked") == true){
+				$("#pin7").attr("disabled",true);
+				pin[6]=1;
+			}
+			
+			if($("input:checkbox[id='pin8']").is(":checked") == true){
+				$("#pin8").attr("disabled",true);
+				pin[7]=1;
+			}
+			
+			if($("input:checkbox[id='pin9']").is(":checked") == true){
+				$("#pin9").attr("disabled",true);
+				pin[8]=1;
+			}
+			
+			if($("input:checkbox[id='pin10']").is(":checked") == true){
+				$("#pin10").attr("disabled",true);
+				pin[9]=1;
+			}
+			console.log(pin);
+			
+			//체크한 pin의 개수의 합을 구하는 반복문
+			for(let i =0;i<pin.length;i++){
+				pinSum += pin[i];
+			}
+			console.log(pinSum);
+			
+			// 1회차에 핀을 10개 쓰러트린 경우 (스트라이크)
+			if(turn == 1 && pinSum == 10){
+				console.log("strike");
+				$(".pinCheck").attr("disabled", false);
+				$(".pinCheck").prop("checked", false);
+				turn = 1;
+				player += 1;
+				pinSum = 0;
+			} else {
+				console.log("------------------------");
+				// 버튼 클릭 할 때마다 선수의 회차가 +1된다
+				turn += 1;
+				if(turn > 2){
+					player += 1;
+					pinSum = 0;
+					turn = 1;
+				}
+			}
+			
+			if(player > 2){
+				player = 1;
+			}
+		})
+	});
+</script>
+</html>
