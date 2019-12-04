@@ -3,7 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.bowling.mapper.BowlingMapper">
-	
+	<!-- addReport Game insert 후에 index값 받아오기 -->
+	<select id="maxGameNo" resultType="com.example.bowling.vo.Game">
+		SELECT max(game_no) as gameNo
+		FROM game
+	</select>
 	<!-- addReport game_player insert -->
 	<insert id="insertGamePlayer" parameterType="com.example.bowling.vo.GamePlayer" useGeneratedKeys="true" keyProperty="gameNo">
 		INSERT INTO game_player (

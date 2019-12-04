@@ -48,10 +48,11 @@
 	<div id="addPin">
 		<h2>Insert Pin</h2>
 		<!-- 전광판 -->
+		<div>게임ID: <p id="gameNumber"></p></div>
 		<div>
 			<table border = "1" id="board">
 				<tr>
-					<td id="nameframe">이름\프레임</td>
+					<td id="nameframe">이름/프레임</td>
 					<td>1</td>
 					<td>2</td>
 					<td>3</td>
@@ -65,31 +66,31 @@
 					<td>총 점수</td>
 				</tr>
 				<tr>
-					<td>장찬호스</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td id="homeTeamPlayer"></td>
+					<td id="h1"></td>
+					<td id="h2"></td>
+					<td id="h3"></td>
+					<td id="h4"></td>
+					<td id="h5"></td>
+					<td id="h6"></td>
+					<td id="h7"></td>
+					<td id="h8"></td>
+					<td id="h9"></td>
+					<td id="h10"></td>
 					<td></td>
 				</tr>
 				<tr>
-					<td>이정연</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td id="awayTeamPlayer"></td>
+					<td id="a1"></td>
+					<td id="a2"></td>
+					<td id="a3"></td>
+					<td id="a4"></td>
+					<td id="a5"></td>
+					<td id="a6"></td>
+					<td id="a7"></td>
+					<td id="a8"></td>
+					<td id="a9"></td>
+					<td id="a10"></td>
 					<td></td>
 				</tr>
 			</table>
@@ -114,7 +115,6 @@
 		<button type="button" id="addPinBtn">쓰러진 핀 입력</button>
 		<div>
 			<button type="button" id="strikeBtn">스트라이크</button>
-			<button type="button" id="spareBtn">스페어</button>
 			<button type="button" id="resetBtn">초기화</button>
 		</div>
 	</div>
@@ -124,8 +124,9 @@
 		// 변수
 		// pin : 볼링 핀의 배열 초기값은 0으로 설정 
 		let pin = [0,0,0,0,0,0,0,0,0,0];
-		// pinSum : 쓰러트린 핀의 갯수
+		// turn1PinSum : 처음 쓰러트린 핀의 갯수
 		let pinSum = 0;
+		
 		// turn : 해당선수의 회차
 		let turn = 1;
 		// frame : 해당선수의 프레임
@@ -134,6 +135,9 @@
 		// player의 값이 1 : awayTeamPlayer
 		// player의 값이 2 : homeTeamPlayer
 		let player = 1;
+			
+		// game_no 해당 경기의 인덱스값
+		let gameNo = 0;
 		
 		// 팀을 선택하기전에 핀을 숨겨 놓는다
 		//$("#addPin").hide();
@@ -145,7 +149,6 @@
 				$("#gameStartBtn").hide();
 				$("#getGame").hide();
 				$("#addPin").show();
-				$("#spareBtn").hide();
 				
 				// ### 경기 기록 ######################################################################################################################
 				$.ajax({
@@ -155,9 +158,9 @@
 						  "stadiumName":$("#getStadium").text(),
 						  "ateamName":$("#getAwayTeam").val()
 						 },
-					success:function(){
-						console.log("success!");
-						
+					success:function(json){
+						console.log("success!",json);
+						gameNo = json.gameNo;
 					}
 				});
 				
@@ -256,13 +259,20 @@
 			});
 		});
 		
+		// 선수의 이름을 전광판에 입력시키는 함수
+		$("#getHomeTeamPlayer").change(function(){
+			$("#homeTeamPlayer").empty();
+			$("#homeTeamPlayer").text($("#getHomeTeamPlayer option:checked").text());	
+		})
+		
+		$("#getAwayTeamPlayer").change(function(){
+			$("#awayTeamPlayer").empty();
+			$("#awayTeamPlayer").text($("#getAwayTeamPlayer option:checked").text());
+		})
+		
 // ### 팀 / 선수 선택 #############################################################################################
 		
 		$("#strikeBtn").on("click",function(){
-			$(".pinCheck").prop("checked", true);
-		});
-		
-		$("#spareBtn").on("click",function(){
 			$(".pinCheck").prop("checked", true);
 		});
 		
@@ -337,11 +347,16 @@
 			console.log("player :",player);
 			console.log("frame :", frame);
 			
+			// home팀 전광판 frame
+			let homeFrame = "#h"+frame;
+			// away팀 전광판 frame
+			let awayFrame = "#a"+frame;
+			
 			// 선수의 회차마다의 기록을 저장하기 위한 함수
-			/* $.ajax({
+			$.ajax({
 				url:"/addGamePlayer",
 				method:"POST",
-				data:{"gameNo": 3,
+				data:{"gameNo": gameNo,
 					  "playerNo":$("#getHomeTeamPlayer").val(),
 					  "frame":frame,
 					  "turn":turn,
@@ -359,28 +374,74 @@
 				success:function(){
 					console.log("addGamePlayer 요청 확인!");
 				}
-			});  */
+			});
 			
 			// 1회차에 핀을 10개 쓰러트린 경우 (스트라이크)
 			if(turn == 1 && pinSum == 10){
-				console.log("strike");
-				$(".pinCheck").attr("disabled", false);
-				$(".pinCheck").prop("checked", false);
-				turn = 1;
-				player += 1;
-				pinSum = 0;
-				pin = [0,0,0,0,0,0,0,0,0,0];
+				if(frame == 10){
+					console.log("strike");
+					
+					// 전광판에 스트라이크 출력
+					if(player == 1){
+						$(homeFrame).text(pinSum);
+					} else {
+						$(awayFrame).text(pinSum);
+					}
+					
+					$(".pinCheck").attr("disabled", false);
+					$(".pinCheck").prop("checked", false);
+					pinSum = 0;
+					pin = [0,0,0,0,0,0,0,0,0,0];
+				} else {
+					console.log("strike");
+					
+					// 전광판에 스트라이크 출력
+					if(player == 1){
+						$(homeFrame).text("X");
+					} else {
+						$(awayFrame).text("X");
+					}
+					
+					$(".pinCheck").attr("disabled", false);
+					$(".pinCheck").prop("checked", false);
+					turn = 1;
+					player += 1;
+					pinSum = 0;
+					pin = [0,0,0,0,0,0,0,0,0,0];
+				}
 			} else {
 				console.log("------------------------");
+				
+				// 전광판에 쓰러트린 핀 출력
+				if(player == 1){
+					$(homeFrame).text(pinSum);
+				} else {
+					$(awayFrame).text(pinSum);
+				}
+				
 				// 버튼 클릭 할 때마다 선수의 회차가 +1된다
 				turn += 1;
+				$(".pinCheck").prop("checked", false);
+				pin = [0,0,0,0,0,0,0,0,0,0];
+				
 				if(turn > 2){
 					$(".pinCheck").attr("disabled", false);
 					$(".pinCheck").prop("checked", false);
-					player += 1;
-					pinSum = 0;
-					turn = 1;
-					pin = [0,0,0,0,0,0,0,0,0,0];
+					if(frame != 10 && pinSum < 10){
+						player += 1;
+						pinSum = 0;
+						turn = 1;
+						pin = [0,0,0,0,0,0,0,0,0,0];
+					} else {
+						if(turn > 3){
+							player += 1;
+							pinSum = 0;
+							turn = 1;
+							pin = [0,0,0,0,0,0,0,0,0,0];
+						}
+						
+						pin = [0,0,0,0,0,0,0,0,0,0];
+					}
 				}
 			}
 			
@@ -397,15 +458,10 @@
 				$("#strikeBtn").show();
 				$("#spareBtn").hide();
 			}
-			
-			
 		})
 	});
 // ### 핀 입력 ############################################################################################################	
 
-	/* let result = function(player, pin[], turn, frame){
-		
-	}; */
 	
 </script>
 </html>

@@ -23,5 +23,7 @@ public interface BowlingMapper {
 	public Team selectStadium(Team team);
 	//addReport 선수의 회차마다의 기록을 저장하기 위한 mapper
 	public int insertGamePlayer(GamePlayer gamePlayer);
+	//addReport addReport game_player insert 후에 index값 받아오는 mapper
+	public Game maxGameNo(Game game);
 	
 }

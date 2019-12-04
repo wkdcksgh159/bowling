@@ -34,9 +34,13 @@ public class BowlingServiceImpl implements BowlingService {
 	
 	//addReport 게임테이블에 경기를 기록하는 serviceImpl
 	@Override
-	public int addGame(Game game) {
+	public Game addGame(Game game) {
 		System.out.println("bowilng serviceImpl addGame -----------------------------");
-		return bowlingMapper.insertGame(game);
+		int row = bowlingMapper.insertGame(game);
+		Game maxGameNo = bowlingMapper.maxGameNo(game);
+		System.out.println("row : "+row);
+		System.out.println("maxGameNo : "+maxGameNo);
+		return maxGameNo;
 	}
 	
 	

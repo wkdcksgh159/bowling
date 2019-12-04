@@ -41,12 +41,10 @@ public class BowlingController {
 	
 	//addReport 게임테이블에 경기를 기록하는 controller
 	@PostMapping("/addGame")
-	public int addGame(Game game) {
+	public Game addGame(Game game) {
 		System.out.println("bowilng controller addGame -----------------------------");
 		System.out.println("game : "+game);
-		int row = bowlingService.addGame(game);
-		System.out.println("row : "+row);
-		return row;
+		return bowlingService.addGame(game);
 	}
 	
 	
