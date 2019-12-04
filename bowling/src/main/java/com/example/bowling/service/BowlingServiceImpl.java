@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.bowling.mapper.BowlingMapper;
+import com.example.bowling.vo.Game;
 import com.example.bowling.vo.Team;
 import com.example.bowling.vo.TeamPlayerName;
 
@@ -16,6 +17,12 @@ public class BowlingServiceImpl implements BowlingService {
 	@Autowired
 	private BowlingMapper bowlingMapper;
 	
+	//addReport 게임테이블에 경기를 기록하는 serviceImpl
+	@Override
+	public int addGame(Game game) {
+		System.out.println("bowilng serviceImpl addGame -----------------------------");
+		return bowlingMapper.insertGame(game);
+	}
 	
 	
 	//addReport 홈팀을 제외한 팀 목록을 셀렉트박스에 불러오는 serviceImpl

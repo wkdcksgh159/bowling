@@ -9,7 +9,7 @@
 	<h1>Insert Form</h1>
 	<div id="getGame">
 		<h2>GetTeam</h2>
-		
+		<div id="stadium"></div>
 		<!-- hometeam 선택 -->
 		<select id = "getHomeTeam">
 			<option>팀 선택</option>
@@ -83,6 +83,14 @@
 				$("#gameStartBtn").hide();
 				$("#getGame").hide();
 				$("#addPin").show();
+				
+			/* 	
+				$.ajax({
+					url:"/addGame",
+					method:"POST",
+					data:{"hteamName":}
+				}); */
+				
 			}else{
 				alert("팀과 선수를 입력해주세요!");
 			}
@@ -172,14 +180,30 @@
 			$(".pinCheck").prop("checked", true);
 		});
 		
+		$("#spareBtn").on("click",function(){
+			$(".pinCheck").prop("checked", true);
+		});
+		
 		$("#resetBtn").on("click",function(){
 			$(".pinCheck").prop("checked", false);
 		});
+		
 		
 		$("#addPinBtn").on("click",function(){
 			console.log("버튼클릭");
 			console.log("turn :",turn);
 			console.log("player :",player);
+			console.log("pin :", pin);
+			console.log("pinSum :", pinSum);
+			
+			//1회차일때 스트라이크버튼이 보이고, 2회차일때 스페어 버튼이 보인다.
+			if(turn == 2){
+				$("#spareBtn").show();
+				$("#strikeBtn").hide();
+			}else if(turn == 1){
+				$("#strikeBtn").show();
+				$("#spareBtn").hide();
+			}
 			
 			// 볼링핀을 체크박스로 설정하여 체크한 핀의 배열 인덱스 값을 1로 설정
 			// 인덱스 값이 1은  쓰러트린 핀, 인덱스 값이 0 은 쓰러트리지 않은 핀
@@ -248,14 +272,18 @@
 				turn = 1;
 				player += 1;
 				pinSum = 0;
+				pin = [0,0,0,0,0,0,0,0,0,0];
 			} else {
 				console.log("------------------------");
 				// 버튼 클릭 할 때마다 선수의 회차가 +1된다
 				turn += 1;
 				if(turn > 2){
+					$(".pinCheck").attr("disabled", false);
+					$(".pinCheck").prop("checked", false);
 					player += 1;
 					pinSum = 0;
 					turn = 1;
+					pin = [0,0,0,0,0,0,0,0,0,0];
 				}
 			}
 			
@@ -264,5 +292,10 @@
 			}
 		})
 	});
+	
+	/* let result = function(player, pin[], turn, frame){
+		
+	}; */
+	
 </script>
 </html>

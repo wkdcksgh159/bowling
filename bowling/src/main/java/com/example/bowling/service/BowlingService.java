@@ -2,6 +2,7 @@ package com.example.bowling.service;
 
 import java.util.List;
 
+import com.example.bowling.vo.Game;
 import com.example.bowling.vo.Team;
 import com.example.bowling.vo.TeamPlayerName;
 
@@ -12,5 +13,7 @@ public interface BowlingService {
 	public List<TeamPlayerName> getTeamPlayer(Team team);
 	//addReport 홈팀을 제외한 팀 목록을 셀렉트박스에 불러오는 service
 	public List<Team> getAwayTeam(Team team);
+	//addReport 게임테이블에 경기를 기록하는 service
+	public int addGame(Game game);
 	
 }

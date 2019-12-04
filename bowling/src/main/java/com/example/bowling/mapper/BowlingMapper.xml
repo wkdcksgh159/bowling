@@ -3,6 +3,22 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.bowling.mapper.BowlingMapper">
+	<!-- addReport Game insert -->
+	<insert id="insertGame" parameterType="com.example.bowling.vo.Game">
+		INSERT INTO game(
+			hteam_name,
+			stadium_name,
+			ateam_name,
+			game_date	
+		)VALUES(
+			#{hteamName},
+			#{stadiumName},
+			#{ateamName},
+			NOW()
+		)
+	</insert>
+	
+	
 	<!-- addReport team list -->
 	<select id="selectTeam" resultType="com.example.bowling.vo.Team">
 		SELECT

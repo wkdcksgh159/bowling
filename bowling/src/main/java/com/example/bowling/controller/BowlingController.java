@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.bowling.service.BowlingService;
+import com.example.bowling.vo.Game;
 import com.example.bowling.vo.Team;
 import com.example.bowling.vo.TeamPlayerName;
 
@@ -16,6 +17,16 @@ import com.example.bowling.vo.TeamPlayerName;
 public class BowlingController {
 	@Autowired
 	private BowlingService bowlingService;
+	
+	
+	//addReport 게임테이블에 경기를 기록하는 controller
+	@PostMapping("/addGame")
+	public int addGame(Game game) {
+		System.out.println("bowilng controller addGame -----------------------------");
+		int row = bowlingService.addGame(game);
+		return row;
+	}
+	
 	
 	//addReport away 팀 명단을 불러오는 controller
 	@PostMapping("/getAwayTeam")
