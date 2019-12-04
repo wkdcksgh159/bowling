@@ -3,13 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Add report</title>
+<style>
+	#board {
+		width:700px;
+		text-align:center;
+		height:150px;
+	}
+	#nameframe {
+		width:100px;
+	}
+</style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
 	<h1>Insert Form</h1>
 	<div id="getGame">
 		<h2>GetTeam</h2>
-		<div id="stadium"></div>
+		<div>
+			<span id="getStadium"></span>
+		</div>
 		<!-- hometeam 선택 -->
 		<select id = "getHomeTeam">
 			<option>팀 선택</option>
@@ -35,6 +47,54 @@
 	
 	<div id="addPin">
 		<h2>Insert Pin</h2>
+		<!-- 전광판 -->
+		<div>
+			<table border = "1" id="board">
+				<tr>
+					<td id="nameframe">이름\프레임</td>
+					<td>1</td>
+					<td>2</td>
+					<td>3</td>
+					<td>4</td>
+					<td>5</td>
+					<td>6</td>
+					<td>7</td>
+					<td>8</td>
+					<td>9</td>
+					<td>10</td>
+					<td>총 점수</td>
+				</tr>
+				<tr>
+					<td>장찬호스</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>이정연</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</table>
+		</div>
+		<br>
 		<table border="1">
 		<!-- addReport폼 생성, Check 박스 생성 -->
 			<tr>
@@ -50,6 +110,7 @@
 				<td>10<input class="pinCheck" type="checkbox" id="pin10"></td>
 			</tr>
 		</table>
+		<br>
 		<button type="button" id="addPinBtn">쓰러진 핀 입력</button>
 		<div>
 			<button type="button" id="strikeBtn">스트라이크</button>
@@ -74,7 +135,8 @@
 		// player의 값이 2 : homeTeamPlayer
 		let player = 1;
 		
-		$("#addPin").hide();
+		// 팀을 선택하기전에 핀을 숨겨 놓는다
+		//$("#addPin").hide();
 		$("#homeTeamPlayerSelect").empty();
 
 		//게임시작 버튼 클릭시 경기의 데이터를 기록할 수 있다
@@ -83,19 +145,29 @@
 				$("#gameStartBtn").hide();
 				$("#getGame").hide();
 				$("#addPin").show();
+				$("#spareBtn").hide();
 				
-			/* 	
+				// ### 경기 기록 ######################################################################################################################
 				$.ajax({
 					url:"/addGame",
 					method:"POST",
-					data:{"hteamName":}
-				}); */
+					data:{"hteamName":$("#getHomeTeam").val(),
+						  "stadiumName":$("#getStadium").text(),
+						  "ateamName":$("#getAwayTeam").val()
+						 },
+					success:function(){
+						console.log("success!");
+						
+					}
+				});
 				
+				// ### 홈 팀 구장 가져오기 ######################################################################################################################
 			}else{
 				alert("팀과 선수를 입력해주세요!");
 			}
 		});
-		
+
+// ### 팀 / 선수 선택 #############################################################################################
 		// homeTeam 팀 명단을 불러오는 함수
 		$.ajax({
 			url:"/getHomeTeam",
@@ -130,12 +202,20 @@
 						temp += "</option>";
 						$("#getHomeTeamPlayer").append(temp);
 					});
+				} 
+			});
+			
+			// addReport 에서 경기 입력폼에서 경기장 출력
+			$.ajax({
+				url:"/getStadium",
+				method:"POST",
+				data:{"teamName":$("#getHomeTeam").val()},
+				success:function(json){
+					$("#getStadium").text(json.stadiumName);
 				}
 			});
-		});
-		
-		// away team을 불러오는 함수
-		$("#getHomeTeam").change(function(){
+			
+			// away team을 불러오는 함수
 			$.ajax({
 				url:"/getAwayTeam",
 				method:"POST",
@@ -176,6 +256,8 @@
 			});
 		});
 		
+// ### 팀 / 선수 선택 #############################################################################################
+		
 		$("#strikeBtn").on("click",function(){
 			$(".pinCheck").prop("checked", true);
 		});
@@ -188,22 +270,10 @@
 			$(".pinCheck").prop("checked", false);
 		});
 		
-		
+// ### 핀 입력 ############################################################################################################
 		$("#addPinBtn").on("click",function(){
 			console.log("버튼클릭");
-			console.log("turn :",turn);
-			console.log("player :",player);
-			console.log("pin :", pin);
-			console.log("pinSum :", pinSum);
 			
-			//1회차일때 스트라이크버튼이 보이고, 2회차일때 스페어 버튼이 보인다.
-			if(turn == 2){
-				$("#spareBtn").show();
-				$("#strikeBtn").hide();
-			}else if(turn == 1){
-				$("#strikeBtn").show();
-				$("#spareBtn").hide();
-			}
 			
 			// 볼링핀을 체크박스로 설정하여 체크한 핀의 배열 인덱스 값을 1로 설정
 			// 인덱스 값이 1은  쓰러트린 핀, 인덱스 값이 0 은 쓰러트리지 않은 핀
@@ -263,6 +333,33 @@
 				pinSum += pin[i];
 			}
 			console.log(pinSum);
+			console.log("turn :",turn);
+			console.log("player :",player);
+			console.log("frame :", frame);
+			
+			// 선수의 회차마다의 기록을 저장하기 위한 함수
+			/* $.ajax({
+				url:"/addGamePlayer",
+				method:"POST",
+				data:{"gameNo": 3,
+					  "playerNo":$("#getHomeTeamPlayer").val(),
+					  "frame":frame,
+					  "turn":turn,
+					  "pin1":pin[0],
+					  "pin2":pin[1],
+					  "pin3":pin[2],
+					  "pin4":pin[3],
+					  "pin5":pin[4],
+					  "pin6":pin[5],
+					  "pin7":pin[6],
+					  "pin8":pin[7],
+					  "pin9":pin[8],
+					  "pin10":pin[9]
+					 },
+				success:function(){
+					console.log("addGamePlayer 요청 확인!");
+				}
+			});  */
 			
 			// 1회차에 핀을 10개 쓰러트린 경우 (스트라이크)
 			if(turn == 1 && pinSum == 10){
@@ -289,10 +386,23 @@
 			
 			if(player > 2){
 				player = 1;
+				frame += 1;
 			}
+			
+			//1회차일때 스트라이크버튼이 보이고, 2회차일때 스페어 버튼이 보인다.
+			if(turn == 2){
+				$("#spareBtn").show();
+				$("#strikeBtn").hide();
+			}else if(turn == 1){
+				$("#strikeBtn").show();
+				$("#spareBtn").hide();
+			}
+			
+			
 		})
 	});
-	
+// ### 핀 입력 ############################################################################################################	
+
 	/* let result = function(player, pin[], turn, frame){
 		
 	}; */

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.bowling.vo.Game;
+import com.example.bowling.vo.GamePlayer;
 import com.example.bowling.vo.Team;
 import com.example.bowling.vo.TeamPlayerName;
 
@@ -18,6 +19,9 @@ public interface BowlingMapper {
 	public List<Team> selectAwayTeam(Team team);
 	//addReport 게임테이블에 경기를 기록하는 mapper
 	public int insertGame(Game game);
-	
+	//addReport 홈팀의 구장을 가져오기위한 mapper
+	public Team selectStadium(Team team);
+	//addReport 선수의 회차마다의 기록을 저장하기 위한 mapper
+	public int insertGamePlayer(GamePlayer gamePlayer);
 	
 }

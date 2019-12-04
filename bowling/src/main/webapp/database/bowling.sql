@@ -62,17 +62,19 @@ CREATE TABLE IF NOT EXISTS `country` (
   PRIMARY KEY (`country_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 bowling.country:~2 rows (대략적) 내보내기
+-- 테이블 데이터 bowling.country:~4 rows (대략적) 내보내기
 DELETE FROM `country`;
 /*!40000 ALTER TABLE `country` DISABLE KEYS */;
 INSERT INTO `country` (`country_name`) VALUES
 	('나이지리아'),
-	('대한민국');
+	('대만'),
+	('대한민국'),
+	('영국');
 /*!40000 ALTER TABLE `country` ENABLE KEYS */;
 
 -- 테이블 bowling.game 구조 내보내기
 CREATE TABLE IF NOT EXISTS `game` (
-  `game_no` int(11) NOT NULL,
+  `game_no` int(11) NOT NULL AUTO_INCREMENT,
   `hteam_name` varchar(50) NOT NULL,
   `stadium_name` varchar(50) NOT NULL,
   `ateam_name` varchar(50) NOT NULL,
@@ -84,13 +86,32 @@ CREATE TABLE IF NOT EXISTS `game` (
   CONSTRAINT `FK_game_stadium` FOREIGN KEY (`stadium_name`) REFERENCES `team` (`stadium_name`),
   CONSTRAINT `FK_game_team` FOREIGN KEY (`hteam_name`) REFERENCES `team_player_contract` (`team_name`),
   CONSTRAINT `FK_game_team_2` FOREIGN KEY (`ateam_name`) REFERENCES `team_player_contract` (`team_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 bowling.game:~0 rows (대략적) 내보내기
 DELETE FROM `game`;
 /*!40000 ALTER TABLE `game` DISABLE KEYS */;
 INSERT INTO `game` (`game_no`, `hteam_name`, `stadium_name`, `ateam_name`, `game_date`) VALUES
-	(1, '롯데', '서울볼링장', '두산', '2019-12-02');
+	(3, '두산', '서울볼링장', '롯데', '2019-12-04'),
+	(4, '두산', '서울볼링장', '롯데', '2019-12-04'),
+	(5, '키움', '타이페이스타디움', '삼성', '2019-12-04'),
+	(6, '두산', '서울볼링장', '삼성', '2019-12-04'),
+	(7, '두산', '서울볼링장', '롯데', '2019-12-04'),
+	(8, '두산', '서울볼링장', '롯데', '2019-12-04'),
+	(9, '삼성', '웸블리스타디움', '키움', '2019-12-04'),
+	(10, '삼성', '웸블리스타디움', '두산', '2019-12-04'),
+	(11, '두산', '서울볼링장', '롯데', '2019-12-04'),
+	(12, '두산', '서울볼링장', '롯데', '2019-12-04'),
+	(13, '두산', '서울볼링장', '롯데', '2019-12-04'),
+	(14, '두산', '서울볼링장', '롯데', '2019-12-04'),
+	(15, '두산', '서울볼링장', '삼성', '2019-12-04'),
+	(16, '두산', '서울볼링장', '롯데', '2019-12-04'),
+	(17, '두산', '서울볼링장', '롯데', '2019-12-04'),
+	(18, '키움', '타이페이스타디움', '삼성', '2019-12-04'),
+	(19, '삼성', '웸블리스타디움', '두산', '2019-12-04'),
+	(20, '두산', '서울볼링장', '삼성', '2019-12-04'),
+	(21, '삼성', '웸블리스타디움', '두산', '2019-12-04'),
+	(22, '롯데', '아프리카볼링장', '두산', '2019-12-04');
 /*!40000 ALTER TABLE `game` ENABLE KEYS */;
 
 -- 테이블 bowling.game_player 구조 내보내기
@@ -98,10 +119,19 @@ CREATE TABLE IF NOT EXISTS `game_player` (
   `game_no` int(11) NOT NULL,
   `player_no` int(11) NOT NULL,
   `frame` int(11) NOT NULL,
-  `try` int(11) NOT NULL,
-  `pin` int(11) NOT NULL,
-  KEY `FK_game_player_game` (`game_no`),
+  `turn` int(11) NOT NULL,
+  `pin1` int(11) NOT NULL,
+  `pin2` int(11) NOT NULL,
+  `pin3` int(11) NOT NULL,
+  `pin4` int(11) NOT NULL,
+  `pin5` int(11) NOT NULL,
+  `pin6` int(11) NOT NULL,
+  `pin7` int(11) NOT NULL,
+  `pin8` int(11) NOT NULL,
+  `pin9` int(11) NOT NULL,
+  `pin10` int(11) NOT NULL,
   KEY `FK_game_player_player` (`player_no`),
+  KEY `FK_game_player_game` (`game_no`),
   CONSTRAINT `FK_game_player_game` FOREIGN KEY (`game_no`) REFERENCES `game` (`game_no`),
   CONSTRAINT `FK_game_player_player` FOREIGN KEY (`player_no`) REFERENCES `team_player_contract` (`player_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -109,15 +139,19 @@ CREATE TABLE IF NOT EXISTS `game_player` (
 -- 테이블 데이터 bowling.game_player:~0 rows (대략적) 내보내기
 DELETE FROM `game_player`;
 /*!40000 ALTER TABLE `game_player` DISABLE KEYS */;
+INSERT INTO `game_player` (`game_no`, `player_no`, `frame`, `turn`, `pin1`, `pin2`, `pin3`, `pin4`, `pin5`, `pin6`, `pin7`, `pin8`, `pin9`, `pin10`) VALUES
+	(3, 5, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+	(3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+	(3, 3, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `game_player` ENABLE KEYS */;
 
 -- 테이블 bowling.game_refree 구조 내보내기
 CREATE TABLE IF NOT EXISTS `game_refree` (
   `game_no` int(11) NOT NULL,
   `referee_no` int(11) NOT NULL,
-  KEY `FK_gamerefree_game` (`game_no`),
   KEY `FK_gamerefree_referee` (`referee_no`),
-  CONSTRAINT `FK_gamerefree_game` FOREIGN KEY (`game_no`) REFERENCES `game` (`game_no`),
+  KEY `FK_game_refree_game` (`game_no`),
+  CONSTRAINT `FK_game_refree_game` FOREIGN KEY (`game_no`) REFERENCES `game` (`game_no`),
   CONSTRAINT `FK_gamerefree_referee` FOREIGN KEY (`referee_no`) REFERENCES `referee` (`referee_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -233,12 +267,18 @@ CREATE TABLE IF NOT EXISTS `player` (
   CONSTRAINT `FK_player_country` FOREIGN KEY (`player_contry`) REFERENCES `country` (`country_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 bowling.player:~2 rows (대략적) 내보내기
+-- 테이블 데이터 bowling.player:~8 rows (대략적) 내보내기
 DELETE FROM `player`;
 /*!40000 ALTER TABLE `player` DISABLE KEYS */;
 INSERT INTO `player` (`player_no`, `player_name`, `player_contry`, `player_age`, `player_gender`, `player_hand`) VALUES
-	(1, '장찬호스', '나이지리아', 53, 'F', 'L'),
-	(2, '이정연', '대한민국', 43, 'F', 'L');
+	(1, '장찬호스', '나이지리아', 60, 'F', 'L'),
+	(2, '이정연', '대한민국', 25, 'M', 'R'),
+	(3, '정현준', '나이지리아', 25, 'M', 'L'),
+	(4, '송상현', '대한민국', 25, 'M', 'R'),
+	(5, '박광호', '영국', 25, 'M', 'L'),
+	(6, '이승종', '대만', 25, 'M', 'R'),
+	(7, '권혁태', '영국', 25, 'M', 'L'),
+	(8, '손동현', '대만', 25, 'M', 'R');
 /*!40000 ALTER TABLE `player` ENABLE KEYS */;
 
 -- 테이블 bowling.player_ball 구조 내보내기
@@ -283,24 +323,33 @@ CREATE TABLE IF NOT EXISTS `referee` (
   CONSTRAINT `FK_referee_country` FOREIGN KEY (`referee_contry`) REFERENCES `country` (`country_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 bowling.referee:~0 rows (대략적) 내보내기
+-- 테이블 데이터 bowling.referee:~4 rows (대략적) 내보내기
 DELETE FROM `referee`;
 /*!40000 ALTER TABLE `referee` DISABLE KEYS */;
+INSERT INTO `referee` (`referee_no`, `referee_contry`, `referee_name`, `referee_age`, `refree_gender`) VALUES
+	(1, '대한민국', '박성환', 35, 'M'),
+	(2, '나이지리아', '김성현', 24, 'M'),
+	(3, '대한민국', '김잔디', 29, 'F'),
+	(4, '대만', '이승엽', 36, 'M');
 /*!40000 ALTER TABLE `referee` ENABLE KEYS */;
 
 -- 테이블 bowling.stadium 구조 내보내기
 CREATE TABLE IF NOT EXISTS `stadium` (
   `stadium_name` varchar(50) NOT NULL,
   `stadium_location` varchar(50) NOT NULL,
-  PRIMARY KEY (`stadium_name`)
+  PRIMARY KEY (`stadium_name`),
+  KEY `FK_stadium_country` (`stadium_location`),
+  CONSTRAINT `FK_stadium_country` FOREIGN KEY (`stadium_location`) REFERENCES `country` (`country_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 bowling.stadium:~2 rows (대략적) 내보내기
+-- 테이블 데이터 bowling.stadium:~5 rows (대략적) 내보내기
 DELETE FROM `stadium`;
 /*!40000 ALTER TABLE `stadium` DISABLE KEYS */;
 INSERT INTO `stadium` (`stadium_name`, `stadium_location`) VALUES
-	('서울볼링장', '서울'),
-	('아프리카볼링장', '나이지리아');
+	('아프리카볼링장', '나이지리아'),
+	('타이페이스타디움', '대만'),
+	('서울볼링장', '대한민국'),
+	('웸블리스타디움', '영국');
 /*!40000 ALTER TABLE `stadium` ENABLE KEYS */;
 
 -- 테이블 bowling.team 구조 내보내기
@@ -313,12 +362,14 @@ CREATE TABLE IF NOT EXISTS `team` (
   CONSTRAINT `FK_team_stadium` FOREIGN KEY (`stadium_name`) REFERENCES `stadium` (`stadium_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 bowling.team:~2 rows (대략적) 내보내기
+-- 테이블 데이터 bowling.team:~4 rows (대략적) 내보내기
 DELETE FROM `team`;
 /*!40000 ALTER TABLE `team` DISABLE KEYS */;
 INSERT INTO `team` (`team_name`, `stadium_name`, `to_date`) VALUES
 	('두산', '서울볼링장', '2019-12-02'),
-	('롯데', '아프리카볼링장', '2019-12-02');
+	('롯데', '아프리카볼링장', '2019-12-02'),
+	('삼성', '웸블리스타디움', '2019-12-02'),
+	('키움', '타이페이스타디움', '2019-12-02');
 /*!40000 ALTER TABLE `team` ENABLE KEYS */;
 
 -- 테이블 bowling.team_manager 구조 내보내기
@@ -352,12 +403,18 @@ CREATE TABLE IF NOT EXISTS `team_player_contract` (
   CONSTRAINT `FK_teamplayercontract_team` FOREIGN KEY (`team_name`) REFERENCES `team` (`team_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 bowling.team_player_contract:~2 rows (대략적) 내보내기
+-- 테이블 데이터 bowling.team_player_contract:~8 rows (대략적) 내보내기
 DELETE FROM `team_player_contract`;
 /*!40000 ALTER TABLE `team_player_contract` DISABLE KEYS */;
 INSERT INTO `team_player_contract` (`team_name`, `player_no`, `contract_start`, `contract_end`, `salary`, `transferfee`) VALUES
 	('롯데', 1, '2019-12-02', '2019-12-02', 100, 1000),
-	('두산', 2, '2019-12-02', '2019-12-02', 244, 30000);
+	('두산', 2, '2019-12-02', '2019-12-02', 244, 30000),
+	('삼성', 4, '2019-12-04', '2019-12-04', 20, 2000),
+	('키움', 7, '2019-12-04', '2019-12-04', 1000, 200),
+	('두산', 6, '2019-12-04', '2019-12-04', 133, 2222),
+	('롯데', 3, '2019-12-04', '2019-12-04', 222, 3321),
+	('키움', 8, '2019-12-04', '2019-12-04', 1111, 3332),
+	('삼성', 5, '2019-12-04', '2019-12-04', 155, 2222);
 /*!40000 ALTER TABLE `team_player_contract` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

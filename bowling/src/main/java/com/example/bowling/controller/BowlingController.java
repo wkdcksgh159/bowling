@@ -3,13 +3,12 @@ package com.example.bowling.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.bowling.service.BowlingService;
 import com.example.bowling.vo.Game;
+import com.example.bowling.vo.GamePlayer;
 import com.example.bowling.vo.Team;
 import com.example.bowling.vo.TeamPlayerName;
 
@@ -18,12 +17,35 @@ public class BowlingController {
 	@Autowired
 	private BowlingService bowlingService;
 	
+	//addReport 홈팀과 어웨이팀의 선수를 받아오는 controller
+	@PostMapping("/getPlayer")
+	public int getPlayer(TeamPlayerName teamPlayerName) {
+		System.out.println("bowilng controller getPlayer -----------------------------");
+		return 0;
+	}
+	
+	//addReport 선수의 회차마다의 기록을 저장하기 위한 controller
+	@PostMapping("/addGamePlayer")
+	public int addGamePlayer(GamePlayer gamePlayer) {
+		System.out.println("bowilng controller addGamePlayer -----------------------------");
+		System.out.println("gamePlayer : "+gamePlayer);
+		return bowlingService.addGamePlayer(gamePlayer);
+	}
+
+	//addReport 홈팀의 구장을 가져오기위한 controller
+	@PostMapping("/getStadium")
+	public Team getStadium(Team team) {
+		System.out.println("bowilng controller getStadium -----------------------------");
+		return bowlingService.getStadium(team);
+	}
 	
 	//addReport 게임테이블에 경기를 기록하는 controller
 	@PostMapping("/addGame")
 	public int addGame(Game game) {
 		System.out.println("bowilng controller addGame -----------------------------");
+		System.out.println("game : "+game);
 		int row = bowlingService.addGame(game);
+		System.out.println("row : "+row);
 		return row;
 	}
 	

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.bowling.mapper.BowlingMapper;
 import com.example.bowling.vo.Game;
+import com.example.bowling.vo.GamePlayer;
 import com.example.bowling.vo.Team;
 import com.example.bowling.vo.TeamPlayerName;
 
@@ -16,6 +17,20 @@ import com.example.bowling.vo.TeamPlayerName;
 public class BowlingServiceImpl implements BowlingService {
 	@Autowired
 	private BowlingMapper bowlingMapper;
+	
+	//addReport 선수의 회차마다의 기록을 저장하기 위한 serviceImpl
+	@Override
+	public int addGamePlayer(GamePlayer gamePlayer) {
+		System.out.println("bowilng serviceImpl addGamePlayer -----------------------------");
+		return bowlingMapper.insertGamePlayer(gamePlayer);
+	}
+	
+	//addReport 홈팀의 구장을 가져오기위한 serviceImpl
+	@Override
+	public Team getStadium(Team team) {
+		System.out.println("bowilng serviceImpl getStadium -----------------------------");
+		return bowlingMapper.selectStadium(team);
+	}
 	
 	//addReport 게임테이블에 경기를 기록하는 serviceImpl
 	@Override
