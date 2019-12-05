@@ -116,55 +116,11 @@
 		
 		// 볼링핀을 체크박스로 설정하여 체크한 핀의 배열 인덱스 값을 1로 설정
 		// 인덱스 값이 1은  쓰러트린 핀, 인덱스 값이 0 은 쓰러트리지 않은 핀
-		if($("input:checkbox[id='pin1']").is(":checked") == true){
-			$("#pin1").attr("disabled",true);
-			pin[0]=1;
-		}
 		
-		if($("input:checkbox[id='pin2']").is(":checked") == true){
-			$("#pin2").attr("disabled",true);
-			pin[1]=1;
-		}
-		
-		if($("input:checkbox[id='pin3']").is(":checked") == true){
-			$("#pin3").attr("disabled",true);
-			pin[2]=1;
-		}
-		
-		if($("input:checkbox[id='pin4']").is(":checked") == true){
-			$("#pin4").attr("disabled",true);
-			pin[3]=1;
-		}
-		
-		if($("input:checkbox[id='pin5']").is(":checked") == true){
-			$("#pin5").attr("disabled",true);
-			pin[4]=1;
-		}
-		
-		if($("input:checkbox[id='pin6']").is(":checked") == true){
-			$("#pin6").attr("disabled",true);
-			pin[5]=1;
-		}
-		
-		if($("input:checkbox[id='pin7']").is(":checked") == true){
-			$("#pin7").attr("disabled",true);
-			pin[6]=1;
-		}
-		
-		if($("input:checkbox[id='pin8']").is(":checked") == true){
-			$("#pin8").attr("disabled",true);
-			pin[7]=1;
-		}
-		
-		if($("input:checkbox[id='pin9']").is(":checked") == true){
-			$("#pin9").attr("disabled",true);
-			pin[8]=1;
-		}
-		
-		if($("input:checkbox[id='pin10']").is(":checked") == true){
-			$("#pin10").attr("disabled",true);
-			pin[9]=1;
-		}
+		$(".pinCheck:checked").each(function() {
+			pin[$(this).val()] = 1;
+			$(this).attr("disabled", true);
+		});
 
 		// console.log("setPinArray function pin : ", pin);
 		
@@ -248,9 +204,9 @@
 					  "pin9":pin[8],
 					  "pin10":pin[9]
 					 },
-				success:function(){
-					console.log("addGamePlayer 요청 확인!");
-				}
+				 success:function(){
+					 console.log("addGamePlayer 요청 확인!");
+				 }
 			});
 		}
 		
@@ -303,12 +259,22 @@
 					pin = [0,0,0,0,0,0,0,0,0,0];
 				}
 			} else {
-				// 10프레임 2회차에 스페어 했을 경우
-				if(pinSum == 10){
-					// 3회차 조건 충족
+				// 10프레임 2회차(turn = 3)
+				if(turn == 3){
+					// 스페어 조건 불총족시 해당 선수의 차례 종료
+					if(pinSum < 10){
+						pinSum = 0;
+						turn = 1;
+						player += 1;
+						console.log("player : ", player);
+						console.log("turn : ", turn);
+					}
+					// 스페어 조건 충족시 선수의 3회차 턴 추가
 					$(".pinCheck").attr("disabled", false);
 					$(".pinCheck").prop("checked", false);
 					pin = [0,0,0,0,0,0,0,0,0,0];
+					
+					// 10프레임 3회차
 				} else if(turn > 3){
 					// 플레이어 순서 변경
 					$(".pinCheck").attr("disabled", false);
@@ -323,7 +289,7 @@
 		// 어웨이팀으로 변경
 		if(player > 2){
 			// 경기종료 버튼, 핀입력 버튼이 비활성화
-			if(frame == 10 ) {
+			if(frame == 10) {
 				// 작업 종료 후 경고메세지 출력
 				setTimeout(function(){
 					alert("게임종료!");
@@ -334,12 +300,19 @@
 			frame += 1;
 		}
 		
-		//1회차일때 스트라이크버튼이 있다.
-		
-		if(frame != 10 && turn != 1){
-			$("#strikeBtn").hide();
+		// 1~9 프레임 1회차에 스트라이크 버튼 생성
+		if(turn != 1){
+			if(frame != 10){
+				$("#strikeBtn").text("스트라이크");
+			} else {
+				if(turn == 2 && pinSum < 10){
+					$("#strikeBtn").text("스페어");
+				} else {
+					$("#strikeBtn").text("스트라이크");
+				}
+			}
 		} else {
-			$("#strikeBtn").show();
+			$("#strikeBtn").text("스트라이크");
 		}
 		
 		game.pin = [0,0,0,0,0,0,0,0,0,0]
@@ -357,4 +330,12 @@
 	
 	// 경기 종료 데이터 입력
 	
+	/*
+	$.ajax({
+		url:"/addResult",
+		method:"post",
+		data:{},
+		
+		
+	}); */
 	

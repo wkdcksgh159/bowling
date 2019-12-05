@@ -100,16 +100,16 @@
 		<table border="1">
 		<!-- addReport폼 생성, Check 박스 생성 -->
 			<tr>
-				<td>1<input class="pinCheck" type="checkbox" id="pin1"></td>
-				<td>2<input class="pinCheck" type="checkbox" id="pin2"></td>
-				<td>3<input class="pinCheck" type="checkbox" id="pin3"></td>
-				<td>4<input class="pinCheck" type="checkbox" id="pin4"></td>
-				<td>5<input class="pinCheck" type="checkbox" id="pin5"></td>
-				<td>6<input class="pinCheck" type="checkbox" id="pin6"></td>
-				<td>7<input class="pinCheck" type="checkbox" id="pin7"></td>
-				<td>8<input class="pinCheck" type="checkbox" id="pin8"></td>
-				<td>9<input class="pinCheck" type="checkbox" id="pin9"></td>
-				<td>10<input class="pinCheck" type="checkbox" id="pin10"></td>
+				<td>1<input class="pinCheck" type="checkbox" value="0"></td>
+				<td>2<input class="pinCheck" type="checkbox" value="1"></td>
+				<td>3<input class="pinCheck" type="checkbox" value="2"></td>
+				<td>4<input class="pinCheck" type="checkbox" value="3"></td>
+				<td>5<input class="pinCheck" type="checkbox" value="4"></td>
+				<td>6<input class="pinCheck" type="checkbox" value="5"></td>
+				<td>7<input class="pinCheck" type="checkbox" value="6"></td>
+				<td>8<input class="pinCheck" type="checkbox" value="7"></td>
+				<td>9<input class="pinCheck" type="checkbox" value="8"></td>
+				<td>10<input class="pinCheck" type="checkbox" value="9"></td>
 			</tr>
 		</table>
 		<br>
@@ -141,7 +141,7 @@
 		};
 		
 		// 팀을 선택하기전에 핀을 숨겨 놓는다
-		$("#addPin").hide();
+		//$("#addPin").hide();
 		$("#homeTeamPlayerSelect").empty();
 
 		//게임시작 버튼 클릭시 경기의 데이터를 기록할 수 있다
@@ -176,7 +176,21 @@
 		setGame();
 		
 		$("#strikeBtn").on("click",function(){
-			$(".pinCheck").prop("checked", true);
+			//console.log("버튼 클릭");
+			/* for(i=1;i<=10;i++){
+				pincheck = "#pin"+i;
+				//console.log(pincheck);
+				if($(pincheck).is("[disabled]") == false) {
+					//console.log("체크1")
+					$(pincheck).prop("checked", true);
+				}
+			} */
+			$(".pinCheck").each(function() {
+				if($(this).is("[disabled]") == false) {
+					//console.log("체크1")
+					$(this).prop("checked", true);
+				}
+			});
 		});
 		
 		$("#resetBtn").on("click",function(){
