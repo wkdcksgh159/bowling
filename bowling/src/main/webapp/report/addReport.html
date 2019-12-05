@@ -160,8 +160,9 @@
 						  "ateamName":$("#getAwayTeam").val()
 						 },
 					success:function(json){
-						console.log("success!",json);
+						console.log("경기 시작 !");
 						game.gameNo = json.gameNo;
+						// console.log("gameNo : ", gameNo);
 					}
 				});
 				
@@ -188,11 +189,16 @@
 			
 			// 체크한 핀을 pin 배열의 값 저장하는 함수 실행
 			game.pin = setPinArray(game.pin);
-			console.log("view game.pin : ", game.pin);
+			console.log("pin : ", game.pin);
 			
 			// 선수의 데이터를 기록하는 함수
 			game = addReport(game);
-			console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!", game);
+			/*
+			console.log("frame : ", game.frame);
+			console.log("turn : ", game.turn);
+			console.log("player : ", game.player);
+			console.log("pinSum : ", game.pinSum);
+			*/
 		});
 // ### 핀 입력 ############################################################################################################	
 	
