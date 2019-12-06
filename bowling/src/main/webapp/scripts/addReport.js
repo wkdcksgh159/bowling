@@ -294,7 +294,9 @@
 				setTimeout(function(){
 					alert("게임종료!");
 				}, 0);
-				$("#addPinBtn").attr("disabled", true);
+				
+				// 경기 종료 후 입력을 중지하고 결과창 출력
+				
 			}
 			player = 1;
 			frame += 1;
@@ -303,7 +305,11 @@
 		// 1~9 프레임 1회차에 스트라이크 버튼 생성
 		if(turn != 1){
 			if(frame != 10){
-				$("#strikeBtn").text("스트라이크");
+				if(turn == 2 && pinSum < 10){
+					$("#strikeBtn").text("스페어");
+				} else {
+					$("#strikeBtn").text("스트라이크");
+				}
 			} else {
 				if(turn == 2 && pinSum < 10){
 					$("#strikeBtn").text("스페어");
@@ -334,7 +340,7 @@
 	$.ajax({
 		url:"/addResult",
 		method:"post",
-		data:{},
+		data:{"gameNo" : gameNo , },
 		
 		
 	}); */
