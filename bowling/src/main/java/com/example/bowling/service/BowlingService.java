@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.bowling.vo.Game;
 import com.example.bowling.vo.GamePlayer;
+import com.example.bowling.vo.Referee;
 import com.example.bowling.vo.Team;
 import com.example.bowling.vo.TeamPlayerName;
 
@@ -20,4 +21,9 @@ public interface BowlingService {
 	public Team getStadium(Team team);
 	//addReport 선수의 회차마다의 기록을 저장하기 위한 service
 	public int addGamePlayer(GamePlayer gamePlayer);
+	// addReport 심판의 목록을 불러오기위한 service
+	public List<Referee> getReferee();
+	// addReport 게임이 시작하면 심판이 입력되기 위한 service
+	public int addReferee(Referee referee);
+
 }

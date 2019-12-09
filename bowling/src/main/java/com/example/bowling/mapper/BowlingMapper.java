@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.example.bowling.vo.Game;
 import com.example.bowling.vo.GamePlayer;
+import com.example.bowling.vo.Referee;
 import com.example.bowling.vo.Team;
 import com.example.bowling.vo.TeamPlayerName;
 
@@ -26,5 +27,11 @@ public interface BowlingMapper {
 	// addReport addReport game_player insert 후에 index값 받아오는 mapper
 	public Game maxGameNo(Game game);
 	// addReport game_result 테이블에 경기 결과를 저장하고 계산하는 mapper
+	
+	// addReport 심판의 목록을 가져오기위한 mapper
+	public List<Referee> selectReferee();
+	// addReport 게임이 시작하면 심판의 목록을 입력하기 위한 mapper
+	public int insertReferee(Referee referee);
+
 	
 }

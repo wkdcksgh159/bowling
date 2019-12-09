@@ -3,6 +3,30 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.bowling.mapper.BowlingMapper">
+	
+		<!-- addReport referee insert -->
+	<insert id="insertReferee" parameterType="com.example.bowling.vo.Referee">
+		INSERT INTO game_referee(
+			game_no,
+			referee_no
+		)
+		VALUES (
+			#{gameNo},
+			#{refereeNo}
+		)
+	</insert>
+	
+	
+	<!-- addReport referee list  -->
+	<select id="selectReferee" resultType="com.example.bowling.vo.Referee">
+		SELECT
+			referee_no as refereeNo,
+			referee_name as refereeName
+		FROM
+			referee
+	</select>
+	
+	
 	<!-- addReport Game insert 후에 index값 받아오기 -->
 	<select id="maxGameNo" resultType="com.example.bowling.vo.Game">
 		SELECT max(game_no) as gameNo

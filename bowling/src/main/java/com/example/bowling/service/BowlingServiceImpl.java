@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.bowling.mapper.BowlingMapper;
 import com.example.bowling.vo.Game;
 import com.example.bowling.vo.GamePlayer;
+import com.example.bowling.vo.Referee;
 import com.example.bowling.vo.Team;
 import com.example.bowling.vo.TeamPlayerName;
 
@@ -17,6 +18,19 @@ import com.example.bowling.vo.TeamPlayerName;
 public class BowlingServiceImpl implements BowlingService {
 	@Autowired
 	private BowlingMapper bowlingMapper;
+	
+	@Override
+	public int addReferee(Referee referee) {
+		System.out.println("bowilng serviceImpl addReferee -----------------------------");
+		return bowlingMapper.insertReferee(referee);
+	}
+	
+	// addReport 심판의 목록을 불러오기위한 serviceImpl
+	@Override
+	public List<Referee> getReferee() {
+		System.out.println("bowilng serviceImpl getReferee -----------------------------");
+		return bowlingMapper.selectReferee();
+	}
 	
 	//addReport 선수의 회차마다의 기록을 저장하기 위한 serviceImpl
 	@Override
