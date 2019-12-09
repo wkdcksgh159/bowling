@@ -19,7 +19,7 @@
 			}
 		});
 		
-		// hometeam 선수를 불러오는 함수
+		// homeTeam 선수를 불러오는 함수
 		$("#getHomeTeam").change(function(){
 			$.ajax({
 				url:"/getHomeTeamPlayer",
@@ -69,6 +69,7 @@
 						$("#getAwayTeam").append(temp);
 					});
 				}
+				
 			});
 		});
 		
@@ -94,6 +95,25 @@
 			});
 		});
 		
+		// 심판의 목록을 불러오는 함수
+		$.ajax({
+			url:"/getReferee",
+			method:"POST",
+			success:function(json){
+				$("#getReferee").empty();
+				$("#getReferee").append("<option value=0>심판 선택</option>");
+				$(json).each(function(index, item){
+					// console.log("setGame function referee list : ", json);
+					temp = "<option value='";
+					temp += item.refereeNo;
+					temp += "'>";
+					temp += item.refereeName;
+					temp += "</option>";
+					$("#getReferee").append(temp);
+				});
+			}
+		});
+		
 		// 전광판에 선수의 이름을 입력시키는 함수
 		$("#getHomeTeamPlayer").change(function(){
 			$("#homeTeamPlayer").empty();
@@ -106,7 +126,7 @@
 		})
 	}
 		
-// ### 경기 입력 END #############################################################################################
+// ### 경기 입력 END ###########################################################################################
 	
 // ### 핀 입력 버튼 클릭시 체크된 핀 배열 값 저장 START ####################################################################
 	
@@ -114,21 +134,20 @@
 	let setPinArray = function(pin){
 		// console.log("setPinArray function 도착 !");
 		
-		// 볼링핀을 체크박스로 설정하여 체크한 핀의 배열 인덱스 값을 1로 설정
-		// 인덱스 값이 1은  쓰러트린 핀, 인덱스 값이 0 은 쓰러트리지 않은 핀
-		
+		/* 볼링핀을 체크박스로 설정하여 체크한 핀의 배열 인덱스 값을 1로 설정
+		 * 인덱스 값이 1은  쓰러트린 핀, 인덱스 값이 0 은 쓰러트리지 않은 핀
+		 * pinCheck 클래스명을 가진 체크박스에서 체크된 value 값에만 value 값을 1로 설정
+		 */
 		$(".pinCheck:checked").each(function() {
 			pin[$(this).val()] = 1;
 			$(this).attr("disabled", true);
 		});
-
-		// console.log("setPinArray function pin : ", pin);
 		
+		// console.log("setPinArray function pin : ", pin);
 		return pin;
 	}
 	
-// ### 핀 입력 버튼 클릭시 체크된 핀 배열 값 저장 END ####################################################################
-		
+// ### 핀 입력 버튼 클릭시 체크된 핀 배열 값 저장 END ####################################################################	
 	
 	
 // ### 경기 데이터 입력 START ############################################################################################################
@@ -137,6 +156,7 @@
 	let addReport = function(game){
 		// console.log("addReport function 도착 !");
 		
+		// 객체 받아온 값 변수 저장
 		let pin = [0,0,0,0,0,0,0,0,0,0];
 		pin = game.pin;
 		let pinSum = game.pinSum;
@@ -144,22 +164,19 @@
 		let frame = game.frame;
 		let player = game.player;
 		let gameNo = game.gameNo;
-	
-		// 변수
-		// home팀 전광판 frame
-		let homeFrame = "#h"+frame;
-		// away팀 전광판 frame
-		let awayFrame = "#a"+frame;
 		
-		//체크한 pin의 개수의 합을 구하는 반복문
+		// 체크한 pin의 개수의 합을 구하는 반복문
 		for(let i =0;i<pin.length;i++){
 			pinSum += pin[i];
 		}
 		
-		console.log("frame : ", frame);
-		console.log("turn : ", turn);
-		console.log("player : ", player);
+		console.log(frame, "프레임", turn, "회차", player, "플레이어"); // 확인
+		console.log("pin : ", pin);
+		// console.log("frame : ", frame);
+		// console.log("turn : ", turn);
+		// console.log("player : ", player);
 		console.log("pinSum : ", pinSum);
+		console.log(""); // 확인
 		
 		// 선수의 회차마다의 기록을 저장하기 위한 함수
 		if(game.player == 1){
@@ -205,119 +222,146 @@
 					  "pin10":pin[9]
 					 },
 				 success:function(){
-					 console.log("addGamePlayer 요청 확인!");
+					 // console.log("addGamePlayer 요청 확인!");
 				 }
 			});
 		}
 		
-		// 1회차에 핀을 10개 쓰러트린 경우 (스트라이크)
-		if(turn == 1 && pinSum == 10){
-			// console.log("strike !");
-			
-			// 전광판에 스트라이크 출력
-			if(player == 1){
-				$(homeFrame).text(pinSum);
+		
+		
+		// ### 1~9 프레임 ##############################################################################################
+		if(frame != 10){
+			// 1회차에 스트라이크를 하지 못한경우
+			if(turn == 1 && pinSum < 10){
+				// 스트라이크가 아닌 경우
+
+				// 전광판 출력
+				board(pinSum, player, frame, turn);
+				
+				// 순서의 변경없이 2회차 준비
+				turn += 1;
+				$(".pinCheck").prop("checked", false);
+				pin = [0,0,0,0,0,0,0,0,0,0];
+				
 			} else {
-				$(awayFrame).text(pinSum);
-			}
-			
-			// 10프레임이 아닐때 턴을 초기화하고 플레이어를 넘긴다
-			if(frame != 10){
-				turn = 1;
+				// 1회차에 스트라이크를 하거나, 2회차 투구가 종료된 시점
+
+				// 전광판 출력
+				board(pinSum, player, frame, turn);
+				
+				// 순서 변경
 				player += 1;
 				pinSum = 0;
-			}else{
-				turn += 1;
+				turn = 1;
+				pin = [0,0,0,0,0,0,0,0,0,0];
+				$(".pinCheck").attr("disabled", false);
+				$(".pinCheck").prop("checked", false);
 			}
 			
-			$(".pinCheck").attr("disabled", false);
-			$(".pinCheck").prop("checked", false);
-			pin = [0,0,0,0,0,0,0,0,0,0];
+		// ### 10 프레임 ########################################################################################################
 		} else {
 			
-			// 전광판에 쓰러트린 핀 출력
-			if(player == 1){
-				$(homeFrame).text(pinSum);
-			} else {
-				$(awayFrame).text(pinSum);
-			}
-			
-			// 버튼 클릭 할 때마다 선수의 회차가 +1된다
-			turn += 1;
-			$(".pinCheck").prop("checked", false);
-			pin = [0,0,0,0,0,0,0,0,0,0];
-			
-			// 프레임 체크
-			if(frame != 10){
-				// turn이 2보다 클때 turn을 초기화시키고 다음플레이어로 넘긴다
-				if(turn > 2){
-					$(".pinCheck").attr("disabled", false);
-					$(".pinCheck").prop("checked", false);
-					player += 1;
-					pinSum = 0;
-					turn = 1;
-					pin = [0,0,0,0,0,0,0,0,0,0];
-				}
-			} else {
-				// 10프레임 2회차(turn = 3)
-				if(turn == 3){
-					// 스페어 조건 불총족시 해당 선수의 차례 종료
-					if(pinSum < 10){
-						pinSum = 0;
-						turn = 1;
-						player += 1;
-						console.log("player : ", player);
-						console.log("turn : ", turn);
-					}
-					// 스페어 조건 충족시 선수의 3회차 턴 추가
-					$(".pinCheck").attr("disabled", false);
-					$(".pinCheck").prop("checked", false);
-					pin = [0,0,0,0,0,0,0,0,0,0];
+			// 10 프레임 1회차에 핀을 10개 쓰러트린 경우 (스트라이크)
+			if(turn == 1 && pinSum == 10){
+				
+				// 전광판 출력
+				board(pinSum, player, frame, turn);
+				
+				// 10 프레임이라 순서를 변경 하지 않는다
+				turn += 1;
+				// pinSum = 0; 초기화 x
+				
+				// 체크박스 초기화 및 배열 초기화
+				pin = [0,0,0,0,0,0,0,0,0,0];
+				$(".pinCheck").attr("disabled", false);
+				$(".pinCheck").prop("checked", false);
+				
+			} else if(turn == 2 && pinSum >= 10){
+				// 3회차 자격 획득
+				
+				if(pinSum > 10 && pinSum < 20){
+					// 1회차에 스트라이크를, 2회차에 스트라이크를 하지 못한경우
 					
-					// 10프레임 3회차
-				} else if(turn > 3){
-					// 플레이어 순서 변경
+					$(".pinCheck").prop("checked", false);
+					
+				} else {
+					// 스페어 or 1회차, 2회차 스트라이크를 친경우
+					
+					// 체크박스 초기화 및 배열 초기화
 					$(".pinCheck").attr("disabled", false);
 					$(".pinCheck").prop("checked", false);
-					pinSum = 0;
-					turn = 1;
-					player += 1;
-					pin = [0,0,0,0,0,0,0,0,0,0];
 				}
+
+				pinSum -= 10;
+
+				// 전광판 출력
+				board(pinSum, player, frame, turn);
+				
+				// 3회차 기회 자격 획득
+				turn += 1;
+				pin = [0,0,0,0,0,0,0,0,0,0];
+			} else {
+				// turn 1에 10개를 치지못했거나 turn 2에 스페어를 못했거나
+
+				// 전광판 출력
+				board(pinSum, player, frame, turn);
+				
+				if(turn == 1){
+					turn += 1;
+					
+				} else {
+					player += 1;
+					turn = 1;
+					pinSum = 0;
+					
+					// 체크박스 초기화 및 배열 초기화
+					$(".pinCheck").attr("disabled", false);
+				}
+
+				$(".pinCheck").prop("checked", false);
+				pin = [0,0,0,0,0,0,0,0,0,0];
+				
 			}
-		} 
-		// 어웨이팀으로 변경
+		}	
+		
+		// 플레이어 순서 초기화
 		if(player > 2){
-			// 경기종료 버튼, 핀입력 버튼이 비활성화
+			// 10 프레임 2 플레이어의 차례 종료시 게임 종료
 			if(frame == 10) {
 				// 작업 종료 후 경고메세지 출력
 				setTimeout(function(){
 					alert("게임종료!");
 				}, 0);
-				
-				// 경기 종료 후 입력을 중지하고 결과창 출력
-				
+			} else {
+				player = 1;
+				frame += 1;	
 			}
-			player = 1;
-			frame += 1;
 		}
 		
-		// 1~9 프레임 1회차에 스트라이크 버튼 생성
+		// 2회차 or 3회차
 		if(turn != 1){
+			// 1~9 프레임
 			if(frame != 10){
+				// 2회차의 경우 스페어
 				if(turn == 2 && pinSum < 10){
 					$("#strikeBtn").text("스페어");
 				} else {
+					// 스페어가 아닌 경우 전부 스트라이크
 					$("#strikeBtn").text("스트라이크");
 				}
+			// 10 프레임
 			} else {
+				// 2회차의 경우 스페어
 				if(turn == 2 && pinSum < 10){
 					$("#strikeBtn").text("스페어");
 				} else {
+					// 스페어가 아닌 경우 전부 스트라이크
 					$("#strikeBtn").text("스트라이크");
 				}
 			}
+		// 1회차
 		} else {
+			// 스트라이크
 			$("#strikeBtn").text("스트라이크");
 		}
 		
@@ -332,16 +376,23 @@
 		
 		return game;
 	}
+	
+	
+	// 전광판에 출력하는 함수
+	let board = function(pinSum, player, frame, turn){
+		
+		// 해당 프레임과 회차에 맞는 전광판에 출력하기 위함
+		let homeFrame = "#hf"+frame+"t"+turn; // home팀 전광판 frame
+		let awayFrame = "#af"+frame+"t"+turn; // away팀 전광판 frame
+		
+		// 플레이어에 따라 맞는 곳에 출력
+		if(player == 1){
+			$(homeFrame).text(pinSum);
+		} else {
+			$(awayFrame).text(pinSum);
+		}
+		
+	};
+	
 // ### 경기 데이터 입력 END ############################################################################################################	
-	
-	// 경기 종료 데이터 입력
-	
-	/*
-	$.ajax({
-		url:"/addResult",
-		method:"post",
-		data:{"gameNo" : gameNo , },
-		
-		
-	}); */
 	

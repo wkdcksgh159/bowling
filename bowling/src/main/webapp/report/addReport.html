@@ -17,41 +17,44 @@
 <script src="/scripts/addReport.js"></script>
 </head>
 <body>
-	<h1>Insert Form</h1>
+	<h1>기록 추가</h1>
 	<div id="getGame">
-		<h2>GetTeam</h2>
+		<h2>경기 추가</h2>
 		<div>
 			<span id="getStadium"></span>
 		</div>
 		<!-- hometeam 선택 -->
-		<select id = "getHomeTeam">
+		<select id="getHomeTeam">
 			<option>팀 선택</option>
 		</select>
 		
 		<!-- hometeam 선수 선택 -->
-		<select id = "getHomeTeamPlayer">
+		<select id="getHomeTeamPlayer">
 			<option value=0>선수 선택</option>
 		</select>
 		
 		<!-- awayteam 선택 -->
-		<select id = "getAwayTeam">
+		<select id="getAwayTeam">
 			<option>팀 선택</option>
 		</select>
 		
 		<!-- awayteam 선수 선택 -->
-		<select id = "getAwayTeamPlayer">
+		<select id="getAwayTeamPlayer">
 			<option value=0>선수 선택</option>
 		</select>
+		<!-- 심판 선택 -->
+		<select id="getReferee">
+			<option>심판 선택</option>
+		</select>
 	</div>
-	
-	<button id="gameStartBtn">게임시작</button>
+	<br>
+	<button id="gameStartBtn">경기 시작</button>
 	
 	<div id="addPin">
-		<h2>Insert Pin</h2>
+		<h2>기록 추가</h2>
 		<!-- 전광판 -->
-		<div>게임ID: <p id="gameNumber"></p></div>
 		<div>
-			<table border = "1" id="board">
+			<table border="1" id="board">
 				<tr>
 					<td id="nameframe">이름/프레임</td>
 					<td>1</td>
@@ -68,30 +71,30 @@
 				</tr>
 				<tr>
 					<td id="homeTeamPlayer"></td>
-					<td id="h1"></td>
-					<td id="h2"></td>
-					<td id="h3"></td>
-					<td id="h4"></td>
-					<td id="h5"></td>
-					<td id="h6"></td>
-					<td id="h7"></td>
-					<td id="h8"></td>
-					<td id="h9"></td>
-					<td id="h10"></td>
+					<td><div><span id="hf1t1">1</span> / <span id="hf1t2">2</span></div><div><span id="hf1s">점수</span></div></td>
+					<td><div><span id="hf2t1">1</span> / <span id="hf2t2">2</span></div><div><span id="hf2s">점수</span></div></td>
+					<td><div><span id="hf3t1">1</span> / <span id="hf3t2">2</span></div><div><span id="hf3s">점수</span></div></td>
+					<td><div><span id="hf4t1">1</span> / <span id="hf4t2">2</span></div><div><span id="hf4s">점수</span></div></td>
+					<td><div><span id="hf5t1">1</span> / <span id="hf5t2">2</span></div><div><span id="hf5s">점수</span></div></td>
+					<td><div><span id="hf6t1">1</span> / <span id="hf6t2">2</span></div><div><span id="hf6s">점수</span></div></td>
+					<td><div><span id="hf7t1">1</span> / <span id="hf7t2">2</span></div><div><span id="hf7s">점수</span></div></td>
+					<td><div><span id="hf8t1">1</span> / <span id="hf8t2">2</span></div><div><span id="hf8s">점수</span></div></td>
+					<td><div><span id="hf9t1">1</span> / <span id="hf9t2">2</span></div><div><span id="hf9s">점수</span></div></td>
+					<td><div><span id="hf10t1">1</span> / <span id="hf10t2">2</span></div><div><span id="hf10s">점수</span></div></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td id="awayTeamPlayer"></td>
-					<td id="a1"></td>
-					<td id="a2"></td>
-					<td id="a3"></td>
-					<td id="a4"></td>
-					<td id="a5"></td>
-					<td id="a6"></td>
-					<td id="a7"></td>
-					<td id="a8"></td>
-					<td id="a9"></td>
-					<td id="a10"></td>
+					<td><div><span id="af1t1">1</span> / <span id="af1t2">2</span></div><div><span id="af1s">점수</span></div></td>
+					<td><div><span id="af2t1">1</span> / <span id="af2t2">2</span></div><div><span id="af2s">점수</span></div></td>
+					<td><div><span id="af3t1">1</span> / <span id="af3t2">2</span></div><div><span id="af3s">점수</span></div></td>
+					<td><div><span id="af4t1">1</span> / <span id="af4t2">2</span></div><div><span id="af4s">점수</span></div></td>
+					<td><div><span id="af5t1">1</span> / <span id="af5t2">2</span></div><div><span id="af5s">점수</span></div></td>
+					<td><div><span id="af6t1">1</span> / <span id="af6t2">2</span></div><div><span id="af6s">점수</span></div></td>
+					<td><div><span id="af7t1">1</span> / <span id="af7t2">2</span></div><div><span id="af7s">점수</span></div></td>
+					<td><div><span id="af8t1">1</span> / <span id="af8t2">2</span></div><div><span id="af8s">점수</span></div></td>
+					<td><div><span id="af9t1">1</span> / <span id="af9t2">2</span></div><div><span id="af9s">점수</span></div></td>
+					<td><div><span id="af10t1">1</span> / <span id="af10t2">2</span></div><div><span id="af10s">점수</span></div></td>                                         
 					<td></td>
 				</tr>
 			</table>
@@ -115,6 +118,7 @@
 		<br>
 		<button type="button" id="addPinBtn">쓰러진 핀 입력</button>
 		<div>
+			<br>
 			<button type="button" id="strikeBtn">스트라이크</button>
 			<button type="button" id="resetBtn">초기화</button>
 		</div>
@@ -123,11 +127,12 @@
 </body>
 <script>
 	$(document).ready(function(){
-		// 변수
+		
+		// 변수 생성
 		let game = {
 			// pin : 볼링 핀의 배열 초기값은 0으로 설정 
 			pin : [0,0,0,0,0,0,0,0,0,0],
-			// turn1PinSum : 처음 쓰러트린 핀의 갯수
+			// pinSum : 쓰러트린 핀의 갯수의 합
 			pinSum : 0,
 			// turn : 해당선수의 회차
 			turn : 1,
@@ -141,18 +146,22 @@
 			gameNo : 0
 		};
 		
-		// 팀을 선택하기전에 핀을 숨겨 놓는다
-		//$("#addPin").hide();
-		$("#homeTeamPlayerSelect").empty();
+		// 경기 시작 전 데이터 입력 폼 비활성화
+		$("#addPin").hide();
 
-		//게임시작 버튼 클릭시 경기의 데이터를 기록할 수 있다
+		// game 테이블에 경기 데이터를 입력하기 위해 데이터 출력하는 함수 실행
+		setGame();
+		
+		// 경기 시작 버튼 클릭시 경기의 데이터를 기록할 수 있다
 		$("#gameStartBtn").on("click",function(){
-			if($("#getHomeTeamPlayer").val()!=0	&& $("#getAwayTeamPlayer").val()!=0){
-				$("#gameStartBtn").hide();
-				$("#getGame").hide();
-				$("#addPin").show();
+			// 팀과 선수, 심판을 선택하지않고 게임을 시작할 수 없고, 게임을 강제로 시작할시 경고 메세지 출력
+			if($("#getHomeTeamPlayer").val() != 0 && $("#getAwayTeamPlayer").val() != 0 && $("#getReferee").val() != 0){
+				$("#gameStartBtn").hide(); // 게임 시작 버튼 숨김
+				$("#getGame").hide(); // 팀과 선수와 심판을 선택하는 폼 숨김
+				$("#addPin").show(); // 경기의 데이터를 기록하는 현황판과 폼 숨김 해제
 				
 				// ### 경기 기록 ######################################################################################################################
+				// game 테이블에 경기를 저장 후 해당 경기의 인덱스값인 game_no를 생성한 객체에 저장
 				$.ajax({
 					url:"/addGame",
 					method:"POST",
@@ -164,28 +173,30 @@
 						console.log("경기 시작 !");
 						game.gameNo = json.gameNo;
 						// console.log("gameNo : ", gameNo);
+						
+						// game_referee 테이블에 해당 경기의 심판의 데이터를 저장
+						$.ajax({
+							url:"/addReferee",
+							method:"POST",
+							data:{"gameNo":game.gameNo,
+								  "refereeNo":$("#getReferee option:checked").val()	
+								 },
+							success:function(){
+								// console.log("add game_referee success!");
+							}
+						});
 					}
 				});
 				
 				// ### 홈 팀 구장 가져오기 ######################################################################################################################
 			}else{
-				alert("팀과 선수를 입력해주세요!");
+				alert("정보를 제대로 입력해주세요!");
 			}
 		});
-
-		// game 테이블에  경기 데이터를 입력하기 위해 데이터 출력하는 함수 실행
-		setGame();
 		
+		// 스트라이크 버튼 클릭시
 		$("#strikeBtn").on("click",function(){
 			//console.log("버튼 클릭");
-			/* for(i=1;i<=10;i++){
-				pincheck = "#pin"+i;
-				//console.log(pincheck);
-				if($(pincheck).is("[disabled]") == false) {
-					//console.log("체크1")
-					$(pincheck).prop("checked", true);
-				}
-			} */
 			$(".pinCheck").each(function() {
 				if($(this).is("[disabled]") == false) {
 					//console.log("체크1")
@@ -194,17 +205,19 @@
 			});
 		});
 		
+		// 초기화 버튼 클릭시
 		$("#resetBtn").on("click",function(){
 			$(".pinCheck").prop("checked", false);
 		});
 		
 // ### 핀 입력 ############################################################################################################
+		// 쓰러진 핀 입력 버튼 클릭시
 		$("#addPinBtn").on("click",function(){
 			// console.log("버튼클릭");
 			
 			// 체크한 핀을 pin 배열의 값 저장하는 함수 실행
 			game.pin = setPinArray(game.pin);
-			console.log("pin : ", game.pin);
+			// console.log("pin : ", game.pin);
 			
 			// 선수의 데이터를 기록하는 함수
 			game = addReport(game);
@@ -216,8 +229,7 @@
 			console.log("pinSum : ", game.pinSum);
 			*/
 		});
-// ### 핀 입력 ############################################################################################################	
-	
+// ### 핀 입력 ############################################################################################################		
 	});
 </script>
 </html>
