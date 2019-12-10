@@ -242,12 +242,28 @@
 				turn += 1;
 				$(".pinCheck").prop("checked", false);
 				pin = [0,0,0,0,0,0,0,0,0,0];
-				
+				pinSum = 0;
 			} else {
 				// 1회차에 스트라이크를 하거나, 2회차 투구가 종료된 시점
 
 				// 전광판 출력
 				board(pinSum, player, frame, turn);
+				
+				// 전광판에 홈 선수의 해당프레임의 총 점수 출력
+				homeFTurnScore = "#hf"+frame+"t1";
+				homeSTurnScore = "#hf"+frame+"t2";
+				homeScore = "#hf"+frame+"s";
+				console.log(homeFTurnScore, homeSTurnScore, homeScore);
+				homeTotalScore = parseInt($(homeFTurnScore).text())+parseInt($(homeSTurnScore).text());
+				$(homeScore).text(homeTotalScore);
+				
+				// 전광판에 어웨이 선수의 해당프레임의 총 점수 출력
+				awayFTurnScore = "#af"+frame+"t1";
+				awaySTurnScore = "#af"+frame+"t2";
+				awayScore = "#af"+frame+"s";
+				console.log(awayFTurnScore, awaySTurnScore, awayScore);
+				awayTotalScore = parseInt($(awayFTurnScore).text())+parseInt($(awaySTurnScore).text());
+				$(awayScore).text(awayTotalScore);
 				
 				// 순서 변경
 				player += 1;
@@ -310,6 +326,21 @@
 					turn += 1;
 					
 				} else {
+					// 전광판에 해당프레임의 총 점수 출력
+					homeFTurnScore = "#hf"+frame+"t1";
+					homeSTurnScore = "#hf"+frame+"t2";
+					homeScore = "hf"+frame+"s";
+					allHomeScore = parseInt($(homeFTurnScore).text()+$(homeSTurnScore).text());
+					$(homeScore).text(allHomeScore);
+					
+					// 전광판에 어웨이 선수의 해당프레임의 총 점수 출력
+					awayFTurnScore = "#af"+frame+"t1";
+					awaySTurnScore = "#af"+frame+"t2";
+					awayScore = "#af"+frame+"s";
+					console.log(awayFTurnScore, awaySTurnScore, awayScore);
+					awayTotalScore = parseInt($(awayFTurnScore).text())+parseInt($(awaySTurnScore).text());
+					$(awayScore).text(awayTotalScore);
+					
 					player += 1;
 					turn = 1;
 					pinSum = 0;
@@ -332,6 +363,16 @@
 				setTimeout(function(){
 					alert("게임종료!");
 				}, 0);
+				
+				$.ajax({
+					url : "/addGameResult",
+					method : "POST",
+					data : {"gameNo" : gameNo},
+					success : function(){
+						console.log("게임종료");
+					}
+				});
+				
 			} else {
 				player = 1;
 				frame += 1;	
@@ -384,6 +425,13 @@
 		// 해당 프레임과 회차에 맞는 전광판에 출력하기 위함
 		let homeFrame = "#hf"+frame+"t"+turn; // home팀 전광판 frame
 		let awayFrame = "#af"+frame+"t"+turn; // away팀 전광판 frame
+		let homeScore = "#hf"+frame+"s";
+		let awayScore = "#af"+frame+"s";
+		
+		/*// 턴별로 쓰러트린 핀의 갯수 저장
+		let t1Pin = 0;
+		let t2Pin = 0;*/
+		
 		
 		// 플레이어에 따라 맞는 곳에 출력
 		if(player == 1){

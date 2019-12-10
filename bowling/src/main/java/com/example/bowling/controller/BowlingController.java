@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.bowling.service.BowlingService;
 import com.example.bowling.vo.Game;
 import com.example.bowling.vo.GamePlayer;
+import com.example.bowling.vo.GameResult;
 import com.example.bowling.vo.Referee;
 import com.example.bowling.vo.Team;
 import com.example.bowling.vo.TeamPlayerName;
@@ -17,6 +18,13 @@ import com.example.bowling.vo.TeamPlayerName;
 public class BowlingController {
 	@Autowired
 	private BowlingService bowlingService;
+	
+	@PostMapping("/addGameResult")
+	public int addGameResult(GamePlayer gamePlayer) {
+		System.out.println("bowilng controller addGameResult -----------------------------");
+		bowlingService.addGameResult(gamePlayer);
+		return 0;
+	}
 	
 	//add Report 게임이 시작하면 심판이 추가 되게 하기 위한 controller
 	@PostMapping("/addReferee")

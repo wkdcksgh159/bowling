@@ -25,5 +25,7 @@ public interface BowlingService {
 	public List<Referee> getReferee();
 	// addReport 게임이 시작하면 심판이 입력되기 위한 service
 	public int addReferee(Referee referee);
+	// addReport game_result 테이블에 경기 결과를 계산하고 저장하는 service
+	public int addGameResult(GamePlayer gamePlayer);
 
 }

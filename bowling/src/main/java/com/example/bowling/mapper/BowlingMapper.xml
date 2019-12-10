@@ -4,7 +4,111 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.bowling.mapper.BowlingMapper">
 	
-		<!-- addReport referee insert -->
+	<!-- addReport insertGamePlayer -->
+	<insert id="insertGameResult" parameterType="com.example.bowling.vo.GameResult">
+		INSERT INTO
+			game_result(
+				game_no,
+				hteam_name,
+				hplayer_no,
+				hteam_score,
+				hteam_result,
+				ateam_result,
+				ateam_score,
+				ateam_name,
+				aplayer_no
+			)
+			VALUES (
+			#{gameNo},
+			#{hteamName},
+			#{hplayerNo},
+			#{hteamScore},
+			#{hteamResult},
+			#{ateamResult},
+			#{ateamScore},
+			#{ateamName},
+			#{aplayerNo}
+			)
+	</insert>
+	
+	<!-- addReport selectGamePlayer -->
+	<select id="selectGameResult" parameterType="com.example.bowling.vo.GamePlayer"
+			resultType="com.example.bowling.vo.GameResult">
+		<![CDATA[
+		SELECT t1.game_no AS gameNo, t1.team_name AS hteamName, t1.player_no as hplayerNo, t1.score AS hteamScore,
+		      (case
+		         when t1.score > t2.score
+		         then 'win'
+		         when t1.score < t2.score
+		         then 'lose'
+		         ELSE 'draw'
+		      END) AS hteamResult,
+		      (case
+		         when t2.score > t1.score
+		         then 'win'
+		         when t2.score < t1.score
+		         then 'lose'
+		         ELSE 'draw'
+		      END) AS ateamResult,
+		      t2.score AS ateamScore, t2.player_no as aplayerNo, t2.team_name AS ateamName
+		FROM (SELECT t.game_no, tpc.team_name, t.player_no, t.score
+		      FROM (SELECT s.game_no, s.player_no, SUM(s.score) AS score
+		            FROM (SELECT p.game_no, p.player_no, p.frame, p.pturn,
+		                        (case
+		                           when p.pturn = 'point' and p.pinSum = 10 AND p.frame != 10
+		                           then (case 
+		                                    when LAG(p.pinSum) over(ORDER BY p.player_no, p.frame, p.pturn) = 0 
+		                                    then (case
+		                                             when LEAD(p.pinSum, 3) over(ORDER BY p.player_no, p.frame, p.pturn) = 10 and 
+		                                                  LEAD(p.pinSum, 2) over(ORDER BY p.player_no, p.frame, p.pturn) = 0
+		                                             then p.pinSum + LEAD(p.pinSum, 3) over(ORDER BY p.player_no, p.frame, p.pturn) + LEAD(p.pinSum, 4) over(ORDER BY p.player_no, p.frame, p.pturn)
+		                                             else p.pinSum + LEAD(p.pinSum, 3) over(ORDER BY p.player_no, p.frame, p.pturn)
+		                                          end)
+		                                    ELSE p.pinSum + LEAD(p.pinSum, 1) over(ORDER BY p.player_no, p.frame, p.pturn)
+		                                  END)
+		                           ELSE p.pinSum
+		                        END) 'score'
+		                        FROM (SELECT game_no, player_no, frame, ifnull(turn, 'point') AS pturn, sum(pin1+pin2+pin3+pin4+pin5+pin6+pin7+pin8+pin9+pin10) AS pinSum
+		                              FROM game_player
+		                              WHERE game_no = #{gameNo}
+		                              GROUP BY player_no, frame, turn WITH rollup) p
+		                        WHERE p.frame IS NOT NULL AND p.frame != 10 OR p.frame = 10 AND p.pturn != 'point') s
+		            WHERE s.pturn = 'point' AND s.frame != 10 OR s.frame = 10
+		            GROUP BY player_no) t
+		      INNER JOIN team_player_contract tpc ON t.player_no = tpc.player_no) t1
+		INNER JOIN (SELECT t.game_no, tpc.team_name, t.player_no, t.score
+		            FROM (SELECT s.game_no, s.player_no, SUM(s.score) AS score
+		                  FROM (SELECT p.game_no, p.player_no, p.frame, p.pturn,
+		                              (case
+		                                 when p.pturn = 'point' and p.pinSum = 10 AND p.frame != 10
+		                                 then (case 
+		                                          when LAG(p.pinSum) over(ORDER BY p.player_no, p.frame, p.pturn) = 0 
+		                                          then (case
+		                                                   when LEAD(p.pinSum, 3) over(ORDER BY p.player_no, p.frame, p.pturn) = 10 and 
+		                                                        LEAD(p.pinSum, 2) over(ORDER BY p.player_no, p.frame, p.pturn) = 0
+		                                                   then p.pinSum + LEAD(p.pinSum, 3) over(ORDER BY p.player_no, p.frame, p.pturn) + LEAD(p.pinSum, 4) over(ORDER BY p.player_no, p.frame, p.pturn)
+		                                                   else p.pinSum + LEAD(p.pinSum, 3) over(ORDER BY p.player_no, p.frame, p.pturn)
+		                                                end)
+		                                          ELSE p.pinSum + LEAD(p.pinSum, 1) over(ORDER BY p.player_no, p.frame, p.pturn)
+		                                        END)
+		                                 ELSE p.pinSum
+		                              END) 'score'
+		                        FROM (SELECT game_no, player_no, frame, ifnull(turn, 'point') AS pturn, sum(pin1+pin2+pin3+pin4+pin5+pin6+pin7+pin8+pin9+pin10) AS pinSum
+		                              FROM game_player
+		                              WHERE game_no = #{gameNo}
+		                              GROUP BY player_no, frame, turn WITH rollup) p
+		                        WHERE p.frame IS NOT NULL AND p.frame != 10 OR p.frame = 10 AND p.pturn != 'point') s
+		                  WHERE s.pturn = 'point' AND s.frame != 10 OR s.frame = 10
+		                  GROUP BY s.player_no) t
+		            INNER JOIN team_player_contract tpc ON t.player_no = tpc.player_no) t2
+		ON t1.game_no = t2.game_no
+		INNER JOIN game g ON g.game_no = t2.game_no
+		WHERE t1.team_name = hteam_name and t2.team_name = ateam_name
+
+		]]>
+	</select>
+	
+	<!-- addReport referee insert -->
 	<insert id="insertReferee" parameterType="com.example.bowling.vo.Referee">
 		INSERT INTO game_referee(
 			game_no,
@@ -83,11 +187,15 @@
 			hteam_name,
 			stadium_name,
 			ateam_name,
+			hplayer_no,
+			aplayer_no,
 			game_date	
 		)VALUES(
 			#{hteamName},
 			#{stadiumName},
 			#{ateamName},
+			#{hplayerNo},
+			#{aplayerNo},
 			NOW()
 		)
 	</insert>

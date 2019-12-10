@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.bowling.mapper.BowlingMapper;
 import com.example.bowling.vo.Game;
 import com.example.bowling.vo.GamePlayer;
+import com.example.bowling.vo.GameResult;
 import com.example.bowling.vo.Referee;
 import com.example.bowling.vo.Team;
 import com.example.bowling.vo.TeamPlayerName;
@@ -18,6 +19,13 @@ import com.example.bowling.vo.TeamPlayerName;
 public class BowlingServiceImpl implements BowlingService {
 	@Autowired
 	private BowlingMapper bowlingMapper;
+	
+	@Override
+	public int addGameResult(GamePlayer gamePlayer) {
+		System.out.println("bowilng serviceImpl addGameResult -----------------------------");
+		GameResult gameResult = bowlingMapper.selectGameResult(gamePlayer);
+		return bowlingMapper.insertGameResult(gameResult);
+	}
 	
 	@Override
 	public int addReferee(Referee referee) {
