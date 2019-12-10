@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.example.bowling.mapper.BowlingTeamMapper">
+	<!-- 팀의 평균 스트라이크 횟수를 불러오는 쿼리 -->
+	<select id="selectTeamStrikeChart" parameterType="String" resultType="com.example.bowling.vo.TeamChart">
+		SELECT
+			p.player_name AS playerName,
+			round(AVG(e.strike),1) AS avgStrike,
+			tpc.team_name AS teamName
+		FROM
+			(SELECT
+				b.game_no,
+				b.player_no,
+				sum(CASE
+				   WHEN ballevent = 'strike'
+				   THEN 1
+				   ELSE 0
+				END) AS strike
+				
+			FROM
+				(SELECT
+					game_no,
+					player_no,
+					frame,
+					turn,
+					pin1+pin2+pin3+pin4+pin5+pin6+pin7+pin8+pin9+pin10 AS pinsum,
+		            (CASE
+		               WHEN turn = 1
+		               THEN CASE
+		                      WHEN pin1+pin2+pin3+pin4+pin5+pin6+pin7+pin8+pin9+pin10 = 10
+		                      THEN 'strike'
+		                        ELSE 0
+		                    END
+		               ELSE 0
+		            END) AS ballevent
+				FROM 
+					game_player
+		     	ORDER BY
+		     		game_no, player_no, frame, turn) b
+			GROUP BY 
+				b.game_no, b.player_no) e
+		INNER JOIN 
+			player p 
+		ON 
+			e.player_no = p.player_no
+		INNER JOIN 
+			team_player_contract tpc 
+		ON 
+			e.player_no = tpc.player_no
+		WHERE 
+			tpc.team_name = #{teamName}
+		AND
+			tpc.player_to_date = '9999-01-01'	
+		GROUP 
+			BY e.player_no
+	</select>
+	
+	<!-- 해당 팀의 상세 기록 불러오는 쿼리 -->
+	<select id="selectTeamReport" parameterType="String" resultType="com.example.bowling.vo.TeamReport">
+		select
+			t as teamName,
+			sum(t.c) as totalGame,
+			sum(t.w) as win,
+			sum(t.d) as draw,
+			sum(t.l) as lose,
+			round(avg(t.a),0) as avgScore,
+			round(t.w/t.c*100) as avgWin,
+			round(sum(t.s),0) as totalScore
+			
+		from(
+			select
+				hteam_name as t,
+				count(*) as c,
+				sum(hteam_result='win') as w,
+				sum(hteam_result='draw') as d,
+				sum(hteam_result='lose') as l,
+				avg(hteam_score) as a,
+				sum(hteam_score) as s
+		from game_result
+		group by hteam_name
+		union
+		select
+			ateam_name as t,
+			count(*) as c ,
+			sum(ateam_result='win') as w,
+			sum(ateam_result='draw') as d,
+			sum(ateam_result='lose') as l,
+			avg(ateam_score) as s,
+			sum(ateam_score) as s
+		from game_result
+		group by ateam_name
+		) as t
+		where t = #{teamName}
+		group by t
+	</select>
+</mapper>
