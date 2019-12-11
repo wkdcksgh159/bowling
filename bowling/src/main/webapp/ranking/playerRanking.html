@@ -194,9 +194,13 @@
 		<!-- 선수의 성별(선택), 경기수, 승, 무, 패, 승률, 평균 점수, 평균 스트라이크, 평균 스페어 들 중 선택 할 수 있는 선택 박스가 있다. -->
 			<h1>player Ranking</h1>
 			<div>개인 순위</div>
-			<div><input type="radio" name = "gender" value = "A">전체
-			<input type="radio" name = "gender" value = "M">남
-			<input type="radio" name = "gender" value = "F">여
+			<div>
+			
+			<select id="gender">
+				<option value=0>선택</option>
+				<option value=1>남</option>
+				<option value=2>여</option>
+			</select>
 			
 			<select id="selectRanking">
 				<option value=0>선택</option>
@@ -366,6 +370,8 @@
 		$("#selectRankingBtn").click(function(){
 			console.log("버튼 클릭");
 			// 선택박스에서 선택된 값들에 따라 검색 결과가 달라진다.
+			
+			$("#ranking").show();
 		});
 	});
 </script>
