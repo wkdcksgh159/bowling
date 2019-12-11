@@ -66,6 +66,7 @@
 		============================================ -->
 <script src="/js/vendor/modernizr-2.8.3.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>/scripts/playerRanking.js</script>
 </head>
 
 <body>
@@ -197,27 +198,31 @@
 			<div>
 			
 			<select id="gender">
-				<option value=0>선택</option>
-				<option value=1>남</option>
-				<option value=2>여</option>
+				<option>선택</option>
+				<option value="ALL">전체</option>
+				<option value="M">남</option>
+				<option value="F">여</option>
 			</select>
 			
 			<select id="selectRanking">
-				<option value=0>선택</option>
-				<option value=1>경기수</option>
-				<option value=2>승</option>
-				<option value=3>무</option>
-				<option value=4>패</option>
-				<option value=5>승률</option>
-				<option value=6>평균점수</option>
-				<option value=7>평균스트라이크</option>
-				<option value=8>평균스페어</option>
+				<option>선택</option>
+				<option value="matchGame">경기수</option>
+				<option value="win">승</option>
+				<option value="draw">무</option>
+				<option value="lose">패</option>
+				<option value="winRate">승률</option>
+				<option value="scoreAvg">평균점수</option>
+				<option value="strikeAvg">평균스트라이크</option>
+				<option value="spareAvg">평균스페어</option>
 			</select>
 			<button type="button" id="selectRankingBtn">조회하기</button>
 			</div>
 			<table border="1" id = "ranking">
 				<thead>
 					<tr>
+						<th>
+							순위
+						</th>
 						<th>
 							이름
 						</th>
@@ -250,39 +255,7 @@
 						</th>
 					</tr>
 				</thead>
-				<tbody>
-					<tr>
-						<td>
-							김우서
-						</td>
-						<td>
-							남자
-						</td>
-						<td>
-							503
-						</td>
-						<td>
-							3
-						</td>
-						<td>
-							0
-						</td>
-						<td>
-							500
-						</td>
-						<td>
-							0.06
-						</td>
-						<td>
-							5
-						</td>
-						<td>
-							1
-						</td>
-						<td>
-							1
-						</td>
-					</tr>
+				<tbody id="selectPlayerRanking">
 				</tbody>
 			</table>
 		</div>
@@ -370,7 +343,29 @@
 		$("#selectRankingBtn").click(function(){
 			console.log("버튼 클릭");
 			// 선택박스에서 선택된 값들에 따라 검색 결과가 달라진다.
+			// 개인 랭킹을 불러오는 ajax
+		$.ajax({
+			url:"/playerRecord",
+			method:"POST",
+			data:{"gender":$("#gender").val(),
+				  "column":$("#selectRanking option:selected").val()
+				 },
+			success:function(json){
+				console.log($("#selectRanking option:selected").val());
+				$("#selectPlayerRanking").empty();
+				$(json).each(function(index, item){
+						console.log("json",json);
+						temp = "<tr><td>"+item.rank+"</td>";
+						temp += "<td>"+item.playerName+"</td> <td>"+item.gender+"</td> <td>"+item.matchGame+"</td>";
+						temp += "<td>"+item.win+"</td> <td>"+item.draw+"</td> <td>"+item.lose+"</td>";
+						temp += "<td>"+item.winRate+"</td> <td>"+item.scoreAvg+"</td> <td>"+item.strikeAvg+"</td>";
+						temp += "<td>"+item.spareAvg+"</td></tr>";
+						$("#selectPlayerRanking").append(temp);
+				});
+					
+			}
 			
+		});
 			$("#ranking").show();
 		});
 	});
