@@ -249,22 +249,6 @@
 				// 전광판 출력
 				board(pinSum, player, frame, turn);
 				
-				// 전광판에 홈 선수의 해당프레임의 총 점수 출력
-				homeFTurnScore = "#hf"+frame+"t1";
-				homeSTurnScore = "#hf"+frame+"t2";
-				homeScore = "#hf"+frame+"s";
-				console.log(homeFTurnScore, homeSTurnScore, homeScore);
-				homeTotalScore = parseInt($(homeFTurnScore).text())+parseInt($(homeSTurnScore).text());
-				$(homeScore).text(homeTotalScore);
-				
-				// 전광판에 어웨이 선수의 해당프레임의 총 점수 출력
-				awayFTurnScore = "#af"+frame+"t1";
-				awaySTurnScore = "#af"+frame+"t2";
-				awayScore = "#af"+frame+"s";
-				console.log(awayFTurnScore, awaySTurnScore, awayScore);
-				awayTotalScore = parseInt($(awayFTurnScore).text())+parseInt($(awaySTurnScore).text());
-				$(awayScore).text(awayTotalScore);
-				
 				// 순서 변경
 				player += 1;
 				pinSum = 0;
@@ -316,6 +300,7 @@
 				// 3회차 기회 자격 획득
 				turn += 1;
 				pin = [0,0,0,0,0,0,0,0,0,0];
+				pinSum = 0;
 			} else {
 				// turn 1에 10개를 치지못했거나 turn 2에 스페어를 못했거나
 
@@ -326,20 +311,6 @@
 					turn += 1;
 					
 				} else {
-					// 전광판에 해당프레임의 총 점수 출력
-					homeFTurnScore = "#hf"+frame+"t1";
-					homeSTurnScore = "#hf"+frame+"t2";
-					homeScore = "hf"+frame+"s";
-					allHomeScore = parseInt($(homeFTurnScore).text()+$(homeSTurnScore).text());
-					$(homeScore).text(allHomeScore);
-					
-					// 전광판에 어웨이 선수의 해당프레임의 총 점수 출력
-					awayFTurnScore = "#af"+frame+"t1";
-					awaySTurnScore = "#af"+frame+"t2";
-					awayScore = "#af"+frame+"s";
-					console.log(awayFTurnScore, awaySTurnScore, awayScore);
-					awayTotalScore = parseInt($(awayFTurnScore).text())+parseInt($(awaySTurnScore).text());
-					$(awayScore).text(awayTotalScore);
 					
 					player += 1;
 					turn = 1;
@@ -353,6 +324,7 @@
 				pin = [0,0,0,0,0,0,0,0,0,0];
 				
 			}
+			
 		}	
 		
 		// 플레이어 순서 초기화
@@ -427,20 +399,123 @@
 		let awayFrame = "#af"+frame+"t"+turn; // away팀 전광판 frame
 		let homeScore = "#hf"+frame+"s";
 		let awayScore = "#af"+frame+"s";
+		let homeFrameScore = pinSum;
+		let awayFrameScore = pinSum;
 		
 		/*// 턴별로 쓰러트린 핀의 갯수 저장
 		let t1Pin = 0;
 		let t2Pin = 0;*/
 		
-		
 		// 플레이어에 따라 맞는 곳에 출력
 		if(player == 1){
 			$(homeFrame).text(pinSum);
+			if(turn != 1){
+				homeFrameScore = parseInt($(homeScore).text())+pinSum;
+			}
+			$(homeScore).text(homeFrameScore);
 		} else {
 			$(awayFrame).text(pinSum);
+			if(turn != 1){
+				awayFrameScore = parseInt($(awayScore).text())+pinSum;
+			}
+			$(awayScore).text(awayFrameScore);
 		}
+		// 디버깅
+		console.log(homeFrame, awayFrame, homeScore, awayScore, homeFrameScore, pinSum, player);
 		
-	};
-	
+		// 이전 프레임과 비교해서 점수 계산
+		
+		// 현재 프레임
+		// 현재 홈팀의 첫번째 턴
+		let homeFTurn = "#hf"+frame+"t1";
+		// 현재 홈팀의 두번째 턴
+		let homeSTurn = "#hf"+frame+"t2";
+		// 현재 어웨이팀의 첫번째 턴
+		let awayFTurn = "#af"+frame+"t1";
+		// 현재 어웨이팀의 두번째 턴
+		let awaySTurn = "#af"+frame+"t2";
+		
+		// 이전 프레임
+		let prevFrame = frame - 1
+		// 이전 홈팀의 첫번째 턴
+		let prevHomeFTurn = "#hf"+prevFrame+"t1";
+		// 이전 홈팀의 두번째 턴
+		let prevHomeSTurn = "#hf"+prevFrame+"t2";
+		// 이전 홈팀의 점수
+		let prevHomeScore = "#hf"+prevFrame+"s";
+		// 이전 어웨이팀의 첫번째 턴
+		let prevAwayFTurn = "#af"+prevFrame+"t1";
+		// 이전 어웨이팀의 두번째 턴
+		let prevAwaySTurn = "#af"+prevFrame+"t2";
+		// 이전 어웨이팀의 점수
+		let prevAwayScore = "#af"+prevFrame+"s";
+		
+		// 이이전 프레임
+		let previousFrame = frame - 2
+		// 이이전 홈팀의 첫번째 턴
+		let previousHomeFTurn = "#hf"+previousFrame+"t1";
+		// 이이전 홈팀의 두번째 턴
+		let previousHomeSTurn = "#hf"+previousFrame+"t2";
+		// 이이전 홈팀의 점수
+		let previousHomeScore = "#hf"+previousFrame+"s";
+		// 이이전 어웨이팀의 첫번째 턴
+		let previousAwayFTurn = "#af"+previousFrame+"t1";
+		// 이이전 어웨이팀의 두번째 턴
+		let previousAwaySTurn = "#af"+previousFrame+"t2";
+		// 이이전 어웨이팀의 점수
+		let previousAwayScore = "#af"+previousFrame+"s";
+		
+		// 점수 계산 후 재 출력
+		if(player == 1){
+			if($(prevHomeScore).text() == 10) {
+				// 스트라이크 분기
+				if($(prevHomeFTurn).text() == 10) {
+					// 스트라이크
+					if($(homeFTurn).text() == 10){
+						$(prevHomeScore).text(parseInt($(prevHomeScore).text())+parseInt($(homeFTurn).text()));
+						console.log("연속 스트라이크를 쳤을 경우 : ");
+					}
+					if($(homeFTurn).text() != 10 && turn == 2){
+						$(prevHomeScore).text(parseInt($(prevHomeScore).text())+parseInt($(homeScore).text()));
+						console.log("그냥 스트라이크를 쳤을 경우 : ");
+					}
+					// 터키
+					if($(previousHomeFTurn).text() == 10) {
+						$(previousHomeScore).text(parseInt($(prevHomeScore).text())+parseInt($(homeFTurn).text()));
+						console.log("터키 : ");
+					}
+				}
+				console.log($(homeFTurn).text(), $(homeSTurn).text());
+				/*// 10 프레임 터키
+				if(turn == 2 && $(homeFTurn).text() == 10 && $(homeSTurn).text() == 10) {
+					console.log("10프레임 터키 확인");
+					$(prevHomeScore).text(parseInt($(prevHomeScore).text())+parseInt($(homeSTurn).text()));
+				}*/
+				// 스페어
+				if($(prevHomeFTurn).text() != 10) {
+					console.log("홈 스페어");
+					$(prevHomeScore).text(parseInt($(prevHomeScore).text())+parseInt($(homeFTurn).text()));
+				}
+			}
+		}
+		if(player == 2) {
+			console.log(prevFrame);
+			if($(prevAwayScore).text() == 10) {
+				if($(prevAwayFTurn).text() == 10 && turn == 2) {
+					console.log("어웨이 스트라이크 분기");
+					if($(previousAwayFTurn).text() == 10) {
+						console.log("어웨이 터키");
+						$(prevAwayScore).text(parseInt($(previousAwayScore).text())+parseInt($(prevAwayScore).text())+parseInt($(AwayFTurn).text()));
+					} else {
+						$(prevAwayScore).text(parseInt($(prevAwayScore).text())+parseInt($(awayScore).text()));
+					}
+				} 
+				if($(prevAwayFTurn).text() != 10) {
+					console.log("어웨이 스페어 분기");
+					$(prevAwayScore).text(parseInt($(prevAwayScore).text())+parseInt($(awayFTurn).text()));
+				}
+			}
+		}
+	}
 // ### 경기 데이터 입력 END ############################################################################################################	
 	

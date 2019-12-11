@@ -10,13 +10,21 @@
 
 <style>
 	#board {
-		width:700px;
-		text-align:center;
-		height:150px;
-	}
-	#nameframe {
-		width:100px;
-	}
+      text-align:center;
+      width:700px;
+      height:200px;
+   }
+   .backslash {
+      background: url('http://cdn.zetawiki.com/png/backslash.png');
+      background-size: 100% 100%;
+      text-align: left;
+      font-size:10px;
+      width:100px;
+   }
+   .backslash div {text-align: right;}
+   #totalScore {
+   	  width:100px;
+   }
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -244,50 +252,74 @@
 					<h2>기록 추가</h2>
 					<!-- 전광판 -->
 					<div>
-						<table border="1" id="board">
-							<tr>
-								<td id="nameframe">이름/프레임</td>
-								<td>1</td>
-								<td>2</td>
-								<td>3</td>
-								<td>4</td>
-								<td>5</td>
-								<td>6</td>
-								<td>7</td>
-								<td>8</td>
-								<td>9</td>
-								<td>10</td>
-								<td>총 점수</td>
-							</tr>
-							<tr>
-								<td id="homeTeamPlayer"></td>
-								<td><div><span id="hf1t1">1</span> / <span id="hf1t2">2</span></div><div><span id="hf1s">점수</span></div></td>
-								<td><div><span id="hf2t1">1</span> / <span id="hf2t2">2</span></div><div><span id="hf2s">점수</span></div></td>
-								<td><div><span id="hf3t1">1</span> / <span id="hf3t2">2</span></div><div><span id="hf3s">점수</span></div></td>
-								<td><div><span id="hf4t1">1</span> / <span id="hf4t2">2</span></div><div><span id="hf4s">점수</span></div></td>
-								<td><div><span id="hf5t1">1</span> / <span id="hf5t2">2</span></div><div><span id="hf5s">점수</span></div></td>
-								<td><div><span id="hf6t1">1</span> / <span id="hf6t2">2</span></div><div><span id="hf6s">점수</span></div></td>
-								<td><div><span id="hf7t1">1</span> / <span id="hf7t2">2</span></div><div><span id="hf7s">점수</span></div></td>
-								<td><div><span id="hf8t1">1</span> / <span id="hf8t2">2</span></div><div><span id="hf8s">점수</span></div></td>
-								<td><div><span id="hf9t1">1</span> / <span id="hf9t2">2</span></div><div><span id="hf9s">점수</span></div></td>
-								<td><div><span id="hf10t1">1</span> / <span id="hf10t2">2</span></div><div><span id="hf10s">점수</span></div></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td id="awayTeamPlayer"></td>
-								<td><div><span id="af1t1">1</span> / <span id="af1t2">2</span></div><div><span id="af1s">점수</span></div></td>
-								<td><div><span id="af2t1">1</span> / <span id="af2t2">2</span></div><div><span id="af2s">점수</span></div></td>
-								<td><div><span id="af3t1">1</span> / <span id="af3t2">2</span></div><div><span id="af3s">점수</span></div></td>
-								<td><div><span id="af4t1">1</span> / <span id="af4t2">2</span></div><div><span id="af4s">점수</span></div></td>
-								<td><div><span id="af5t1">1</span> / <span id="af5t2">2</span></div><div><span id="af5s">점수</span></div></td>
-								<td><div><span id="af6t1">1</span> / <span id="af6t2">2</span></div><div><span id="af6s">점수</span></div></td>
-								<td><div><span id="af7t1">1</span> / <span id="af7t2">2</span></div><div><span id="af7s">점수</span></div></td>
-								<td><div><span id="af8t1">1</span> / <span id="af8t2">2</span></div><div><span id="af8s">점수</span></div></td>
-								<td><div><span id="af9t1">1</span> / <span id="af9t2">2</span></div><div><span id="af9s">점수</span></div></td>
-								<td><div><span id="af10t1">1</span> / <span id="af10t2">2</span></div><div><span id="af10s">점수</span></div></td>                                         
-								<td></td>
-							</tr>
-						</table>
+						<table id="board" border="1">
+					      <tr>
+					         <td class='backslash'><div>프레임</div>이름</td>
+					         <td colspan="2" style='width:60px'>1</td>
+					         <td colspan="2" style='width:60px'>2</td>
+					         <td colspan="2" style='width:60px'>3</td>
+					         <td colspan="2" style='width:60px'>4</td>
+					         <td colspan="2" style='width:60px'>5</td>
+					         <td colspan="2" style='width:60px'>6</td>
+					         <td colspan="2" style='width:60px'>7</td>
+					         <td colspan="2" style='width:60px'>8</td>
+					         <td colspan="2" style='width:60px'>9</td>
+					         <td colspan="3" style='width:60px'>10</td>
+					         <td id="totalScore">총 점수</td>
+					      </tr>
+					      <tr>
+					         <td rowspan="2" id="homeTeamPlayer">이름1</td>
+					         <td id="hf1t1"></td><td id="hf1t2"></td>
+					         <td id="hf2t1"></td><td id="hf2t2"></td>
+					         <td id="hf3t1"></td><td id="hf3t2"></td>
+					         <td id="hf4t1"></td><td id="hf4t2"></td>
+					         <td id="hf5t1"></td><td id="hf5t2"></td>
+					         <td id="hf6t1"></td><td id="hf6t2"></td>
+					         <td id="hf7t1"></td><td id="hf7t2"></td>
+					         <td id="hf8t1"></td><td id="hf8t2"></td>
+					         <td id="hf9t1"></td><td id="hf9t2"></td>
+					         <td id="hf10t1"></td><td id="hf10t2"></td><td id="hf10t3"></td>
+					         <td rowspan="2">총점수1</td>
+					      </tr>
+					      <tr>
+					         <td colspan="2" id="hf1s"></td>
+					         <td colspan="2" id="hf2s"></td>
+					         <td colspan="2" id="hf3s"></td>
+					         <td colspan="2" id="hf4s"></td>
+					         <td colspan="2" id="hf5s"></td>
+					         <td colspan="2" id="hf6s"></td>
+					         <td colspan="2" id="hf7s"></td>
+					         <td colspan="2" id="hf8s"></td>
+					         <td colspan="2" id="hf9s"></td>
+					         <td colspan="3" id="hf10s"></td>
+					      </tr>
+					      <tr>
+					         <td rowspan="2" id="awayTeamPlayer">이름2</td>
+					         <td id="af1t1"></td><td id="af1t2"></td>
+					         <td id="af2t1"></td><td id="af2t2"></td>
+					         <td id="af3t1"></td><td id="af3t2"></td>
+					         <td id="af4t1"></td><td id="af4t2"></td>
+					         <td id="af5t1"></td><td id="af5t2"></td>
+					         <td id="af6t1"></td><td id="af6t2"></td>
+					         <td id="af7t1"></td><td id="af7t2"></td>
+					         <td id="af8t1"></td><td id="af8t2"></td>
+					         <td id="af9t1"></td><td id="af9t2"></td>
+					         <td id="af10t1"></td><td id="af10t2"></td><td id="af10t3"></td>
+					         <td rowspan="2">총점수2</td>
+					      </tr>
+					      <tr>
+					         <td colspan="2" id="af1s"></td>
+					         <td colspan="2" id="af2s"></td>
+					         <td colspan="2" id="af3s"></td>
+					         <td colspan="2" id="af4s"></td>
+					         <td colspan="2" id="af5s"></td>
+					         <td colspan="2" id="af6s"></td>
+					         <td colspan="2" id="af7s"></td>
+					         <td colspan="2" id="af8s"></td>
+					         <td colspan="2" id="af9s"></td>
+					         <td colspan="3" id="af10s"></td>
+					      </tr>
+					   </table>
 					</div>
 					<br>
 					<table border="1">
@@ -414,7 +446,7 @@
 		};
 		
 		// 경기 시작 전 데이터 입력 폼 비활성화
-		$("#addPin").hide();
+		//$("#addPin").hide();
 
 		// game 테이블에 경기 데이터를 입력하기 위해 데이터 출력하는 함수 실행
 		setGame();
