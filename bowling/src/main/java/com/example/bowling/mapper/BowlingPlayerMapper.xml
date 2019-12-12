@@ -3,7 +3,98 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.example.bowling.mapper.BowlingPlayerMapper">
-  	<!-- 개인랭킹  -->
+  	
+  	<!-- playerRecord 선수 한명의 상세정보를 출력하는 Mapper -->
+  	<select id="selectTeamPlayerOne" parameterType="com.example.bowling.vo.PlayerRecord"
+  									 resultType="com.example.bowling.vo.PlayerRecord">
+		SELECT p.player_name as playerName,
+			p.player_gender as gender,
+			pl.matchGame as matchGame,
+			pl.win as win,
+			pl.draw as draw,
+			pl.lose as lose,
+			pl.winRate as winRate,
+			pl.scoreAvg as scoreAvg,
+			pl.strikeAvg as strikeAvg
+			FROM team_player_contract tpc
+			INNER JOIN player p
+			INNER JOIN (
+			select 
+					ss.player_no 'player_no',
+					count(*) 'matchGame', 
+			      sum(case 
+			         when gr.team_result = 'win'
+			         then 1
+			         else 0
+			      end) 'win',
+			      sum(case 
+			         when gr.team_result = 'draw'
+			         then 1
+			         else 0
+			      end) 'draw',
+			      sum(case 
+			         when gr.team_result = 'lose'
+			         then 1
+			         else 0
+			      end) 'lose',
+			      round(sum(case 
+			         when gr.team_result = 'win'
+			         then 1
+			         else 0
+			      end)/count(*)*100) 'winRate',
+			      round(avg(gr.team_score)) 'scoreAvg',
+			      ss.strike 'strikeAvg'
+			from(select game_no, hplayer_no as player_no, hteam_score as team_score, hteam_result as team_result
+			      from game_result
+			      union all
+			      select game_no, aplayer_no as player_no, ateam_score as team_score, ateam_result as team_result
+			      from game_result) gr
+			INNER JOIN player p
+			INNER JOIN       (
+			         SELECT b.game_no, b.player_no,
+			               sum(case
+			                  when ballevent = 'strike'
+			                  then 1
+			                  ELSE 0
+			               END) AS strike
+			         FROM (SELECT game_no, player_no, frame, turn, pin1+pin2+pin3+pin4+pin5+pin6+pin7+pin8+pin9+pin10 AS pinsum,
+			               (case
+			                  when turn = 1
+			                  then case
+			                         when pin1+pin2+pin3+pin4+pin5+pin6+pin7+pin8+pin9+pin10 = 10
+			                         then 'strike'
+			                  ELSE 0
+			                  end
+			               END) AS ballevent
+			               from game_player
+			               ORDER BY game_no, player_no, frame, turn) b
+			         GROUP BY b.player_no 
+			      )ss
+			ON gr.player_no = p.player_no AND gr.player_no = ss.player_no
+			group by p.player_no
+			HAVING p.player_no = #{playerNo}
+			)pl
+			ON p.player_no = tpc.player_no AND pl.player_no = p.player_no
+  	</select>
+  	
+  	<!-- playerRecord 팀에 소속된 선수들을 출력하는 Mapper -->
+  	<select id="selectTeamPlayer" parameterType="com.example.bowling.vo.Team"
+  								  resultType="com.example.bowling.vo.PlayerRecord">
+  	SELECT
+		tpc.team_name as teamName,
+		p.player_name as playerName,
+		p.player_gender as gender
+	FROM
+		team_player_contract as tpc
+		INNER JOIN
+			player as p
+		ON
+			p.player_no = tpc.player_no
+		WHERE tpc.team_name = #{teamName}
+  	
+  	</select>
+  	
+  	<!-- playerRanking 선수의 순위를 출력하는 Mapper  -->
   	<select id="selectPlayerRanking" parameterType="com.example.bowling.vo.PlayerRecord"
   				 					 resultType="com.example.bowling.vo.PlayerRecord">
 	  	select
