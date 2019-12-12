@@ -202,6 +202,32 @@
 					// console.log("addGamePlayer 요청 확인!");
 				}
 			});
+			
+			if(turn == 1 && pinSum == 10 && frame != 10) {
+				$.ajax({
+					url:"/addGamePlayer",
+					method:"POST",
+					data:{"gameNo": gameNo,
+						  "playerNo":$("#getHomeTeamPlayer").val(),
+						  "frame":frame,
+						  "turn":2,
+						  "pin1":0,
+						  "pin2":0,
+						  "pin3":0,
+						  "pin4":0,
+						  "pin5":0,
+						  "pin6":0,
+						  "pin7":0,
+						  "pin8":0,
+						  "pin9":0,
+						  "pin10":0
+						 },
+					success:function(){
+						// console.log("addGamePlayer 요청 확인!");
+						console.log("1회차 스트라이크, 2회차 0 데이터 전송");
+					}
+				});
+			}
 		}else{
 			$.ajax({
 				url:"/addGamePlayer",
@@ -225,6 +251,32 @@
 					 // console.log("addGamePlayer 요청 확인!");
 				 }
 			});
+			
+			if(turn == 1 && pinSum == 10 && frame != 10) {
+				$.ajax({
+					url:"/addGamePlayer",
+					method:"POST",
+					data:{"gameNo": gameNo,
+						  "playerNo":$("#getAwayTeamPlayer").val(),
+						  "frame":frame,
+						  "turn":2,
+						  "pin1":0,
+						  "pin2":0,
+						  "pin3":0,
+						  "pin4":0,
+						  "pin5":0,
+						  "pin6":0,
+						  "pin7":0,
+						  "pin8":0,
+						  "pin9":0,
+						  "pin10":0
+						 },
+					success:function(){
+						// console.log("addGamePlayer 요청 확인!");
+						console.log("1회차 스트라이크, 2회차 0 데이터 전송");
+					}
+				});
+			}
 		}
 		
 		
@@ -467,55 +519,99 @@
 		
 		// 점수 계산 후 재 출력
 		if(player == 1){
+			// 이전 프레임의 점수가 10 일 경우
 			if($(prevHomeScore).text() == 10) {
+				// 플레이 정보 확인
+				console.log("player, frame, turn, pinSum", player, frame, turn, pinSum);
 				// 스트라이크 분기
 				if($(prevHomeFTurn).text() == 10) {
-					// 스트라이크
+					// 연속 스트라이크 (연속 스트라이크를 쳤을시 바로 전 프레임 점수에 현재 프레임의 첫번째 턴의 값을 더함)
 					if($(homeFTurn).text() == 10){
 						$(prevHomeScore).text(parseInt($(prevHomeScore).text())+parseInt($(homeFTurn).text()));
 						console.log("연속 스트라이크를 쳤을 경우 : ");
 					}
+					// 그냥 스트라이크 (그냥 스트라이크를 쳤을시 바로 전 프레임 점수에 현재 프레임의 총 점수를 더함)
 					if($(homeFTurn).text() != 10 && turn == 2){
 						$(prevHomeScore).text(parseInt($(prevHomeScore).text())+parseInt($(homeScore).text()));
 						console.log("그냥 스트라이크를 쳤을 경우 : ");
 					}
-					// 터키
+					// 터키 (이이전 프레임의 점수가 10 일 경우 이이전 프레임의 점수에 이전 프레임의 점수와 현재 프레임의 첫번째턴의 값을 더함)
 					if($(previousHomeFTurn).text() == 10) {
 						$(previousHomeScore).text(parseInt($(prevHomeScore).text())+parseInt($(homeFTurn).text()));
-						console.log("터키 : ");
+						console.log("터키");
 					}
 				}
-				console.log($(homeFTurn).text(), $(homeSTurn).text());
-				/*// 10 프레임 터키
-				if(turn == 2 && $(homeFTurn).text() == 10 && $(homeSTurn).text() == 10) {
-					console.log("10프레임 터키 확인");
-					$(prevHomeScore).text(parseInt($(prevHomeScore).text())+parseInt($(homeSTurn).text()));
-				}*/
-				// 스페어
+				
+				// 스페어 (이전 프레임의 첫번째턴의 값이 10이 아닌경우 이전 프레임의 점수에 현재 프레임의 첫번째 턴의 값을 더함)
 				if($(prevHomeFTurn).text() != 10) {
-					console.log("홈 스페어");
+					console.log("스페어");
 					$(prevHomeScore).text(parseInt($(prevHomeScore).text())+parseInt($(homeFTurn).text()));
 				}
 			}
+			// 10 프레임 터키 (9 프레임 점수가 20이고 10 프레임 두번째턴이 시작될때 9 프레임 점수에 10 프레임 두번째턴의 값을 더함)
+			if($(prevHomeScore).text() == 20 && turn == 2 && frame == 10) {
+				console.log("10프레임 터키 확인");
+				$(prevHomeScore).text(parseInt($(prevHomeScore).text())+parseInt($(homeSTurn).text()));
+			}
 		}
 		if(player == 2) {
-			console.log(prevFrame);
+			// 이전 프레임의 점수가 10 일 경우
 			if($(prevAwayScore).text() == 10) {
-				if($(prevAwayFTurn).text() == 10 && turn == 2) {
-					console.log("어웨이 스트라이크 분기");
-					if($(previousAwayFTurn).text() == 10) {
-						console.log("어웨이 터키");
-						$(prevAwayScore).text(parseInt($(previousAwayScore).text())+parseInt($(prevAwayScore).text())+parseInt($(AwayFTurn).text()));
-					} else {
-						$(prevAwayScore).text(parseInt($(prevAwayScore).text())+parseInt($(awayScore).text()));
+				// 플레이 정보 확인
+				console.log("player, frame, turn, pinSum", player, frame, turn, pinSum);
+				// 스트라이크 분기
+				if($(prevAwayFTurn).text() == 10) {
+					// 연속 스트라이크 (연속 스트라이크를 쳤을시 바로 전 프레임 점수에 현재 프레임의 첫번째 턴의 값을 더함)
+					if($(awayFTurn).text() == 10){
+						$(prevAwayScore).text(parseInt($(prevAwayScore).text())+parseInt($(awayFTurn).text()));
+						console.log("연속 스트라이크를 쳤을 경우 : ");
 					}
-				} 
+					// 그냥 스트라이크 (그냥 스트라이크를 쳤을시 바로 전 프레임 점수에 현재 프레임의 총 점수를 더함)
+					if($(awayFTurn).text() != 10 && turn == 2){
+						$(prevAwayScore).text(parseInt($(prevAwayScore).text())+parseInt($(awayScore).text()));
+						console.log("그냥 스트라이크를 쳤을 경우 : ");
+					}
+					// 터키 (이이전 프레임의 점수가 10 일 경우 이이전 프레임의 점수에 이전 프레임의 점수와 현재 프레임의 첫번째턴의 값을 더함)
+					if($(previousAwayFTurn).text() == 10) {
+						$(previousAwayScore).text(parseInt($(prevAwayScore).text())+parseInt($(awayFTurn).text()));
+						console.log("터키");
+					}
+				}
+				
+				// 스페어 (이전 프레임의 첫번째턴의 값이 10이 아닌경우 이전 프레임의 점수에 현재 프레임의 첫번째 턴의 값을 더함)
 				if($(prevAwayFTurn).text() != 10) {
-					console.log("어웨이 스페어 분기");
+					console.log("스페어");
 					$(prevAwayScore).text(parseInt($(prevAwayScore).text())+parseInt($(awayFTurn).text()));
 				}
 			}
+			// 10 프레임 터키 (9 프레임 점수가 20이고 10 프레임 두번째턴이 시작될때 9 프레임 점수에 10 프레임 두번째턴의 값을 더함)
+			if($(prevAwayScore).text() == 20 && turn == 2 && frame == 10) {
+				console.log("10프레임 터키 확인");
+				$(prevAwayScore).text(parseInt($(prevAwayScore).text())+parseInt($(awaySTurn).text()));
+			}
 		}
+		// 홈과 어웨이 스코어 합을 받을 변수
+		let homeScoreSum = 0;
+		let awayScoreSum = 0;
+		
+		// 홈과 어웨이 각각의 총 점수 적용
+		$(".hfs").each(function(){
+			if($(this).text().length != 0) {
+				homeScoreSum += parseInt($(this).text());
+				console.log("each homeScoreSum : ", homeScoreSum);
+			}
+		});
+		
+		$(".afs").each(function(){
+			if($(this).text().length != 0) {
+				awayScoreSum += parseInt($(this).text());
+				console.log("each awayScoreSum : ", awayScoreSum);
+			}
+		});
+		
+		$("#homeScoreSum").text(parseInt(homeScoreSum));
+		$("#awayScoreSum").text(parseInt(awayScoreSum));
+		
 	}
 // ### 경기 데이터 입력 END ############################################################################################################	
 	

@@ -217,7 +217,7 @@
 			</select>
 			<button type="button" id="selectRankingBtn">조회하기</button>
 			</div>
-			<table border="1" id = "ranking">
+			<table border="1" class = "table">
 				<thead>
 					<tr>
 						<th>
@@ -338,35 +338,34 @@
 </body>
 <script>
 	$(document).ready(function() {
-		$("#ranking").hide();
+		$(".table").hide();
 		
 		$("#selectRankingBtn").click(function(){
 			console.log("버튼 클릭");
 			// 선택박스에서 선택된 값들에 따라 검색 결과가 달라진다.
 			// 개인 랭킹을 불러오는 ajax
-		$.ajax({
-			url:"/playerRecord",
-			method:"POST",
-			data:{"gender":$("#gender").val(),
-				  "column":$("#selectRanking option:selected").val()
-				 },
-			success:function(json){
-				console.log($("#selectRanking option:selected").val());
-				$("#selectPlayerRanking").empty();
-				$(json).each(function(index, item){
-						console.log("json",json);
-						temp = "<tr><td>"+item.rank+"</td>";
-						temp += "<td>"+item.playerName+"</td> <td>"+item.gender+"</td> <td>"+item.matchGame+"</td>";
-						temp += "<td>"+item.win+"</td> <td>"+item.draw+"</td> <td>"+item.lose+"</td>";
-						temp += "<td>"+item.winRate+"</td> <td>"+item.scoreAvg+"</td> <td>"+item.strikeAvg+"</td>";
-						temp += "<td>"+item.spareAvg+"</td></tr>";
-						$("#selectPlayerRanking").append(temp);
-				});
-					
-			}
+			$.ajax({
+				url:"/playerRecord",
+				method:"POST",
+				data:{"gender":$("#gender").val(),
+					  "column":$("#selectRanking option:selected").val()
+					 },
+				success:function(json){
+					console.log($("#selectRanking option:selected").val());
+					$("#selectPlayerRanking").empty();
+					$(json).each(function(index, item){
+							console.log("json",json);
+							temp = "<tr><td>"+item.rank+"</td>";
+							temp += "<td>"+item.playerName+"</td> <td>"+item.gender+"</td> <td>"+item.matchGame+"</td>";
+							temp += "<td>"+item.win+"</td> <td>"+item.draw+"</td> <td>"+item.lose+"</td>";
+							temp += "<td>"+item.winRate+"</td> <td>"+item.scoreAvg+"</td> <td>"+item.strikeAvg+"</td>";
+							temp += "<td>"+item.spareAvg+"</td></tr>";
+							$("#selectPlayerRanking").append(temp);
+					});
+					$(".table").show();
+				}
+			});
 			
-		});
-			$("#ranking").show();
 		});
 	});
 </script>

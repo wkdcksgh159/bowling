@@ -53,35 +53,12 @@
 		      t2.score AS ateamScore, t2.player_no as aplayerNo, t2.team_name AS ateamName
 		FROM (SELECT t.game_no, tpc.team_name, t.player_no, t.score
 		      FROM (SELECT s.game_no, s.player_no, SUM(s.score) AS score
-		            FROM (SELECT p.game_no, p.player_no, p.frame, p.pturn,
-		                        (case
-		                           when p.pturn = 'point' and p.pinSum = 10 AND p.frame != 10
-		                           then (case 
-		                                    when LAG(p.pinSum) over(ORDER BY p.player_no, p.frame, p.pturn) = 0 
-		                                    then (case
-		                                             when LEAD(p.pinSum, 3) over(ORDER BY p.player_no, p.frame, p.pturn) = 10 and 
-		                                                  LEAD(p.pinSum, 2) over(ORDER BY p.player_no, p.frame, p.pturn) = 0
-		                                             then p.pinSum + LEAD(p.pinSum, 3) over(ORDER BY p.player_no, p.frame, p.pturn) + LEAD(p.pinSum, 4) over(ORDER BY p.player_no, p.frame, p.pturn)
-		                                             else p.pinSum + LEAD(p.pinSum, 3) over(ORDER BY p.player_no, p.frame, p.pturn)
-		                                          end)
-		                                    ELSE p.pinSum + LEAD(p.pinSum, 1) over(ORDER BY p.player_no, p.frame, p.pturn)
-		                                  END)
-		                           ELSE p.pinSum
-		                        END) 'score'
-		                        FROM (SELECT game_no, player_no, frame, ifnull(turn, 'point') AS pturn, sum(pin1+pin2+pin3+pin4+pin5+pin6+pin7+pin8+pin9+pin10) AS pinSum
-		                              FROM game_player
-		                              WHERE game_no = #{gameNo}
-		                              GROUP BY player_no, frame, turn WITH rollup) p
-		                        WHERE p.frame IS NOT NULL AND p.frame != 10 OR p.frame = 10 AND p.pturn != 'point') s
-		            WHERE s.pturn = 'point' AND s.frame != 10 OR s.frame = 10
-		            GROUP BY player_no) t
-		      INNER JOIN team_player_contract tpc ON t.player_no = tpc.player_no) t1
-		INNER JOIN (SELECT t.game_no, tpc.team_name, t.player_no, t.score
-		            FROM (SELECT s.game_no, s.player_no, SUM(s.score) AS score
 		                  FROM (SELECT p.game_no, p.player_no, p.frame, p.pturn,
 		                              (case
 		                                 when p.pturn = 'point' and p.pinSum = 10 AND p.frame != 10
 		                                 then (case 
+		                                 			when LEAD(p.pinSum) over(ORDER BY p.player_no, p.frame, p.pturn) = 10 and LEAD(p.pinSum, 2) over(ORDER BY p.player_no, p.frame, p.pturn) = 10
+		                                          then p.pinSum + LEAD(p.pinSum) over(ORDER BY p.player_no, p.frame, p.pturn) + LEAD(p.pinSum, 2) over(ORDER BY p.player_no, p.frame, p.pturn)
 		                                          when LAG(p.pinSum) over(ORDER BY p.player_no, p.frame, p.pturn) = 0 
 		                                          then (case
 		                                                   when LEAD(p.pinSum, 3) over(ORDER BY p.player_no, p.frame, p.pturn) = 10 and 
@@ -89,7 +66,34 @@
 		                                                   then p.pinSum + LEAD(p.pinSum, 3) over(ORDER BY p.player_no, p.frame, p.pturn) + LEAD(p.pinSum, 4) over(ORDER BY p.player_no, p.frame, p.pturn)
 		                                                   else p.pinSum + LEAD(p.pinSum, 3) over(ORDER BY p.player_no, p.frame, p.pturn)
 		                                                end)
-		                                          ELSE p.pinSum + LEAD(p.pinSum, 1) over(ORDER BY p.player_no, p.frame, p.pturn)
+		                                          else p.pinSum
+		                                        END)
+		                                 ELSE p.pinSum
+		                              END) 'score'
+		                        FROM (SELECT game_no, player_no, frame, ifnull(turn, 'point') AS pturn, sum(pin1+pin2+pin3+pin4+pin5+pin6+pin7+pin8+pin9+pin10) AS pinSum
+		                              FROM game_player
+		                              WHERE game_no = #{gameNo}
+		                              GROUP BY player_no, frame, turn WITH rollup) p
+		                        WHERE p.frame IS NOT NULL AND p.frame != 10 OR p.frame = 10 AND p.pturn != 'point') s
+		                  WHERE s.pturn = 'point' AND s.frame != 10 OR s.frame = 10
+		                  GROUP BY s.player_no) t
+		      INNER JOIN team_player_contract tpc ON t.player_no = tpc.player_no) t1
+		INNER JOIN (SELECT t.game_no, tpc.team_name, t.player_no, t.score
+		            FROM (SELECT s.game_no, s.player_no, SUM(s.score) AS score
+		                  FROM (SELECT p.game_no, p.player_no, p.frame, p.pturn,
+		                              (case
+		                                 when p.pturn = 'point' and p.pinSum = 10 AND p.frame != 10
+		                                 then (case 
+		                                 			when LEAD(p.pinSum) over(ORDER BY p.player_no, p.frame, p.pturn) = 10 and LEAD(p.pinSum, 2) over(ORDER BY p.player_no, p.frame, p.pturn) = 10
+		                                          then p.pinSum + LEAD(p.pinSum) over(ORDER BY p.player_no, p.frame, p.pturn) + LEAD(p.pinSum, 2) over(ORDER BY p.player_no, p.frame, p.pturn)
+		                                          when LAG(p.pinSum) over(ORDER BY p.player_no, p.frame, p.pturn) = 0 
+		                                          then (case
+		                                                   when LEAD(p.pinSum, 3) over(ORDER BY p.player_no, p.frame, p.pturn) = 10 and 
+		                                                        LEAD(p.pinSum, 2) over(ORDER BY p.player_no, p.frame, p.pturn) = 0
+		                                                   then p.pinSum + LEAD(p.pinSum, 3) over(ORDER BY p.player_no, p.frame, p.pturn) + LEAD(p.pinSum, 4) over(ORDER BY p.player_no, p.frame, p.pturn)
+		                                                   else p.pinSum + LEAD(p.pinSum, 3) over(ORDER BY p.player_no, p.frame, p.pturn)
+		                                                end)
+		                                          else p.pinSum
 		                                        END)
 		                                 ELSE p.pinSum
 		                              END) 'score'
