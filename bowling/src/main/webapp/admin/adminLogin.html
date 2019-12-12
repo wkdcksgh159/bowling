@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>admin user login</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+	<!-- 관리자 로그인 -->
+	<h2>관리자 로그인</h2>
+		<form action="adminForm" method = "Post">
+			<table border = '1'>
+				<tr>
+					<td>admin Id :</td>
+					<td><input type  = "text" name = "adminId" id = "adminId"></td>
+				</tr>
+				<tr>
+					<td>admin pw :</td>
+					<td><input type  = "password" name = "adminPw" id = "adminPw"></td>
+				</tr>
+				<tr>
+					<td><button type = "button" id = "loginBtn">로그인</button></td>
+				</tr>
+			</table>
+		</form>
+
+</body>
+<script>
+	// 로그인 
+	$(document).ready(function(){
+		$("#loginBtn").click(function(){
+			let adminId = $("#adminId").val();
+			let adminPw = $("#adminPw").val();
+			// 아이디 미 입력시
+			if(adminId == ""){
+				alert("아이디를 입력하세요");
+				$("#adminId").focus(); // 입력 포커스
+				return;
+			}
+			// 비밀번호 미 입력시
+			if(adminPw == ""){
+				alert("비밀번호를 입력하세요");
+				$("adminPw").focus();
+				return;
+			}
+				// 요청
+				$.ajax({
+					url:"/adminLogin",
+					method:"POST",
+					data:{"adminId" : "adminId", "adminPw" : "adminPw"},
+					success:function(json){
+						console.log("자바스크립트 확인코드",json);
+						// 로그인시 넘어가는 페이지
+						$(location).attr('href', "/admin/HelloAdmin.html");
+					}
+				});
+
+		});
+	});
+</script>
+</html>

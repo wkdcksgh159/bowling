@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>관리자 메뉴</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+	<h2>hello admin!</h2>
+		<div>어서오세요 관리자님!</div>
+		<button type = "button" id = "adminLogout">logout</button>
+		<a href = "/index.html">홈으로 이동</a>
+		<a href = "/admin/news.html">기사 관리</a>
+</body>
+<script>
+	$(document).ready(function(){
+		// 로그인 하지 않으면 볼수 없다
+		//if (session.getAttribute("adminId") == null) {
+	      //  response.sendRedirect("/admin/adminlogin.html");
+	    //}
+		$.ajax({
+			url:"/adminLogout",
+			method:"POST",
+			data:{"adminId" : "adminId", "adminPw" : "adminPw"},
+			success:function(json){
+				console.log("자바스크립트 확인코드");
+					$("#adminLogout").click(function(){
+						alert("로그아웃!");
+						self.location = "/index.html";
+						console.log("logout");
+						});
+					}
+			});
+	});
+</script>
+</html>
