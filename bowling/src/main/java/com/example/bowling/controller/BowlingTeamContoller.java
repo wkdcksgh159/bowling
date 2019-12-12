@@ -15,6 +15,24 @@ public class BowlingTeamContoller {
 	@Autowired
 	private BowlingTeamService bowlingTeamService;
 
+	// 해당 팀의 각 핀을 쓰러트린 평균을 가져오는 controller
+	@PostMapping("/getTeamPinAvgChart")
+	public List<TeamChart> getTeamPinAvgChart(String teamName) {
+		System.out.println("bowilng controller getTeamPinAvgChart -----------------------------");
+		List<TeamChart> list = bowlingTeamService.getTeamPinAvgChart(teamName);
+		System.out.println("list :"+ list);
+		return list;
+	}
+	
+	// 해당 팀의 평균 승률을 가져오는 controller
+	@PostMapping("/getTeamWinChart")
+	public List<TeamChart> getTeamWinChart(String teamName) {
+		System.out.println("bowilng controller getTeamWinChart -----------------------------");
+		List<TeamChart> list = bowlingTeamService.getTeamWinChart(teamName);
+		System.out.println("list :"+ list);
+		return list;
+	}
+	
 	// 해당 팀의 평균 스트라이크 횟수를 가져오는 controller
 	@PostMapping("/getTeamStrikeChart")
 	public List<TeamChart> getTeamStrikeChart(String teamName) {

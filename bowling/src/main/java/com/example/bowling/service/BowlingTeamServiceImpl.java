@@ -17,6 +17,20 @@ public class BowlingTeamServiceImpl implements BowlingTeamService {
 	@Autowired
 	private BowlingTeamMapper bowlingTeamMapper;
 	
+	// 해당 팀의 각 핀을 쓰러트린 평균을 가져오는 serviceImpl
+	@Override
+	public List<TeamChart> getTeamPinAvgChart(String teamName) {
+		System.out.println("bowilng serviceImpl getTeamPinAvgChart -----------------------------");
+		return bowlingTeamMapper.selectTeamPinAvgChart(teamName);
+	}
+	
+	// 해당 팀의 승률 가져오는 serviceImpl
+	@Override
+	public List<TeamChart> getTeamWinChart(String teamName) {
+		System.out.println("bowilng serviceImpl getTeamWinChart -----------------------------");
+		return bowlingTeamMapper.selectTeamWinChart(teamName);
+	}
+	
 	// 해당 팀의 평균 스트라이크 횟수를 가져오는 serviceImpl
 	@Override
 	public List<TeamChart> getTeamStrikeChart(String teamName) {

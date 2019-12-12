@@ -1,10 +1,31 @@
 <!doctype html>
 <html class="no-js" lang="en">
-
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Index</title>
+<title>Team Report</title>
+<style>
+	#getTeam {
+		position:relative;
+		right:10px;
+	}
+	
+	#strikeAvgChart{
+		display:inline-block;
+	}
+	
+	#pinAvgChart{
+		position:relative;
+		left:150px;
+		display:inline-block;
+	}
+	
+	#winChart{
+		position:relative;
+		left:300px;
+		display:inline-block;
+	}
+</style>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- favicon
@@ -64,11 +85,15 @@
 <link rel="stylesheet" href="/css/responsive.css">
 <!-- modernizr JS
 		============================================ -->
-<script src="js/vendor/modernizr-2.8.3.min.js"></script>
+<link rel="stylesheet" href="/css/data-table/bootstrap-table.css">
+<link rel="stylesheet" href="/css/data-table/bootstrap-editable.css">
+
+<script src="/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
 <body>
-	<!-- Start Left menu area -->
+
+	<!-- ### Left Menu Start 건드리지 마세요 ################################################################################################################################################################# -->
 	<div class="left-sidebar-pro">
 		<nav id="sidebar" class="">
 			<div class="sidebar-header">
@@ -85,33 +110,33 @@
 						</a></li>
 						
 						 <li>
-                            <a href="/all-courses.html" aria-expanded="false"><span class="educate-icon educate-library icon-wrap"></span> <span class="mini-click-non">뉴스</span></a>
+                            <a href="/news.html" aria-expanded="false"><span class="educate-icon educate-library icon-wrap"></span> <span class="mini-click-non">뉴스</span></a>
                         </li>
 						
 						<li>
-                            <a class="has-arrow" href="/mailbox.html" aria-expanded="false"><span class="educate-icon educate-data-table icon-wrap"></span> <span class="mini-click-non">정보</span></a>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-data-table icon-wrap"></span> <span class="mini-click-non">정보</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="Peity Charts" href="/static-table.html"><span class="mini-sub-pro">팀정보</span></a></li>
-                                <li><a title="Data Table" href="/data-table.html"><span class="mini-sub-pro">선수정보</span></a></li>
+                                <li><a title="Peity Charts" href="/teamInformation.html"><span class="mini-sub-pro">팀정보</span></a></li>
+                                <li><a title="Data Table" href="/playerInformation.html"><span class="mini-sub-pro">선수정보</span></a></li>
                             </ul>
                         </li>
 						
 						<li>
                             <a class="has-arrow" href="/all-students.html" aria-expanded="false"><span class="educate-icon educate-student icon-wrap"></span> <span class="mini-click-non">기록/순위</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Students" href="/all-students.html"><span class="mini-sub-pro">팀 기록</span></a></li>
-                                <li><a title="Add Students" href="/add-student.html"><span class="mini-sub-pro">팀 순위</span></a></li>
-                                <li><a title="Edit Students" href="/edit-student.html"><span class="mini-sub-pro">선수 기록</span></a></li>
-                                <li><a title="Students Profile" href="/student-profile.html"><span class="mini-sub-pro">선수 순위</span></a></li>
+                                <li><a title="All Students" href="/teamReport.html"><span class="mini-sub-pro">팀 기록</span></a></li>
+                                <li><a title="Add Students" href="/teamRanking.html"><span class="mini-sub-pro">팀 순위</span></a></li>
+                                <li><a title="Edit Students" href="/playerReport.html"><span class="mini-sub-pro">선수 기록</span></a></li>
+                                <li><a title="Students Profile" href="/playerRanking.html"><span class="mini-sub-pro">선수 순위</span></a></li>
                             </ul>
                         </li>
 						
 						<li>
-                            <a href="/events.html" aria-expanded="false"><span class="educate-icon educate-event icon-wrap sub-icon-mg" aria-hidden="true"></span> <span class="mini-click-non">일정/결과</span></a>
+                            <a href="/schedule.html" aria-expanded="false"><span class="educate-icon educate-event icon-wrap sub-icon-mg" aria-hidden="true"></span> <span class="mini-click-non">일정/결과</span></a>
                         </li>
 						
 						<li>
-                            <a  href="/mailbox.html" aria-expanded="false"><span class="educate-icon educate-charts icon-wrap"></span> <span class="mini-click-non">통계</span></a>
+                            <a  href="/stat.html" aria-expanded="false"><span class="educate-icon educate-charts icon-wrap"></span> <span class="mini-click-non">통계</span></a>
                         </li>
 
 					</ul>
@@ -119,122 +144,234 @@
 			</div>
 		</nav>
 	</div>
-	<!-- End Left menu area -->
-	<!-- Start Welcome area -->
-	<div class="all-content-wrapper">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="logo-pro">
-						<a href="/index.html"><img class="main-logo"
-							src="/img/logo/logo.png" alt="" /></a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="header-advance-area">
-			<div class="header-top-area">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							<div class="header-top-wraper">
-								<div class="row">
-
-									<div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
-										<div class="header-top-menu tabl-d-n">
-											<ul class="nav navbar-nav mai-top-nav">
-												<li class="nav-item"><a href="#" class="nav-link">뉴스</a>
-												</li>
-												
-												<li class="nav-item dropdown res-dis-nn">
-                                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">정보 <span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
+	<!-- ### Left Menu END 건드리지 마세요 ################################################################################################################################################################# -->
+	
+	<!-- ### Top Menu Start 여기부터 건드리지 마세요 ########################################################################################################################################################################### -->
+    <div class="all-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="logo-pro">
+                        <a href="/index.html"><img class="main-logo" src="/img/logo/logo.png" alt="" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-advance-area">
+            <div class="header-top-area">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="header-top-wraper">
+                                <div class="row">
+                                    <div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
+                                        <div class="menu-switcher-pro">
+                                            <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+													<i class="educate-icon educate-nav"></i>
+												</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
+                                        <div class="header-top-menu tabl-d-n">
+                                            <ul class="nav navbar-nav mai-top-nav">
+                                                <li class="nav-item"><a href="/index.html" class="nav-link">Home</a>
+                                                </li>
+                                                <li class="nav-item"><a href="/news.html" class="nav-link">News</a>
+                                                </li>
+                                                <li class="nav-item dropdown res-dis-nn">
+                                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">Information <span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
                                                     <div role="menu" class="dropdown-menu animated zoomIn">
-                                                        <a href="#" class="dropdown-item">팀 정보</a>
-                                                        <a href="#" class="dropdown-item">선수 정보</a>
+                                                        <a href="/teamInformation.html" class="dropdown-item">Team Information</a>
+                                                        <a href="/playerInformation.html" class="dropdown-item">Player Information</a>
                                                     </div>
                                                 </li>
-												
-												<li class="nav-item dropdown res-dis-nn">
-                                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">기록/순위 <span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
+                                                <li class="nav-item dropdown res-dis-nn">
+                                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">Report & Ranking<span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
                                                     <div role="menu" class="dropdown-menu animated zoomIn">
-                                                        <a href="#" class="dropdown-item">팀 기록</a>
-                                                        <a href="#" class="dropdown-item">팀 순위</a>
-                                                        <a href="#" class="dropdown-item">선수 기록</a>
-                                                        <a href="#" class="dropdown-item">선수 순위</a>
+                                                        <a href="/teamReport.html" class="dropdown-item">Team Report</a>
+                                                        <a href="/playerReport.html" class="dropdown-item">Player Report</a>
+                                                        <a href="/teamRanking.html" class="dropdown-item">Team Ranking</a>
+                                                        <a href="/playerRanking.html" class="dropdown-item">Player Ranking</a>
                                                     </div>
                                                 </li>
-												<li class="nav-item"><a href="#" class="nav-link">일정/결과</a>
-												
-												<li class="nav-item"><a href="#" class="nav-link">통계</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-									<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-										<div class="header-right-info">
-											<ul class="nav navbar-nav mai-top-nav header-right-menu">
-												<li class="nav-item"><a href="#" aria-expanded="false"
-													class="nav-link dropdown-toggle"> <span
-														class="admin-name">Prof.Anderson</span>
-												</a></li>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- 화면에서 나오는 페이지 -->
-		<div>
-			<h1>팀 기록</h1>
-			<!-- 팀 명단 -> 선택 -> 선택한 팀 기록(팀 이름, 평균 점수, 승률, 경기 수, 승, 무, 패) -->
-			<select id="getTeam">
-				<option value="0">팀 선택</option>
-			</select>
-			<button id="getTeamBtn">팀 선택</button>
-			<br>
-			<hr>
-			<!-- 해당 팀의 기록 -->
-			<div id="report">
-				<table border="1">
-					<thead>
-						<tr>
-							<th>팀 이름</th>
-							<th>경기 수</th>
-							<th>전체 점수</th>
-							<th>평균 점수</th>
-							<th>승률</th>
-							<th>승</th>
-							<th>무</th>
-							<th>패</th>
-						</tr>
-					</thead>
-					<tbody id="teamReport">
-						
-					</tbody>
-				</table>
-			</div>
-		</div>
-
-		<div class="footer-copyright-area">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="footer-copy-right">
-							<p>
-								Copyright © 2018. All rights reserved. Template by <a
-									href="https://colorlib.com/wp/templates/">Colorlib</a>
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                                                <li class="nav-item"><a href="/schedule.html" class="nav-link">Schedule</a>
+                                                </li>
+                                                <li class="nav-item"><a href="/.html" class="nav-link">Stat</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                                        <div class="header-right-info">
+                                            <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                                <li class="nav-item dropdown">
+                                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="educate-icon educate-message edu-chat-pro" aria-hidden="true"></i><span class="indicator-ms"></span></a>
+                                                    <div role="menu" class="author-message-top dropdown-menu animated zoomIn">
+                                                        <div class="message-single-top">
+                                                            <h1>Message</h1>
+                                                        </div>
+                                                        <ul class="message-menu">
+                                                            <li>
+                                                                <a href="#">
+                                                                    <div class="message-img">
+                                                                        <img src="img/contact/1.jpg" alt="">
+                                                                    </div>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="message-view">
+                                                            <a href="#">수신받은 메세지가 없습니다</a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="educate-icon educate-bell" aria-hidden="true"></i><span class="indicator-nt"></span></a>
+                                                    <div role="menu" class="notification-author dropdown-menu animated zoomIn">
+                                                        <div class="notification-single-top">
+                                                            <h1>Notifications</h1>
+                                                        </div>
+                                                        <ul class="notification-menu">
+                                                        </ul>
+                                                        <div class="notification-view">
+                                                            <a href="#">새로운 알림이 없습니다</a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+															<img src="img/product/pro4.jpg" alt="" />
+															<span class="admin-name">My Page</span>
+															<i class="fa fa-angle-down edu-icon edu-down-arrow"></i>
+														</a>
+                                                    <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                        <li><a href="#"><span id="login" class="edu-icon edu-locked author-log-ic"></span>Log In</a>
+                                                        </li>
+                                                        <li><a href="#"><span id="logOut" class="edu-icon edu-locked author-log-ic"></span>Log Out</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="nav-item nav-setting-open"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="educate-icon educate-menu"></i></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+	<!-- ### Top Menu End 여기까지 건드리지 마세요 ########################################################################################################################################################################### -->
+	
+	<!-- ### Content Start 내용 ######################################################################################################################################################################################### -->
+            <div class="breadcome-area">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="breadcome-list single-page-breadcome">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <div class="breadcome-heading">
+                                            <form role="search" class="sr-input-func">
+                                                <div>
+                                                	<h1><span id="getTeamName">팀 기록</span></h1>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <ul class="breadcome-menu">
+                                            <li><a href="#">Home</a> <span class="bread-slash">/</span>
+                                            </li>
+                                            <li><span class="bread-blod" id="getTeamName2">팀 기록</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Static Table Start -->
+        <div class="data-table-area mg-b-15">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="sparkline13-list">
+                            <div class="sparkline13-hd">
+                                <div class="main-sparkline13-hd">
+                                </div>
+                            </div>
+                            <div class="sparkline13-graph">
+                                <div class="datatable-dashv1-list custom-datatable-overright">
+                                    <div id="toolbar">
+                                    	<table>
+                                    		<tr>
+                                    			<td>
+			                                    	<!-- 팀 선택 -->
+			                                        <select id="getTeam" class="form-control dt-tb">
+														<option value="0">팀 선택</option>
+													</select>
+                                    			</td>
+                                    			<td>
+                                    				<button class="btn btn-default" id="getTeamBtn">조회</button>
+                                    			</td>
+                                    		</tr>
+                                    	</table>
+                                    </div>
+                                    <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
+                                        data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                        <thead>
+                                            <tr>
+												<th>팀 이름</th>
+												<th>경기 수</th>
+												<th>전체 점수</th>
+												<th>평균 점수</th>
+												<th>승률</th>
+												<th>승</th>
+												<th>무</th>
+												<th>패</th>
+                                            </tr>
+                                        </thead>
+										<tbody id="teamReport">
+											
+										</tbody>
+                                    </table>
+                                    <br><hr>
+                                    <div id="strikeAvgChart">
+                                    	<!-- 팀의 평균 스트라이크 횟수 그래프 -->
+                                    </div>
+                                    <div id="pinAvgChart">
+                                    	<!-- 팀의 각 핀을 쓰러트린 평균 그래프 -->
+                                    </div>
+                                    <div id="winChart">
+                                    	<!-- 팀의 연차별 승률 성장 그래프 -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ### Content End 내용 ######################################################################################################################################################################################### -->
+        
+        <!-- ### Copyright Start 카피라이터 건드리지마세요 #############################################################################################################################################################################-->
+        <div class="footer-copyright-area">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="footer-copy-right">
+                            <p>Copyright © 2018. All rights reserved. Template by <a href="https://colorlib.com/wp/templates/">Colorlib</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ### Copyright End 카피라이터 건드리지마세요 #############################################################################################################################################################################-->
+   
+    </div>
 
 	<!-- jquery
 		============================================ -->
@@ -294,12 +431,44 @@
 	<!-- main JS
 		============================================ -->
 	<script src="/js/main.js"></script>
+    <!-- data table JS
+		============================================ -->
+    <script src="/js/data-table/bootstrap-table.js"></script>
+    <script src="/js/data-table/tableExport.js"></script>
+    <script src="/js/data-table/data-table-active.js"></script>
+    <script src="/js/data-table/bootstrap-table-editable.js"></script>
+    <script src="/js/data-table/bootstrap-editable.js"></script>
+    <script src="/js/data-table/bootstrap-table-resizable.js"></script>
+    <script src="/js/data-table/colResizable-1.5.source.js"></script>
+    <script src="/js/data-table/bootstrap-table-export.js"></script>
 
 </body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+<canvas id="myChart" width="400" height="400"></canvas>
+<canvas id="myChart2" width="400" height="400"></canvas>
+<canvas id="myChart3" width="400" height="400"></canvas>
+<!-- 차트 -->
 <script>
 	$(document).ready(function(){
+				
+		// 팀의 속한 선수의 이름을 저장할 배열
+		let teamPlayerNameArray = [];
+		// 각 성수의 평균 스트라이크를 저장할 배열
+		let teamStrikeAvgArray = [];
 		
-		$("#report").hide();
+		// 팀의 경기 날짜를 저장할 배열
+		let teamGameDateArray = [];
+		// 팀의 해당 날짜마다의 승률을 저장할 배열
+		let teamWinRateArray = [];
+		
+		// 핀의 배열
+		let pinArray = ["pin1","pin2","pin3","pin4","pin5","pin6","pin7","pin8","pin9","pin10"];
+		// 팀의 각 핀마다의 쓰러트린 평균을 저장할 배열
+		let teamPinAvgArray = [];
+		
+		// 차트 재생성을 위한 변수
+		let returnChart = 0;
 		
 		// 팀 명단 불러오는 함수
 		$.ajax({
@@ -321,9 +490,21 @@
 		// 해당 팀의 기록을 불러오는 함수
 		$("#getTeamBtn").on("click",function(){
 			
+			// 팀 선택시 실행
 			if($("#getTeam").val() != 0){
 				
-				$("#report").show();
+				// 차트를 여러번 호출시 이전 데이터가 지워지지않는 이슈 발생
+				// 변수를 만들어, 처음 버튼을 클릭했을때를 제외하고 다음 클릭 부터 그려져있는 차트를 파괴하고 재 생성 (이슈 해결)
+				if(returnChart != 0){
+					console.log("return chart");
+					myChart.destroy();
+					myChart2.destroy();
+					myChart3.destroy();
+				} else {
+					console.log("first chart");
+					returnChart = 1;
+				}
+				
 				$("#teamReport").empty();
 				
 				// 해당 팀의 기록을 가져오는 함수
@@ -351,15 +532,238 @@
 						temp += json.draw;
 						temp += "</td></tr>";
 						$("#teamReport").append(temp);
+						$("#getTeamName").text($("#getTeam").val()); // 팀 이름 출력
+						$("#getTeamName2").text($("#getTeam").val()); // 팀 이름 출력
 					}
-				});	
+				});
+				
+				// 해당 팀의 평균 스트라이크를 불러오는 함수
+				$.ajax({
+					url:"/getTeamStrikeChart",
+					method:"POST",
+					data:{"teamName":$("#getTeam").val()},
+					success:function(json){
+						 console.log("json : ", json);
+						$(json).each(function(index, item){
+							teamPlayerNameArray[index] = item.playerName;
+							teamStrikeAvgArray[index] = item.avgStrike;
+						});
+						
+						// 차트 그리는 함수에 해당하는 데이터를 저장하여 함수 실행
+						strikeChartDraw(teamPlayerNameArray, teamStrikeAvgArray);
+					}
+				});
+
+				// 해당 팀의 핀 빅데이터를 불러오는 함수
+				$.ajax({
+					url:"/getTeamPinAvgChart",
+					method:"POST",
+					data:{"teamName":$("#getTeam").val()},
+					success:function(json){
+						console.log("json : ", json);
+						
+						teamPinAvgArray[0] = json[0].pin1;
+						teamPinAvgArray[1] = json[0].pin2;
+						teamPinAvgArray[2] = json[0].pin3;
+						teamPinAvgArray[3] = json[0].pin4;
+						teamPinAvgArray[4] = json[0].pin5;
+						teamPinAvgArray[5] = json[0].pin6;
+						teamPinAvgArray[6] = json[0].pin7;
+						teamPinAvgArray[7] = json[0].pin8;
+						teamPinAvgArray[8] = json[0].pin9;
+						teamPinAvgArray[9] = json[0].pin10;
+
+						// 차트 그리는 함수에 해당하는 데이터를 저장하여 함수 실행
+						pinAvgChartDraw(pinArray, teamPinAvgArray);
+					}
+				});
+
+				// 해당 팀의 연차별 승률 성장 그래프를 불러오는 함수
+				$.ajax({
+					url:"/getTeamWinChart",
+					method:"POST",
+					data:{"teamName":$("#getTeam").val()},
+					success:function(json){
+						 console.log("json : ", json);
+						$(json).each(function(index, item){
+							teamGameDateArray[index] = item.gameDate;
+							teamWinRateArray[index] = item.winRate;
+						});
+						
+						// 차트 그리는 함수에 해당하는 데이터를 저장하여 함수 실행
+						winChartDraw(teamGameDateArray, teamWinRateArray);
+					}
+				});
+		
 			} else {
-				// 팀을 선택하지 않은 경우
+				// 팀을 선택하지 않은 경우 경고 메세지 출력
 				alert("팀을 선택해주세요 !");
 			}
-			
+
+		});
+	});
+	
+	// ### 평균 스트라이크 차트 생성 START ###############################################################################################
+	
+	let strikeChartDraw = function(teamPlayerNameArray, teamStrikeAvgArray){
+		
+		console.log("strikeChartDraw function success!"); // 확인
+		
+		let ctx = document.getElementById('myChart'); // 차트 생성
+		
+		myChart = new Chart(ctx, {
+			type: 'pie', // 타입
+			data: {
+				labels: teamPlayerNameArray, // x축 (가로) 데이터
+				datasets: [{
+					label: '평균 스트라이크',
+					data: teamStrikeAvgArray, // y축 (세로) 데이터
+		// ### 색 옵션 건드리지 마세요 ###############################################################################################################################################################
+					backgroundColor: [
+						'rgba(255, 99, 132, 0.2)',
+						'rgba(54, 162, 235, 0.2)',
+						'rgba(255, 206, 86, 0.2)',
+						'rgba(75, 192, 192, 0.2)',
+						'rgba(153, 102, 255, 0.2)',
+						'rgba(255, 159, 64, 0.2)',
+						'rgba(27, 27, 27, 0.2)',
+						'rgba(233, 177, 199, 0.2)',
+						'rgba(255, 255, 255, 0.2)',
+						'rgba(117, 140, 120, 0.2)'
+					],
+					borderColor: [
+						'rgba(255, 99, 132, 1)',
+						'rgba(54, 162, 235, 1)',
+						'rgba(255, 206, 86, 1)',
+						'rgba(75, 192, 192, 1)',
+						'rgba(153, 102, 255, 1)',
+						'rgba(255, 159, 64, 1)',
+						'rgba(27, 27, 27, 0.5)',
+						'rgba(255, 227, 226, 1)',
+						'rgba(25, 25, 25, 0.5)',
+						'rgba(117, 140, 120, 1)'
+					],
+		// ### 색 옵션 건드리지 마세요 ###############################################################################################################################################################
+					borderWidth: 1
+				}]
+			},
+			options: {
+				responsive: false,
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: true
+						}
+					}]
+				},
+			}
 		});
 		
-	});
+		$("#strikeAvgChart").append(ctx); // 해당 위치에 그래프 추가
+	}
+	
+	// ### 평균 스트라이크 차트 생성 END ###############################################################################################
+	
+	
+	// ### 각 핀을 쓰러트린 평균 차트 생성 START ###############################################################################################
+	
+	let pinAvgChartDraw = function(pinArray, teamPinAvgArray){
+		
+		console.log("pinAvgChartDraw function success!");
+		
+		let ctx2 = document.getElementById('myChart2');
+		
+		myChart2 = new Chart(ctx2, {
+			type: 'bar',
+			data: {
+				labels: pinArray, // 날짜
+				datasets: [{
+					label: '각 핀을 쓰러트린 평균',
+					data: teamPinAvgArray, // 승률
+					backgroundColor: [
+						'rgba(255, 99, 132, 0.2)',
+						'rgba(54, 162, 235, 0.2)',
+						'rgba(255, 206, 86, 0.2)',
+						'rgba(75, 192, 192, 0.2)',
+						'rgba(153, 102, 255, 0.2)',
+						'rgba(255, 159, 64, 0.2)',
+						'rgba(27, 27, 27, 0.2)',
+						'rgba(233, 177, 199, 0.2)',
+						'rgba(255, 255, 255, 0.2)',
+						'rgba(117, 140, 120, 0.2)'
+					],
+					borderColor: [
+						'rgba(255, 99, 132, 1)',
+						'rgba(54, 162, 235, 1)',
+						'rgba(255, 206, 86, 1)',
+						'rgba(75, 192, 192, 1)',
+						'rgba(153, 102, 255, 1)',
+						'rgba(255, 159, 64, 1)',
+						'rgba(27, 27, 27, 0.5)',
+						'rgba(255, 227, 226, 1)',
+						'rgba(25, 25, 25, 0.5)',
+						'rgba(117, 140, 120, 1)'
+					],
+					borderWidth: 1
+				}]
+			},
+			
+			options: {
+				responsive: false,
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: true
+						}
+					}]
+				},
+			}
+		});
+		$("#pinAvgChart").append(ctx2);
+	}
+	
+	// ### 각 핀을 쓰러트린 평균 차트 생성 END ###############################################################################################
+	
+	// ### 연차별 승률 성장 차트 생성 START ###############################################################################################
+	
+	let winChartDraw = function(teamGameDateArray, teamWinRateArray){
+		
+		console.log("winChartDraw function success!");
+		
+		let ctx3 = document.getElementById('myChart3');
+		
+		myChart3 = new Chart(ctx3, {
+			type: 'line',
+			data: {
+				labels: teamGameDateArray,
+				datasets: [{
+					label: '승률',
+					data: teamWinRateArray,
+					backgroundColor: [
+						'rgba(54, 162, 235, 0.2)'
+					],
+					borderColor: [
+						'rgba(54, 162, 235, 0.2)'
+					],
+					borderWidth: 1
+				}]
+			},
+			
+			options: {
+				responsive: false,
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: true
+						}
+					}]
+				},
+			}
+		});
+		$("#winChart").append(ctx3);
+	}
+	
+	// ### 연차별 승률 성장 차트 생성 END ###############################################################################################
+	
 </script>
 </html>

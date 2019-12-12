@@ -4,6 +4,57 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.example.bowling.mapper.BowlingTeamMapper">
+	<!-- 팀의 각 핀을 쓰러트린 평균을 불러오는 쿼리 -->
+	<select id="selectTeamPinAvgChart" parameterType="String" resultType="com.example.bowling.vo.TeamChart">
+		SELECT *
+		FROM (SELECT gt.team_name AS teamName, AVG(gt.pp1) AS pin1, AVG(gt.pp2) AS pin2, AVG(gt.pp3) AS pin3,
+				 AVG(gt.pp4) AS pin4, AVG(gt.pp5) AS pin5, AVG(gt.pp6) AS pin6, AVG(gt.pp7) AS pin7,
+				 AVG(gt.pp8) AS pin8, AVG(gt.pp9) AS pin9, AVG(gt.pp10) AS pin10
+		from(SELECT p.game_no, tp.team_name,
+				sum(p.p1) AS pp1, sum(p.p2) AS pp2, sum(p.p3) AS pp3, 
+				sum(p.p4) AS pp4, sum(p.p5) AS pp5, sum(p.p6) AS pp6, 
+				sum(p.p7) AS pp7, sum(p.p8) AS pp8, sum(p.p9) AS pp9, sum(p.p10) AS pp10
+		from(SELECT game_no, player_no, frame, SUM(pin1) AS p1, SUM(pin2) AS p2, 
+						SUM(pin3) AS p3, SUM(pin4) AS p4, SUM(pin5) AS p5, 
+						SUM(pin6) AS p6, SUM(pin7) AS p7, SUM(pin8) AS p8, SUM(pin9) AS p9, SUM(pin10) AS p10
+				FROM game_player
+				WHERE frame != 10
+				GROUP BY game_no, player_no, frame
+				UNION ALL
+				SELECT game_no, player_no, frame, SUM(pin1) AS p1, SUM(pin2) AS p2, 
+								SUM(pin3) AS p3, SUM(pin4) AS p4, SUM(pin5) AS p5, 
+								SUM(pin6) AS p6, SUM(pin7) AS p7, SUM(pin8) AS p8, SUM(pin9) AS p9, SUM(pin10) AS p10
+				FROM game_player
+				WHERE frame = 10
+				GROUP BY game_no, player_no, frame, turn) p
+		INNER join team_player_contract tp
+		ON p.player_no = tp.player_no
+		WHERE tp.team_name = #{teamName}
+		GROUP BY p.game_no, tp.team_name) gt
+		GROUP BY gt.team_name) pa
+	</select>
+
+	<!-- 팀의 연차별 승률을 불러오는 쿼리 -->
+	<select id="selectTeamWinChart" parameterType="String" resultType="com.example.bowling.vo.TeamChart">
+		SELECT gg.game_no, gg.team_name AS teamName,
+		      ROUND(SUM(CASE
+		         WHEN gg.team_result = 'win'
+		         THEN 1
+		         ELSE 0
+		      END)/COUNT(*)*100) 'winrate',
+		      gg.game_date AS gameDate
+		FROM(SELECT gr.game_no, gr.team_name, gr.team_score, gr.team_result, g.game_date
+				FROM(select game_no, hteam_name as team_name, hteam_score as team_score, hteam_result as team_result
+				FROM game_result
+				UNION ALL
+				SELECT game_no, ateam_name as team_name, ateam_score as team_score, ateam_result as team_result
+				FROM game_result) gr
+				INNER JOIN game g ON gr.game_no = g.game_no) gg
+		WHERE gg.team_name = #{teamName}
+		GROUP BY gg.team_name, YEAR(gg.game_date)
+	</select>
+	
+	
 	<!-- 팀의 평균 스트라이크 횟수를 불러오는 쿼리 -->
 	<select id="selectTeamStrikeChart" parameterType="String" resultType="com.example.bowling.vo.TeamChart">
 		SELECT
