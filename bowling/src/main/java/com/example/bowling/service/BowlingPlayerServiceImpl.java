@@ -1,6 +1,7 @@
 package com.example.bowling.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,6 @@ import com.example.bowling.mapper.BowlingMapper;
 import com.example.bowling.mapper.BowlingPlayerMapper;
 import com.example.bowling.vo.PlayerRecord;
 import com.example.bowling.vo.Team;
-import com.example.bowling.vo.TeamPlayerContract;
 
 @Service
 @Transactional
@@ -18,32 +18,38 @@ public class BowlingPlayerServiceImpl implements BowlingPlayerService{
 	@Autowired BowlingPlayerMapper bowlingPlayerMapper;
 	@Autowired BowlingMapper bowlingMapper;
 	
-	// playerRecord 선수의 상세기록을 출력하기 위한 service
+	// playerRecord 한 선수가 게임당 스트라이크를 친 수를 출력하는 service
 	@Override
-	public List<PlayerRecord> selectTeamPlayOne(PlayerRecord playerRecord) {
-		System.out.println("----------------selectTeamPlayOneService-------------------");
-		return bowlingPlayerMapper.selectTeamPlayerOne(playerRecord);
+	public List<Map<String, Object>> getStrike(PlayerRecord playerRecord) {
+		System.out.println("----------------getStrikeService-------------------");
+		System.out.println("playerRecord Service: "+playerRecord);
+		List<Map<String,Object>> map= bowlingPlayerMapper.selectGameStrike(playerRecord);
+		System.out.println(map);
+		return map;
 	}
 	
 	// playerRecord 팀에 소속된 선수의 목록을 불러오는 service
 	@Override
-	public List<PlayerRecord> selectTeamPlayer(Team team) {
-		System.out.println("----------------selectTeamPlayerSerice-------------------");
+	public List<PlayerRecord> getTeamPlayer(Team team) {
+		System.out.println("----------------getTeamPlayerService-------------------");
 		System.out.println("Team Service: "+team);
-		return bowlingPlayerMapper.selectTeamPlayer(team);
+		
+		List<PlayerRecord> player= bowlingPlayerMapper.selectTeamPlayer(team);
+		System.out.println("Player Service: "+player);
+		return player;
 	}
 	
 	// playerRecord 팀 목록을 불러오는 service
 	@Override
-	public List<Team> selectTeamList() {
-		System.out.println("----------------selectTeamListService-------------------");
+	public List<Team> getTeamList() {
+		System.out.println("----------------getTeamListService-------------------");
 		return bowlingMapper.selectTeam();
 	}
 	
 	@Override
 	// playerRanking 개인랭킹을 불러오는 service
-	public List<PlayerRecord> selectPlayerRecordList(PlayerRecord playerRecord){
-		System.out.println("selectPlayerRecordList : "+playerRecord);
+	public List<PlayerRecord> getPlayerRecordList(PlayerRecord playerRecord){
+		System.out.println("getPlayerRecordList : "+playerRecord);
 		return bowlingPlayerMapper.selectPlayerRanking(playerRecord);
 	}
 }

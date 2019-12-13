@@ -204,7 +204,7 @@
 				<option value="F">여</option>
 			</select>
 			
-			<select id="selectRanking">
+			<select id="getRanking">
 				<option>선택</option>
 				<option value="matchGame">경기수</option>
 				<option value="win">승</option>
@@ -213,9 +213,8 @@
 				<option value="winRate">승률</option>
 				<option value="scoreAvg">평균점수</option>
 				<option value="strikeAvg">평균스트라이크</option>
-				<option value="spareAvg">평균스페어</option>
 			</select>
-			<button type="button" id="selectRankingBtn">조회하기</button>
+			<button type="button" id="getRankingBtn">조회하기</button>
 			</div>
 			<table border="1" class = "table">
 				<thead>
@@ -250,12 +249,9 @@
 						<th>
 							평균스트라이크
 						</th>
-						<th>
-							평균스페어
-						</th>
 					</tr>
 				</thead>
-				<tbody id="selectPlayerRanking">
+				<tbody id="getPlayerRanking">
 				</tbody>
 			</table>
 		</div>
@@ -340,7 +336,7 @@
 	$(document).ready(function() {
 		$(".table").hide();
 		
-		$("#selectRankingBtn").click(function(){
+		$("#getRankingBtn").click(function(){
 			console.log("버튼 클릭");
 			// 선택박스에서 선택된 값들에 따라 검색 결과가 달라진다.
 			// 개인 랭킹을 불러오는 ajax
@@ -348,19 +344,19 @@
 				url:"/playerRecord",
 				method:"POST",
 				data:{"gender":$("#gender").val(),
-					  "column":$("#selectRanking option:selected").val()
+					  "column":$("#getRanking option:selected").val()
 					 },
 				success:function(json){
-					console.log($("#selectRanking option:selected").val());
-					$("#selectPlayerRanking").empty();
+					console.log($("#getRanking option:selected").val());
+					$("#getPlayerRanking").empty();
 					$(json).each(function(index, item){
 							console.log("json",json);
 							temp = "<tr><td>"+item.rank+"</td>";
 							temp += "<td>"+item.playerName+"</td> <td>"+item.gender+"</td> <td>"+item.matchGame+"</td>";
 							temp += "<td>"+item.win+"</td> <td>"+item.draw+"</td> <td>"+item.lose+"</td>";
 							temp += "<td>"+item.winRate+"</td> <td>"+item.scoreAvg+"</td> <td>"+item.strikeAvg+"</td>";
-							temp += "<td>"+item.spareAvg+"</td></tr>";
-							$("#selectPlayerRanking").append(temp);
+							temp += "</tr>";
+							$("#getPlayerRanking").append(temp);
 					});
 					$(".table").show();
 				}
