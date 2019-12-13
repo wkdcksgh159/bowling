@@ -112,7 +112,7 @@
 	/*----------------------------------------*/
 	var ctx = document.getElementById("Doughnutchart");
 	var Doughnutchart = new Chart(ctx, {
-		type: 'radar',
+		type: 'doughnut',
 		data: {
 			labels: ["Red", "Orange", "Yellow", "Green", "Blue"],
 			datasets: [{

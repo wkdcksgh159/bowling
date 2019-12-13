@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>template</title>
+<title>statistics</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- favicon
@@ -252,7 +252,7 @@
                                             <form role="search" class="sr-input-func">
                                                 <div>
 			<!-- ### 여기다가 카테고리 제목 쓰에요 ###################################################################################### -->
-                                                	<h1><span id="카테고리 제목">카테고리 제목 쓰세요</span></h1>
+                                                	<h1><span id="stat">통계</span></h1>
                                                 </div>
                                             </form>
                                         </div>
@@ -262,7 +262,7 @@
                                             <li><a href="/index.html">Home</a> <span class="bread-slash">/</span>
                                             </li>
 			<!-- ### 여기다가 카테고리 제목 쓰에요 ###################################################################################### -->
-                                            <li><span class="bread-blod" id="카테고리 제목">카테고리 제목 쓰세요</span>
+                                            <li><span class="bread-blod" id="stat">통계</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -274,6 +274,8 @@
             </div>
         </div>
         <!-- ### 내용 입력 하세요 ####################################################################################################  -->
+
+        <!-- Static Table Start -->
         <div class="data-table-area mg-b-15">
             <div class="container-fluid">
                 <div class="row">
@@ -283,8 +285,52 @@
                                 <div class="main-sparkline13-hd">
                                 </div>
                             </div>
-                            	내용 입력하세요
                             <div class="sparkline13-graph">
+                                <div class="datatable-dashv1-list custom-datatable-overright">
+                                    <div id="toolbar">
+                                    	<table>
+                                    		<tr>
+                                    			<td>
+			                                    	<!-- 팀 선택 -->
+			                                        <select id="getTeam" class="form-control dt-tb">
+														<option value="0">팀 선택</option>
+													</select>
+                                    			</td>
+                                    			<td>
+                                    				<button class="btn btn-default" id="getTeamBtn">조회</button>
+                                    			</td>
+                                    		</tr>
+                                    	</table>
+                                    </div>
+                                    <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
+                                        data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                        <thead>
+                                            <tr>
+												<th>팀 이름</th>
+												<th>경기 수</th>
+												<th>전체 점수</th>
+												<th>평균 점수</th>
+												<th>승률</th>
+												<th>승</th>
+												<th>무</th>
+												<th>패</th>
+                                            </tr>
+                                        </thead>
+										<tbody id="teamReport">
+											
+										</tbody>
+                                    </table>
+                                    <br><hr>
+                                    <div id="getGripDistributionChart">
+                                    	<!-- 선수별 그립 분포도 그래프 -->
+                                    </div>
+                                    <div id="getHandDistributionChart">
+                                    	<!-- 선수별 그립 분포도 그래프 -->
+                                    </div>
+                                    <div id="getGripDistributionChart">
+                                    	<!-- 선수별 그립 분포도 그래프 -->
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -377,6 +423,9 @@
     <script src="/js/data-table/bootstrap-table-resizable.js"></script>
     <script src="/js/data-table/colResizable-1.5.source.js"></script>
     <script src="/js/data-table/bootstrap-table-export.js"></script>
+    <script src="/js/c3-charts/c3.min.js"></script>
+    <script src="/js/c3-charts/c3-active.js"></script>
+    <script src="/js/c3-charts/d3.min.js"></script>
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
@@ -387,5 +436,124 @@
 <!-- jQuery -->
 <script>
 	// ### 여기다가 jquery 사용하세요 ####################################################################################################################################################################################################
+	
+	
+	// 그립 분포도를 불러오는 ajax
+	$.ajax({
+		url:"/getGripDistribution",
+		method:"POST",
+		success:function(json){
+			console.log("getGripDistribution 요청 실행 확인! : ", json);
+			// 그립의 이름과 값을 저장할 배열변수
+			let gripArray = [];
+			let gripDisArray = [];
+			// 그립의 이름과 값을 각각의 배열에 저장
+			$(json).each(function(index, item){
+				gripArray[index] = item.grip;
+				gripDisArray[index] = item.gripDis;
+			});
+			console.log("Grip Array : ",gripArray, gripDisArray);
+			//myChart.destroy();
+			getGripDistributionChart(gripArray, gripDisArray);
+		}
+	});
+	// 그립 분포도를 그래프로 출력하는 함수 
+	let getGripDistributionChart = function(gripArray, gripDisArray){
+		let ctx = document.getElementById("myChart");
+		let myChart = new Chart(ctx, {
+			type: 'polarArea',
+			data: {
+				labels: gripArray,
+				datasets: [{
+					label: 'pie Chart',
+					data: gripDisArray,
+	                backgroundColor: [
+	                	'rgba(153, 102, 255, 0.2)',
+						'rgba(255, 159, 64, 0.2)',
+						'rgba(27, 27, 27, 0.2)',
+						'rgba(233, 177, 199, 0.2)',
+						'rgba(255, 255, 255, 0.2)',
+						'rgba(117, 140, 120, 0.2)'
+					],
+					
+	            }]
+			},
+			options: {
+	            responsive: false,
+	            legend: {
+	                 position: 'right',
+	            },
+	            title: {
+	                display: true,
+	                text: '그립 분포도'
+	            },
+	            scale: {
+	              ticks: {
+	                beginAtZero: true
+	              },
+	              reverse: false
+	            },
+	            animation: {
+	                animateRotate: false,
+	                animateScale: true
+	            }
+	        }
+			
+		});
+		
+		$("#getGripDistributionChart").append(ctx);
+	}
+	
+	// 손잡이 분포도를 불러오는 ajax
+	$.ajax({
+		url:"/getHandDistribution",
+		method:"POST",
+		success:function(json){
+			// 손잡이 이름과 값을 저장하는 배열변수
+			let handArray = [];
+			let handDisArray = [];
+			// 손잡이 이름과 값을 각각의 배열에 저장
+			$(json).each(function(index, item){
+				handArray[index] = item.hand;
+				handDisArray[index] = item.handDis;
+			});
+			console.log("Hand Array : ",handArray, handDisArray);
+			//myChart.destroy();
+			getHandDistributionChart(handArray, handDisArray);
+		}
+	});
+	
+	// 손잡이 분포도를 그래프로 출력하는 함수
+	let getHandDistributionChart = function(handArray, handDisArray){
+		let ctx = document.getElementById("myChart2");
+		let myChart2 = new Chart(ctx, {
+			type: 'doughnut',
+			data: {
+				labels: handArray,
+				datasets: [{
+					label: 'Dataset 1',
+					data: handDisArray,
+	                backgroundColor: '#006DF0'
+					
+	            }]
+			},
+			options: {
+	            responsive: false,
+	            legend: {
+	                position: 'top',
+	            },
+	            title: {
+	                display: true,
+	                text: '손잡이 분포도'
+	            },
+	            animation: {
+	                animateScale: true,
+	                animateRotate: true
+	            }
+	        }
+		});
+		
+		$("#getHandDistributionChart").append(ctx);
+	}
 </script>
 </html>

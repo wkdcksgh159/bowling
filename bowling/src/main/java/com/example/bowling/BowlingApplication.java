@@ -6,10 +6,16 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class BowlingApplication {
+public class BowlingApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BowlingApplication.class, args);
 		
 	}
+	
+	@Override 
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) { 
+		return builder.sources(BowlingApplication.class); 
+	}
+
 }
