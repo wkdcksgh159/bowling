@@ -4,6 +4,126 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.example.bowling.mapper.BowlingTeamMapper">
+	<!-- 팀의 랭킹을 불러오는 쿼리 -->
+	<select id="selectTeamRecord" parameterType="com.example.bowling.vo.TeamRecord" resultType="com.example.bowling.vo.TeamRecord">
+		SELECT
+	  		<choose>
+	  			<when test="column.equals('matchGame')">
+	  				row_number() over(order by matchGame desc) as rank,
+	  			</when>
+	  			<when test="column.equals('win')">
+	  				row_number() over(order by win desc) as rank,
+	  			</when>
+	  			<when test="column.equals('draw')">
+	  				row_number() over(order by draw desc) as rank,
+	  			</when>
+	  			<when test="column.equals('lose')">
+	  				row_number() over(order by lose desc) as rank,
+	  			</when>
+	  			<when test="column.equals('winAvg')">
+	  				row_number() over(order by winAvg desc) as rank,
+	  			</when>
+	  			<when test="column.equals('scoreAvg')">
+	  				row_number() over(order by scoreAvg desc) as rank,
+	  			</when>
+	  			<when test="column.equals('strikeAvg')">
+	  				row_number() over(order by strikeAvg desc) as rank,
+	  			</when>
+	  		</choose>
+         r.team_name AS teamName,
+         round(r.score/(r.win+r.draw+r.lose)) AS scoreAvg,r.win,r.draw,r.lose,(r.win+r.draw+r.lose) AS matchGame,
+         round(r.win/(r.win+r.draw+r.lose)*100) AS winAvg,round(strike/player_count) AS strikeAvg
+		FROM
+		(
+		SELECT t.team_name,sum(t.score) AS score,sum(t.win) AS win,sum(t.draw) AS draw,sum(t.lose) AS lose
+		from
+		(SELECT game_no,hteam_name AS team_name,round(SUM(hteam_score)) AS score,
+		   sum(case 
+		      when hteam_result='win' 
+		         then 1 
+		         ELSE 0 
+		         END) AS win,
+		   SUM(case   
+		      when hteam_result='draw'
+		         then 1
+		         ELSE 0
+		         END) AS draw,
+		   SUM(case
+		      when hteam_result='lose'
+		         then 1
+		         ELSE 0
+		         END) AS lose
+		FROM game_result
+		GROUP BY hteam_name
+		UNION all
+		SELECT game_no,ateam_name AS team_name,round(SUM(ateam_score)) AS score,
+		   SUM(case
+		      when ateam_result='win'
+		         then 1
+		         ELSE 0
+		         END) AS win,
+		   SUM(case   
+		      when ateam_result='draw'
+		         then 1
+		         ELSE 0
+		         END) AS draw,
+		   SUM(case
+		      when ateam_result='lose'
+		         then 1
+		         ELSE 0
+		         END) AS lose
+		FROM game_result
+		GROUP BY ateam_name) t
+		GROUP BY team_name
+		) r INNER JOIN 
+		(SELECT sum(strike) AS strike,COUNT(*) AS player_count,r.team_name
+		from
+		(SELECT gp.game_no,gp.player_no,tpc.team_name,
+		   sum(case 
+		         when pin1+pin2+pin3+pin4+pin5+pin6+pin7+pin8+pin9+pin10=10 AND turn=1 AND frame!=10
+		            then 1
+		         when frame=10 AND  pin1+pin2+pin3+pin4+pin5+pin6+pin7+pin8+pin9+pin10=10
+		            then 1
+		            ELSE 0
+		         END) AS 'strike'
+		FROM game_player gp
+		INNER JOIN team_player_contract tpc
+		INNER JOIN player p
+		ON tpc.player_no=gp.player_no
+		AND tpc.player_no = p.player_no
+		<if test="gender != ('ALL')">
+			WHERE p.player_gender = #{gender}
+		</if>
+		GROUP BY gp.player_no) r
+		GROUP BY r.team_name
+		) s
+		ON r.team_name =s.team_name
+		GROUP BY teamName
+		<choose>
+  			<when test="column.equals('matchGame')">
+  				order by matchGame desc
+  			</when>
+  			<when test="column.equals('win')">
+  				order by win desc
+  			</when>
+  			<when test="column.equals('draw')">
+  				order by draw desc
+  			</when>
+  			<when test="column.equals('lose')">
+  				order by lose desc
+  			</when>
+  			<when test="column.equals('winAvg')">
+  				order by winAvg desc
+  			</when>
+  			<when test="column.equals('scoreAvg')">
+  				order by scoreAvg desc
+  			</when>
+  			<when test="column.equals('strikeAvg')">
+  				order by strikeAvg desc
+  			</when>
+	  	</choose>
+	</select>
+	
 	<!-- 팀의 각 핀을 쓰러트린 평균을 불러오는 쿼리 -->
 	<select id="selectTeamPinAvgChart" parameterType="String" resultType="com.example.bowling.vo.TeamChart">
 		SELECT *
@@ -110,7 +230,7 @@
 	</select>
 	
 	<!-- 해당 팀의 상세 기록 불러오는 쿼리 -->
-	<select id="selectTeamReport" parameterType="String" resultType="com.example.bowling.vo.TeamReport">
+	<select id="selectTeamReport" parameterType="String" resultType="com.example.bowling.vo.TeamRecord">
 		select
 			t as teamName,
 			sum(t.c) as totalGame,
