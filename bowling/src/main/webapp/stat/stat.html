@@ -67,6 +67,22 @@
 <link rel="stylesheet" href="/css/data-table/bootstrap-editable.css">
 
 <script src="/js/vendor/modernizr-2.8.3.min.js"></script>
+<style>
+	.charts1 {
+		display:inline-block;
+	}
+	.charts2 {
+		display:inline-block;
+	}
+	.comments {
+		margin:100px;
+		padding:10px;
+		display:inline-block;
+		vertical-align:top;
+		width:200px;
+		border:1px solid;
+	}
+</style>
 </head>
 
 <body>
@@ -321,15 +337,31 @@
 										</tbody>
                                     </table>
                                     <br><hr>
-                                    <div id="getGripDistributionChart">
+                                    <div class="charts1" id="getGripDistributionChart">
                                     	<!-- 선수별 그립 분포도 그래프 -->
                                     </div>
-                                    <div id="getHandDistributionChart">
-                                    	<!-- 선수별 그립 분포도 그래프 -->
+                                    <span class="comments">
+                                    	선수별 선호하는 그립 분포도<br>
+                                    </span>
+                                    <div class="charts1" id="getHandDistributionChart">
+                                    	<!-- 선수별 손잡이 분포도 그래프 -->
                                     </div>
-                                    <div id="getGripDistributionChart">
-                                    	<!-- 선수별 그립 분포도 그래프 -->
+                                    <span class="comments">
+                                    	선수별 주로 사용하는 손잡이 분포도
+                                    </span>
+                                    <br>
+                                    <div class="charts2" id="getBallDistributionChart">
+                                    	<!-- 선수 성별별 공 분포도 그래프 -->
                                     </div>
+                                    <span class="comments">
+                                    	성별별 주로 사용하는 공의 무게 분포도
+                                    </span>
+                                    <div class="charts2" id="getSalaryDistributionChart">
+                                    	<!-- 팀 별 평균연봉 그래프 -->
+                                    </div>
+                                    <span class="comments">
+                                    	팀 별 평균연봉
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -430,9 +462,10 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
-<canvas id="myChart" width="400" height="400"></canvas>
-<canvas id="myChart2" width="400" height="400"></canvas>
-<canvas id="myChart3" width="400" height="400"></canvas>
+<canvas id="myChart" width="500" height="500"></canvas>
+<canvas id="myChart2" width="500" height="500"></canvas>
+<canvas id="myChart3" width="500" height="500"></canvas>
+<canvas id="myChart4" width="500" height="500"></canvas>
 <!-- jQuery -->
 <script>
 	// ### 여기다가 jquery 사용하세요 ####################################################################################################################################################################################################
@@ -457,7 +490,7 @@
 			getGripDistributionChart(gripArray, gripDisArray);
 		}
 	});
-	// 그립 분포도를 그래프로 출력하는 함수 
+	// 그립 분포도를 polar area 그래프로 출력하는 함수 
 	let getGripDistributionChart = function(gripArray, gripDisArray){
 		let ctx = document.getElementById("myChart");
 		let myChart = new Chart(ctx, {
@@ -523,7 +556,7 @@
 		}
 	});
 	
-	// 손잡이 분포도를 그래프로 출력하는 함수
+	// 손잡이 분포도를 doughnut 그래프로 출력하는 함수
 	let getHandDistributionChart = function(handArray, handDisArray){
 		let ctx = document.getElementById("myChart2");
 		let myChart2 = new Chart(ctx, {
@@ -533,8 +566,7 @@
 				datasets: [{
 					label: 'Dataset 1',
 					data: handDisArray,
-	                backgroundColor: '#006DF0'
-					
+	                backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)']
 	            }]
 			},
 			options: {
@@ -554,6 +586,141 @@
 		});
 		
 		$("#getHandDistributionChart").append(ctx);
+	}
+	
+	// 성별별 선수 공 무게 분포도를 불러오는 ajax
+	$.ajax({
+		url:"/getBallDistribution",
+		method:"POST",
+		success:function(json){
+			// 손잡이 이름과 값을 저장하는 배열변수
+			let ballArray = [];
+			let ballMDisArray = [];
+			let ballFDisArray = [];			
+			// 손잡이 이름과 값을 각각의 배열에 저장
+			$(json).each(function(index, item){
+				ballArray[index] = item.pound;
+				ballMDisArray[index] = item.mPoundDis;
+				ballFDisArray[index] = item.fPoundDis;
+			});
+			console.log("Ball Array : ",ballArray, ballMDisArray, ballFDisArray);
+			//myChart.destroy();
+			getBallDistributionChart(ballArray, ballMDisArray, ballFDisArray);
+		}
+	});
+	
+	// 성별별 선수 공 무게 분포도를 radar 그래프로 출력하는 함수
+	let getBallDistributionChart = function(ballArray, ballMDisArray, ballFDisArray){
+		let ctx = document.getElementById("myChart3");
+		let myChart3 = new Chart(ctx, {
+			type: 'radar',
+			data: {
+				labels: ballArray,
+				datasets: [{
+					label: "Male Pound Distribution",
+					data: ballMDisArray,
+	                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+	                borderColor: 'rgba(54, 162, 235, 1)',
+	                pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+	            },{
+					label: "Female Pound Distribution",
+					data: ballFDisArray,
+	                backgroundColor: 'rgba(233, 177, 199, 0.2)',
+	                borderColor: 'rgba(255, 227, 226, 1)',
+	                pointBackgroundColor: 'rgba(255, 227, 226, 1)',
+	            }]
+			},
+			options: {
+				responsive: false,
+	            legend: {
+	                position: 'top',
+	            },
+	            title: {
+	                display: true,
+	                text: 'Radar Chart'
+	            },
+	            scale: {
+	              ticks: {
+	                beginAtZero: true
+	              }
+	            }
+	        }
+		});
+		
+		$("#getBallDistributionChart").append(ctx);
+	};
+	
+	// 팀 별 평균연봉을 불러오는 ajax
+	$.ajax({
+		url:"/getSalaryDistribution",
+		method:"POST",
+		success:function(json){
+			// 손잡이 이름과 값을 저장하는 배열변수
+			let teamArray = [];
+			let SalaryDisArray = [];		
+			// 손잡이 이름과 값을 각각의 배열에 저장
+			$(json).each(function(index, item){
+				teamArray[index] = item.teamName;
+				SalaryDisArray[index] = item.salaryDis;
+			});
+			console.log("Salary Array : ",teamArray, SalaryDisArray);
+			//myChart.destroy();
+			getSalaryDistributionChart(teamArray, SalaryDisArray);
+		}
+	});
+	
+	// 팀 별 평균연봉을 bar 그래프로 출력하는 함수
+	let getSalaryDistributionChart = function(teamArray, SalaryDisArray){
+		
+		let ctx = document.getElementById('myChart4');
+		
+		myChart4 = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels: teamArray,
+				datasets: [{
+					label: '팀 별 평균연봉',
+					data: SalaryDisArray,
+					backgroundColor: [
+						'rgba(255, 99, 132, 0.2)',
+						'rgba(54, 162, 235, 0.2)',
+						'rgba(255, 206, 86, 0.2)',
+						'rgba(75, 192, 192, 0.2)',
+						'rgba(153, 102, 255, 0.2)',
+						'rgba(255, 159, 64, 0.2)',
+						'rgba(27, 27, 27, 0.2)',
+						'rgba(233, 177, 199, 0.2)', //
+						'rgba(255, 255, 255, 0.2)',
+						'rgba(117, 140, 120, 0.2)'
+					],
+					borderColor: [
+						'rgba(255, 99, 132, 1)',
+						'rgba(54, 162, 235, 1)',
+						'rgba(255, 206, 86, 1)',
+						'rgba(75, 192, 192, 1)',
+						'rgba(153, 102, 255, 1)',
+						'rgba(255, 159, 64, 1)',
+						'rgba(27, 27, 27, 0.5)',
+						'rgba(255, 227, 226, 1)', //
+						'rgba(25, 25, 25, 0.5)', 
+						'rgba(117, 140, 120, 1)'
+					],
+					borderWidth: 1
+				}]
+			},
+			
+			options: {
+				responsive: false,
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: true
+						}
+					}]
+				},
+			}
+		});
+		$("#getSalaryDistributionChart").append(ctx);
 	}
 </script>
 </html>

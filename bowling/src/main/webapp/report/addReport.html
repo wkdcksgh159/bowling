@@ -25,6 +25,72 @@
    #totalScore {
    	  width:100px;
    }
+   .footer-copyright-area {
+      position:relative;
+      top:500px;
+   }
+   #bowlingGame {
+   		position:relative;
+   		bottom:500px;
+   		left:750px;
+   }
+   #allPinImg {
+		position:relative;
+		left:415px;
+		bottom:20px;
+	}
+	#pinImg7{
+		position:absolute;
+	}
+	#pinImg8{
+		position:absolute;
+		left:40px;
+	}
+	#pinImg9{
+		position:absolute;
+		left:80px;
+	}
+	#pinImg10{
+		position:absolute;
+		left:120px;
+	}
+	#pinImg4{
+		position:absolute;
+		left:20px;
+		top:30px;
+	}
+	#pinImg5{
+		position:absolute;
+		left:60px;
+		top:30px;
+	}
+	#pinImg6{
+		position:absolute;
+		left:100px;
+		top:30px;
+	}
+	#pinImg2{
+		position:absolute;
+		left:40px;
+		top:60px;
+	}
+	#pinImg3{
+		position:absolute;
+		left:80px;
+		top:60px;
+	}
+	#pinImg1{
+		position:absolute;
+		left:60px;
+		top:90px;
+	}
+	.pinImg{
+		width:40px;
+	}
+	#bowlingFloor {
+		position:absolute;
+		width:1000px;
+	}
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -345,6 +411,17 @@
 						<button type="button" id="resetBtn">초기화</button>
 					</div>
 				</div>
+		</div>
+
+		<!-- 볼링 핀 이미지 출력 -->
+		<div id="bowlingGame">
+			<img id="bowlingFloor" src="/img/floor.png">
+			<div id="allPinImg">
+				<span id="pinImg7"><img class="pinImg" src="/img/pin.png"></span><span id="pinImg8"><img class="pinImg" src="/img/pin.png"></span><span id="pinImg9"><img class="pinImg" src="/img/pin.png"></span><span id="pinImg10"><img class="pinImg" src="/img/pin.png"></span>
+				<span id="pinImg4"><img class="pinImg" src="/img/pin.png"></span><span id="pinImg5"><img class="pinImg" src="/img/pin.png"></span><span id="pinImg6"><img class="pinImg" src="/img/pin.png"></span>
+				<span id="pinImg2"><img class="pinImg" src="/img/pin.png"></span><span id="pinImg3"><img class="pinImg" src="/img/pin.png"></span>
+				<span id="pinImg1"><img class="pinImg" src="/img/pin.png"></span>
+			</div>
 		</div>
 
 		<div class="footer-copyright-area">

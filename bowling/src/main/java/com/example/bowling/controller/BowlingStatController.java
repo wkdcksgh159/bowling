@@ -25,4 +25,16 @@ public class BowlingStatController {
 		System.out.println("getHandDistribution 컨트롤러 요청 확인!");
 		return bowlingStatService.getHandDistribution();
 	}
+	// 성별별 선수의 공 무게 분포도를 보기 위한 controller
+	@PostMapping("/getBallDistribution")
+	public List<Map<String, Object>> getBallDistribution(){
+		System.out.println("getBallDistribution 컨트롤러 요청 확인!");
+		return bowlingStatService.getBallDistribution();
+	}
+	// 팀 별 평균연봉을 보기 위한 controller
+	@PostMapping("/getSalaryDistribution")
+	public List<Map<String, Object>> getSalaryDistribution(){
+		System.out.println("getSalaryDistribution 컨트롤러 요청 확인!");
+		return bowlingStatService.getSalaryDistribution();
+	}
 }

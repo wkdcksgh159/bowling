@@ -4,87 +4,77 @@
 <meta charset="EUC-KR">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<style>
+	#allPinImg {
+		position:relative;
+		top:60px;
+		left:465px;
+	}
+	#pinImg7{
+		position:absolute;
+	}
+	#pinImg8{
+		position:absolute;
+		left:40px;
+	}
+	#pinImg9{
+		position:absolute;
+		left:80px;
+	}
+	#pinImg10{
+		position:absolute;
+		left:120px;
+	}
+	#pinImg4{
+		position:absolute;
+		left:20px;
+		top:30px;
+	}
+	#pinImg5{
+		position:absolute;
+		left:60px;
+		top:30px;
+	}
+	#pinImg6{
+		position:absolute;
+		left:100px;
+		top:30px;
+	}
+	#pinImg2{
+		position:absolute;
+		left:40px;
+		top:60px;
+	}
+	#pinImg3{
+		position:absolute;
+		left:80px;
+		top:60px;
+	}
+	#pinImg1{
+		position:absolute;
+		left:60px;
+		top:90px;
+	}
+	.pinImg{
+		width:40px;
+	}
+	#bowlingFloor {
+		margin-top:100px;
+		position:absolute;
+		width:1100px;
+	}
+</style>
 </head>
 <body>
-	<div id="getGripDistributionChart">
-		
+	<img id="bowlingFloor" src="/img/floor.png">
+	<div id="allPinImg">
+		<span id="pinImg7"><img class="pinImg" src="/img/pin.png"></span><span id="pinImg8"><img class="pinImg" src="/img/pin.png"></span><span id="pinImg9"><img class="pinImg" src="/img/pin.png"></span><span id="pinImg10"><img class="pinImg" src="/img/pin.png"></span>
+		<span id="pinImg4"><img class="pinImg" src="/img/pin.png"></span><span id="pinImg5"><img class="pinImg" src="/img/pin.png"></span><span id="pinImg6"><img class="pinImg" src="/img/pin.png"></span>
+		<span id="pinImg2"><img class="pinImg" src="/img/pin.png"></span><span id="pinImg3"><img class="pinImg" src="/img/pin.png"></span>
+		<span id="pinImg1"><img class="pinImg" src="/img/pin.png"></span>
 	</div>
 </body>
 <script>
-	$(document).ready(function(){
-		let gripArray = [];
-		let gripDisArray = [];
-
-		$.ajax({
-			url:"/getGripDistribution",
-			method:"POST",
-			success:function(json){
-				console.log("getGripDistribution 요청 실행 확인! : ", json);
-				$(json).each(function(index, item){
-					gripArray[index] = item.grip;
-					gripDisArray[index] = item.gripDis;
-				});
-				//myChart.destroy();
-				getGripDistributionChart(gripArray, gripDisArray);
-			}
-		});
-		
-		
-		let getGripDistributionChart = function(gripArray, gripDisArray){
-			console.log("getGripDistributionChart function success!", gripArray, gripDisArray); // 확인
-			
-			let ctx = document.getElementById('myChart'); // 차트 생성
-			
-			myChart = new Chart(ctx, {
-				type: 'pie', // 타입
-				data: {
-					labels: gripArray, // x축 (가로) 데이터
-					datasets: [{
-						label: '그립 분포도',
-						data: gripDisArray, // y축 (세로) 데이터
-			// ### 색 옵션 건드리지 마세요 ###############################################################################################################################################################
-						backgroundColor: [
-							'rgba(255, 99, 132, 0.2)',
-							'rgba(54, 162, 235, 0.2)',
-							'rgba(255, 206, 86, 0.2)',
-							'rgba(75, 192, 192, 0.2)',
-							'rgba(153, 102, 255, 0.2)',
-							'rgba(255, 159, 64, 0.2)',
-							'rgba(27, 27, 27, 0.2)',
-							'rgba(233, 177, 199, 0.2)',
-							'rgba(255, 255, 255, 0.2)',
-							'rgba(117, 140, 120, 0.2)'
-						],
-						borderColor: [
-							'rgba(255, 99, 132, 1)',
-							'rgba(54, 162, 235, 1)',
-							'rgba(255, 206, 86, 1)',
-							'rgba(75, 192, 192, 1)',
-							'rgba(153, 102, 255, 1)',
-							'rgba(255, 159, 64, 1)',
-							'rgba(27, 27, 27, 0.5)',
-							'rgba(255, 227, 226, 1)',
-							'rgba(25, 25, 25, 0.5)',
-							'rgba(117, 140, 120, 1)'
-						],
-			// ### 색 옵션 건드리지 마세요 ###############################################################################################################################################################
-						borderWidth: 1
-					}]
-				},
-				options: {
-					responsive: false,
-					scales: {
-						yAxes: [{
-							ticks: {
-								beginAtZero: true
-							}
-						}]
-					},
-				}
-			});
-			console.log("ctx 확인  : ",ctx);
-			$("#getGripDistributionChart").append(ctx); // 해당 위치에 그래프 추가
-		}
-	})
+	
 </script>
 </html>

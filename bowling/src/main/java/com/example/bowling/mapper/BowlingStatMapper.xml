@@ -17,4 +17,27 @@
 		from player
 		group by player_hand
  	</select>
+ 	<!-- 성별별 선수의 공 무게 분포도를 보기 위한 mapper -->
+ 	<select id="selectBallDistribution" resultType="java.util.Map">
+ 		select m.pound as pound, m.poundDis as mPoundDis, f.poundDis as fPoundDis
+		from (
+		select pb.pound, round(count(pb.pound)/(select count(*) from player where player_gender = 'M')*100) as poundDis
+		from player_ball pb
+		inner join player p on pb.player_no = p.player_no
+		where p.player_gender = 'M'
+		group by pb.pound) m
+		inner join (
+		select pb.pound, round(count(pb.pound)/(select count(*) from player where player_gender = 'F')*100) as poundDis
+		from player_ball pb
+		inner join player p on pb.player_no = p.player_no
+		where p.player_gender = 'F'
+		group by pb.pound) f
+		on m.pound = f.pound
+ 	</select>
+ 	<!-- 팀 별 평균연봉을 보기 위한 mapper -->
+ 	<select id="selectSalaryDistribution" resultType="java.util.Map">
+ 		select team_name as teamName, round(avg(salary)) as salaryDis
+		from team_player_contract
+		group by team_name
+ 	</select>
  </mapper>

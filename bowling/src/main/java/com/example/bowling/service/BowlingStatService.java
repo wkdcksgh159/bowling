@@ -8,4 +8,8 @@ public interface BowlingStatService {
 	public List<Map<String, Object>> getGripDistribution();
 	// 선수의 손잡이 분포도를 보기 위한 service
 	public List<Map<String, Object>> getHandDistribution();
+	// 성별별 선수의 공 무게 분포도를 보기 위한 service
+	public List<Map<String, Object>> getBallDistribution();
+	// 팀 별 평균연봉을 보기 위한 service
+	public List<Map<String, Object>> getSalaryDistribution();
 }

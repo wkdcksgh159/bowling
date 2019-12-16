@@ -138,9 +138,12 @@
 		 * 인덱스 값이 1은  쓰러트린 핀, 인덱스 값이 0 은 쓰러트리지 않은 핀
 		 * pinCheck 클래스명을 가진 체크박스에서 체크된 value 값에만 value 값을 1로 설정
 		 */
-		$(".pinCheck:checked").each(function() {
-			pin[$(this).val()] = 1;
-			$(this).attr("disabled", true);
+		$(".pinCheck").each(function() {
+			if($(this).is(":checked") == true) {
+				pin[$(this).val()] = 1;
+				$(this).attr("disabled", true);
+			}
+			
 		});
 		
 		// console.log("setPinArray function pin : ", pin);
