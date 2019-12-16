@@ -15,4 +15,8 @@ public interface BowlingPlayerService {
 	public List<PlayerRecord> getTeamPlayer(Team team);
 	// playerRecord 한 선수가 게임당 스트라이크를 친 수를 출력하는 service
 	public List<Map<String,Object>> getStrike(PlayerRecord playerRecord);
+	// playerRecord 한 선수가 하나 하나의 핀이 맞는 확를을 계산하는 Mapper
+	public List<Map<String,Object>> getPinProbability(PlayerRecord playerRecord);
+	//playerRecord 선수의 승률을 계산하는 Service
+	public List<Map<String,Object>> getYearWinrate(PlayerRecord playerRecord);
 }

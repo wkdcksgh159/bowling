@@ -15,6 +15,23 @@ import com.example.bowling.vo.TeamPlayerContract;
 @RestController
 public class BowlingPlayerController {
 	@Autowired BowlingPlayerService bowlingPlayerService;
+	
+	//playerRecord 선수의 승률을 계산하는 Controller
+	@PostMapping("/getYearWinrate")
+	public List<Map<String,Object>> getYearWinrate(PlayerRecord playerRecord){
+		System.out.println("----------------getYearWinrateContoller-------------------");
+		System.out.println("PlayerRecord Contoller: "+playerRecord);
+		return bowlingPlayerService.getYearWinrate(playerRecord);
+	}
+	
+	// playerRecord 한 선수가 하나 하나의 핀이 맞는 확를을 계산하는 Controller
+	@PostMapping("/getPinProbability")
+	public List<Map<String,Object>> getPinProbability(PlayerRecord playerRecord){
+		System.out.println("----------------getPinProbabilityController-------------------");
+		System.out.println("PlayerRecord Controller: "+playerRecord);
+		return bowlingPlayerService.getPinProbability(playerRecord);
+	}
+	
 	// playerRecord 한 선수가 게임당 스트라이크를 친 수를 출력하는 Controller
 	@PostMapping("/getStrike")
 	public List<Map<String, Object>> getStrike(PlayerRecord playerRecord){
