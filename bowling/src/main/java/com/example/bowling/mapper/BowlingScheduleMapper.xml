@@ -5,9 +5,35 @@
   <mapper namespace="com.example.bowling.mapper.BowlingScheduleMapper">
 		<select id="selectSchedule" resultType="com.example.bowling.vo.Schedule">
 		select g.game_no as gameNo,game_date as gameDate,
-			gr.hteam_name as hteamName,gr.hteam_score as hteamScore,gr.hteam_result,
-			gr.ateam_name as ateamName,gr.ateam_score as ateamScore,gr.ateam_result
+			gr.hteam_name as hteamName,gr.hteam_score as hteamScore,gr.hteam_result as hteamResult,
+			gr.ateam_name as ateamName,gr.ateam_score as ateamScore,gr.ateam_result as ateamResult
 		from game g inner join game_result gr
 		on g.game_no = gr.game_no
+		</select>
+		
+		<select id="selectScheduleOne" parameterType="int" resultType="Map">
+			SELECT p.game_no AS gameNo, p.player_no AS playerNo,p.player_name AS playerName, p.frame AS frame, p.pturn AS turn, 
+		                              (case
+		                                 when p.pturn = 'point' and p.pinSum = 10 AND p.frame != 10
+		                                 then (case 
+		                                 			when LEAD(p.pinSum) over(ORDER BY p.player_no, p.frame, p.pturn) = 10 and LEAD(p.pinSum, 2) over(ORDER BY p.player_no, p.frame, p.pturn) = 10
+		                                          then p.pinSum + LEAD(p.pinSum) over(ORDER BY p.player_no, p.frame, p.pturn) + LEAD(p.pinSum, 2) over(ORDER BY p.player_no, p.frame, p.pturn)
+		                                          when LAG(p.pinSum) over(ORDER BY p.player_no, p.frame, p.pturn) = 0 
+		                                          then (case
+		                                                   when LEAD(p.pinSum, 3) over(ORDER BY p.player_no, p.frame, p.pturn) = 10 and 
+		                                                        LEAD(p.pinSum, 2) over(ORDER BY p.player_no, p.frame, p.pturn) = 0
+		                                                   then p.pinSum + LEAD(p.pinSum, 3) over(ORDER BY p.player_no, p.frame, p.pturn) + LEAD(p.pinSum, 4) over(ORDER BY p.player_no, p.frame, p.pturn)
+		                                                   else p.pinSum + LEAD(p.pinSum, 3) over(ORDER BY p.player_no, p.frame, p.pturn)
+		                                                end)
+		                                          else p.pinSum
+		                                        END)
+		                                 ELSE p.pinSum
+		                              END) 'score'
+		                        FROM (SELECT gp.game_no, gp.player_no, gp.frame,p.player_name,ifnull(turn, 'point') AS pturn, sum(pin1+pin2+pin3+pin4+pin5+pin6+pin7+pin8+pin9+pin10) AS pinSum
+		                              FROM game_player gp INNER JOIN player p
+		                              ON p.player_no=gp.player_no
+		                              WHERE game_no = #{gameNo}
+		                              GROUP BY player_no, frame, turn WITH rollup) p
+		                        WHERE p.frame IS NOT NULL AND p.frame != 10 OR p.frame = 10 AND p.pturn != 'point'
 		</select>
   </mapper>

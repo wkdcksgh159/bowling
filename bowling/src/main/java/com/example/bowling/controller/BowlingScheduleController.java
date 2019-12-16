@@ -2,6 +2,7 @@ package com.example.bowling.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,4 +24,16 @@ public class BowlingScheduleController {
 		System.out.println("list"+list);
 		return list;
 	}
+	//gameNo값을 받아 경기 결과 상세보기(전광판) return 리스트 맵타입
+	@PostMapping("/scheduleOne")
+	public List<Map<String,Object>> getScheduleOne(int gameNo,int currentPage){
+		System.out.println("gameNo:"+gameNo);
+		System.out.println("현 페이지:"+currentPage);
+		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
+		list = bowlingScheduleService.getScheduleOne(gameNo,currentPage);
+		System.out.println("점수 값 확인:"+list);
+		
+		return list;
+	}
+	
 }
