@@ -10,6 +10,10 @@ import com.example.bowling.vo.Team;
 
 @Mapper
 public interface BowlingPlayerMapper {	
+	//playerRecord 선수의 승률을 계산하는 Mapper
+	public List<Map<String,Object>> selectYearWinrate(PlayerRecord playerRecord);
+	// playerRecord 한 선수가 하나 하나의 핀이 맞는 확를을 계산하는 Mapper
+	public List<Map<String,Object>> selectPinProbability(PlayerRecord playerRecord);
 	// playerRecord 한 선수가 게임당 스트라이크를 친 수를 출력하는 Mapper
 	public List<Map<String,Object>> selectGameStrike(PlayerRecord playerRecord);
 	// playerRanking 개인 랭킹을 불러오는 mapper

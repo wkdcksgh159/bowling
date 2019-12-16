@@ -14,7 +14,7 @@
 		display:inline-block;
 	}
 	
-	#pinAvgChart{
+	#pinProbabilityChart{
 		position:relative;
 		left:150px;
 		display:inline-block;
@@ -341,8 +341,16 @@
 										
 									</tbody>
 								</table>
-                                    <br><hr>
-                                   <canvas id="myChart" width="400" height="400"></canvas>
+                                <br><hr>
+                                <div id="strikeAvgChart">
+                                	<!-- 개인의 게임별 스트라이크 그래프 -->
+                                </div>
+                                <div id="pinProbabilityChart">
+                                	<!-- 개인의 핀별 넘어뜨리는 확률 그래프-->
+                                </div>
+                                <div id="winChart">
+                                	<!-- 개인의 승률 성장 그래프 -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -437,15 +445,30 @@
     <script src="/js/data-table/bootstrap-table-export.js"></script>
 
 </body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+<canvas id="myChart" width="400" height="400"></canvas>
+<canvas id="myChart2" width="400" height="400"></canvas>
+<canvas id="myChart3" width="400" height="400"></canvas>
 
 <script>
 	$(document).ready(function(){
 		
-		// 팀의 속한 선수의 이름을 저장할 배열
-		let teamPlayerNameArray = [];
-		// 각 성수의 평균 스트라이크를 저장할 배열
-		let teamStrikeAvgArray = [];
+		// 선수가 나간 게임의 번호 배열
+		let playerGameNoArray = [];
+		// 각 선수의 게임당 스트라이크수를 저장할 배열
+		let playerStrikeArray = [];
+		// 핀의 번호를 저장하는 배열
+		let pinArray = ["pin1","pin2","pin3","pin4","pin5","pin6","pin7","pin8","pin9","pin10"];
+		// 핀이 쓰러진 확률을 저장하는 배열
+		let pinProbabilityArray = [];
+		// 선수의 연간 승률을 저장하는 배열
+		let playerWinrateArray = [];
+		// 선수가 게임을 한 년도를 저장하는 배열
+		let GameDateArray = [];
+		// 차트를 초기화 하기 위한 변수
 		let returnChart=0;
+		
 		
 		//팀 목록을 불러온다.
 		$.ajax({
@@ -497,31 +520,84 @@
 							
 						});
 						
+						//상세보기
 						$(".chart").click(function(){
 							console.log($(this).val()+"버튼 클릭");
 							
 							if(returnChart != 0){
 								console.log("return chart");
 								myChart.destroy();
+								myChart2.destroy();
+								myChart3.destroy();
+								playerGameNoArray = [];
+								playerStrikeArray = [];
+								playerWinrateArray = [];
+								GameDateArray = [];
+								for(var i=0;i<pinProbabilityArray.length;i++){
+									pinProbabilityArray[i]=0;
+								}
 							} else {
 								console.log("first chart");
 								returnChart = 1;
 							}
 							
-							// 해당 팀의 평균 스트라이크를 불러오는 함수
+							// 선수의 게임당 스트라이크수를 불러오는 함수
 							$.ajax({
 								url:"/getStrike",
 								method:"POST",
-								data:{"playerNo":$(".chart").val()},
+								data:{"playerNo":$(this).val()},
 								success:function(json){
 									 console.log("json : ", json);
 									$(json).each(function(index, item){
-										teamPlayerNameArray[index] = item.playerName;
-										teamStrikeAvgArray[index] = item.strike;
+										playerGameNoArray[index] = item.gameNo;
+										playerStrikeArray[index] = item.strike;
+										console.log("playerGameNoArray: ",playerGameNoArray[index]);
+										console.log("playerStrikeArray: ",playerStrikeArray[index]);
 									});
 									
 									// 차트 그리는 함수에 해당하는 데이터를 저장하여 함수 실행
-									strikeChartDraw(teamPlayerNameArray, teamStrikeAvgArray);
+									strikeChartDraw(playerGameNoArray, playerStrikeArray);
+								}
+							});
+							
+							// 선수의 각 핀당 맞추는 확률을 불러오는 함수
+							$.ajax({
+								url:"/getPinProbability",
+								method:"POST",
+								data:{"playerNo":$(this).val()},
+								success:function(json){
+									 console.log("json : ", json);
+									 pinProbabilityArray[0]=json[0].pin1;
+									 pinProbabilityArray[1]=json[0].pin2;
+									 pinProbabilityArray[2]=json[0].pin3;
+									 pinProbabilityArray[3]=json[0].pin4;
+									 pinProbabilityArray[4]=json[0].pin5;
+									 pinProbabilityArray[5]=json[0].pin6;
+									 pinProbabilityArray[6]=json[0].pin7;
+									 pinProbabilityArray[7]=json[0].pin8;
+									 pinProbabilityArray[8]=json[0].pin9;
+									 pinProbabilityArray[9]=json[0].pin10;
+									// 차트 그리는 함수에 해당하는 데이터를 저장하여 함수 실행
+									pinProbabilityDraw(pinArray, pinProbabilityArray);
+								}
+							});
+							
+							// 선수의 승률 불러오는 함수
+							$.ajax({
+								url:"/getYearWinrate",
+								method:"POST",
+								data:{"playerNo":$(this).val()},
+								success:function(json){
+									 console.log("json : ", json);
+									$(json).each(function(index, item){
+										GameDateArray[index] = item.gameDate;
+										playerWinrateArray[index] = item.winrate;
+										console.log("GameDateArray: ",GameDateArray[index]);
+										console.log("playerWinrateArray: ",playerWinrateArray[index]);
+									});
+									
+									// 차트 그리는 함수에 해당하는 데이터를 저장하여 함수 실행
+									winChartDraw(GameDateArray, playerWinrateArray);
 								}
 							});
 							
@@ -538,23 +614,78 @@
 
 		});
 	});
+
+// ### 선수의 게임당 스트라이크수를 불러오는 차트 생성 START ###############################################################################################
 	
-// ### 평균 스트라이크 차트 생성 START ###############################################################################################
-	
-	let strikeChartDraw = function(teamPlayerNameArray, teamStrikeAvgArray){
+	let strikeChartDraw = function(gameNo, getStrike){
 		
 		console.log("strikeChartDraw function success!"); // 확인
 		
 		let ctx = document.getElementById('myChart'); // 차트 생성
 		
 		myChart = new Chart(ctx, {
-			type: 'pie', // 타입
+			type: 'line', // 타입
 			data: {
-				labels: teamPlayerNameArray, // x축 (가로) 데이터
+				labels: gameNo, // x축 (가로) 데이터
 				datasets: [{
-					label: '평균 스트라이크',
-					data: teamStrikeAvgArray, // y축 (세로) 데이터
+					label: '스트라이크',
+					data: getStrike, // y축 (세로) 데이터
 		// ### 색 옵션 건드리지 마세요 ###############################################################################################################################################################
+					backgroundColor: [
+						'rgba(153, 102, 255, 0)'
+					],
+					borderColor: [
+						'rgba(153, 102, 255, 1)',
+						'rgba(54, 162, 235, 1)',
+						'rgba(255, 206, 86, 1)',
+						'rgba(75, 192, 192, 1)',
+						'rgba(255, 99, 132, 1)',
+						'rgba(255, 159, 64, 1)',
+						'rgba(27, 27, 27, 0.5)',
+						'rgba(255, 227, 226, 1)',
+						'rgba(25, 25, 25, 0.5)',
+						'rgba(117, 140, 120, 1)'
+					],
+		// ### 색 옵션 건드리지 마세요 ###############################################################################################################################################################
+					borderWidth: 1
+				}]
+			},
+			options: {
+				title: {
+					display:true,
+					text:"최근 10경기내 스트라이크수"
+				},
+				responsive: false,
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: true
+						}
+					}]
+				},
+			}
+		});
+		
+		$("#strikeAvgChart").append(ctx); // 해당 위치에 그래프 추가
+	}
+	
+// ### 선수의 게임당 스트라이크수를 불러오는 차트 생성 END ###############################################################################################
+	
+// ### 선수의 각 핀당 맞추는 확률을 불러오는 차트 생성 START ###############################################################################################
+
+	let pinProbabilityDraw = function(pinArray, pinProbabilityArray){
+		
+		console.log("PinProbability ChartDraw function success!");
+		
+		let ctx2 = document.getElementById('myChart2');
+		
+		myChart2 = new Chart(ctx2, {
+			type: 'bar',
+			data: {
+				labels: pinArray,
+				datasets: [{
+					label: '각 핀을 쓰러트릴 확률',
+					data: pinProbabilityArray,
 					backgroundColor: [
 						'rgba(255, 99, 132, 0.2)',
 						'rgba(54, 162, 235, 0.2)',
@@ -579,11 +710,15 @@
 						'rgba(25, 25, 25, 0.5)',
 						'rgba(117, 140, 120, 1)'
 					],
-		// ### 색 옵션 건드리지 마세요 ###############################################################################################################################################################
 					borderWidth: 1
 				}]
 			},
+			
 			options: {
+				title: {
+					display:true,
+					text:"각 핀을 쓰러트릴 확률"
+				},
 				responsive: false,
 				scales: {
 					yAxes: [{
@@ -594,11 +729,55 @@
 				},
 			}
 		});
-		
-		$("#strikeAvgChart").append(ctx); // 해당 위치에 그래프 추가
+		$("#pinProbabilityChart").append(ctx2);
 	}
+
+// ### 선수의 각 핀당 맞추는 확률을 불러오는 차트 생성 END ###############################################################################################
+
+// ### 연차별 승률 성장 차트 생성 START ###############################################################################################
+
+let winChartDraw = function(GameDateArray, playerWinrateArray){
 	
-	// ### 평균 스트라이크 차트 생성 END ###############################################################################################
+	console.log("winChartDraw function success!");
+	
+	let ctx3 = document.getElementById('myChart3');
+	
+	myChart3 = new Chart(ctx3, {
+		type: 'line',
+		data: {
+			labels: GameDateArray,
+			datasets: [{
+				label: '승률',
+				data: playerWinrateArray,
+				backgroundColor: [
+					'rgba(54, 162, 235, 0.2)'
+				],
+				borderColor: [
+					'rgba(54, 162, 235, 0.2)'
+				],
+				borderWidth: 1
+			}]
+		},
+		
+		options: {
+			title: {
+				display:true,
+				text:"승률"
+			},
+			responsive: false,
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}]
+			},
+		}
+	});
+	$("#winChart").append(ctx3);
+}
+
+// ### 연차별 승률 성장 차트 생성 END ###############################################################################################
 	
 </script>
 </html>
