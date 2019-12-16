@@ -131,20 +131,73 @@
 // ### 핀 입력 버튼 클릭시 체크된 핀 배열 값 저장 START ####################################################################
 	
 	// 체크한 핀을 pin 배열의 값 저장하는 함수
-	let setPinArray = function(pin){
+	let setPinArray = function(pin, turn){
 		// console.log("setPinArray function 도착 !");
+		console.log("pin, turn",pin, turn);
+		
+		console.log($("#bowlingBall").css("top"));
+		
+		$("button").attr("disabled", true);
+		
+		ballTop = parseInt($("#bowlingBall").css("top"));
+		console.log("ballTop : ",ballTop);
+		ballWidth = parseInt($("#bowlingBall").css("width"));
+		console.log("ballWidth : ",ballWidth);
+		
+		ballTopFunc = setInterval(function(){
+			ballTop -= 5;
+			$("#bowlingBall").css("top", ballTop);
+			switch(ballTop){
+				case 400 :
+					ballWidth -= 5;
+					$("#bowlingBall").css("width", ballWidth);
+				case 300 :
+					ballWidth -= 5;
+					$("#bowlingBall").css("width", ballWidth);
+				case 200 :
+					ballWidth -= 5;
+					$("#bowlingBall").css("width", ballWidth);
+			}
+			if(ballTop<120){
+				clearInterval(ballTopFunc);
+			}
+		}, 0.2);
+		console.log(ballTop);
+		
+		setTimeout(function(){
+			$("#allPinImg").hide();
+			$("#hitPinImg").show();
+		}, 300);
+		
+		setTimeout(function(){
+			$("#bowlingBall").css("top", 500);
+			$("#bowlingBall").css("width", 120);
+			$("button").attr("disabled", false);
+			$("#allPinImg").show();
+			$("#hitPinImg").hide();
+		}, 2000);
 		
 		/* 볼링핀을 체크박스로 설정하여 체크한 핀의 배열 인덱스 값을 1로 설정
 		 * 인덱스 값이 1은  쓰러트린 핀, 인덱스 값이 0 은 쓰러트리지 않은 핀
 		 * pinCheck 클래스명을 가진 체크박스에서 체크된 value 값에만 value 값을 1로 설정
+		 * 체크된 value값을 가지고 pinImgX 태그를 찾아서 태그 안의 핀 이미지를 지움
+		 * turn이 1일경우 핀 이미지를 다시 세팅후 실행
 		 */
-		$(".pinCheck").each(function() {
-			if($(this).is(":checked") == true) {
-				pin[$(this).val()] = 1;
-				$(this).attr("disabled", true);
-			}
-			
+		if(turn == 1){
+			$(".pinTag").empty();
+			$(".pinTag").append("<img class='pinImg' src='/img/pin.png'></span>");
+		}
+		$(".pinCheck:checked").each(function(){
+			pin[$(this).val()] = 1;
+			$(this).attr("disabled", true);
 		});
+		setTimeout(function(){
+			$(".pinCheck:checked").each(function(){
+				console.log("핀 체크 체크 !");
+				pinNum = "#pinImg"+(parseInt($(this).val())+1);
+				$(pinNum).empty();
+			});
+		}, 2000);
 		
 		// console.log("setPinArray function pin : ", pin);
 		return pin;
@@ -295,7 +348,9 @@
 				
 				// 순서의 변경없이 2회차 준비
 				turn += 1;
-				$(".pinCheck").prop("checked", false);
+				setTimeout(function(){
+					$(".pinCheck").prop("checked", false);
+				}, 2200);
 				pin = [0,0,0,0,0,0,0,0,0,0];
 				pinSum = 0;
 			} else {
@@ -309,8 +364,10 @@
 				pinSum = 0;
 				turn = 1;
 				pin = [0,0,0,0,0,0,0,0,0,0];
-				$(".pinCheck").attr("disabled", false);
-				$(".pinCheck").prop("checked", false);
+				setTimeout(function(){
+					$(".pinCheck").attr("disabled", false);
+					$(".pinCheck").prop("checked", false);
+				}, 2200);
 			}
 			
 		// ### 10 프레임 ########################################################################################################
@@ -328,8 +385,10 @@
 				
 				// 체크박스 초기화 및 배열 초기화
 				pin = [0,0,0,0,0,0,0,0,0,0];
-				$(".pinCheck").attr("disabled", false);
-				$(".pinCheck").prop("checked", false);
+				setTimeout(function(){
+					$(".pinCheck").attr("disabled", false);
+					$(".pinCheck").prop("checked", false);
+				}, 2200);
 				
 			} else if(turn == 2 && pinSum >= 10){
 				// 3회차 자격 획득
@@ -337,14 +396,18 @@
 				if(pinSum > 10 && pinSum < 20){
 					// 1회차에 스트라이크를, 2회차에 스트라이크를 하지 못한경우
 					
-					$(".pinCheck").prop("checked", false);
+					setTimeout(function(){
+						$(".pinCheck").prop("checked", false);
+					}, 2200);
 					
 				} else {
 					// 스페어 or 1회차, 2회차 스트라이크를 친경우
 					
 					// 체크박스 초기화 및 배열 초기화
-					$(".pinCheck").attr("disabled", false);
-					$(".pinCheck").prop("checked", false);
+					setTimeout(function(){
+						$(".pinCheck").attr("disabled", false);
+						$(".pinCheck").prop("checked", false);
+					}, 2200);
 				}
 
 				pinSum -= 10;
@@ -372,10 +435,15 @@
 					pinSum = 0;
 					
 					// 체크박스 초기화 및 배열 초기화
-					$(".pinCheck").attr("disabled", false);
+					setTimeout(function(){
+						$(".pinCheck").attr("disabled", false);
+						$(".pinCheck").prop("checked", false);
+					}, 2200);
 				}
 
-				$(".pinCheck").prop("checked", false);
+				setTimeout(function(){
+					$(".pinCheck").prop("checked", false);
+				}, 2200);
 				pin = [0,0,0,0,0,0,0,0,0,0];
 				
 			}
@@ -539,8 +607,8 @@
 						console.log("그냥 스트라이크를 쳤을 경우 : ");
 					}
 					// 터키 (이이전 프레임의 점수가 10 일 경우 이이전 프레임의 점수에 이전 프레임의 점수와 현재 프레임의 첫번째턴의 값을 더함)
-					if($(previousHomeFTurn).text() == 10) {
-						$(previousHomeScore).text(parseInt($(prevHomeScore).text())+parseInt($(homeFTurn).text()));
+					if($(previousHomeFTurn).text() == 10 && turn == 1) {
+						$(previousHomeScore).text(parseInt($(previousHomeScore).text())+parseInt($(homeFTurn).text()));
 						console.log("터키");
 					}
 				}
@@ -575,8 +643,8 @@
 						console.log("그냥 스트라이크를 쳤을 경우 : ");
 					}
 					// 터키 (이이전 프레임의 점수가 10 일 경우 이이전 프레임의 점수에 이전 프레임의 점수와 현재 프레임의 첫번째턴의 값을 더함)
-					if($(previousAwayFTurn).text() == 10) {
-						$(previousAwayScore).text(parseInt($(prevAwayScore).text())+parseInt($(awayFTurn).text()));
+					if($(previousAwayFTurn).text() == 10 && turn == 1) {
+						$(previousAwayScore).text(parseInt($(previousAwayScore).text())+parseInt($(awayFTurn).text()));
 						console.log("터키");
 					}
 				}

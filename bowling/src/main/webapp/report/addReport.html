@@ -27,17 +27,21 @@
    }
    .footer-copyright-area {
       position:relative;
-      top:500px;
+      top:400px;
    }
    #bowlingGame {
    		position:relative;
-   		bottom:500px;
+   		bottom:350px;
    		left:750px;
    }
    #allPinImg {
 		position:relative;
-		left:415px;
+		left:417px;
 		bottom:20px;
+	}
+	#hitPinImg {
+		position:relative;
+		left:330px;
 	}
 	#pinImg7{
 		position:absolute;
@@ -90,6 +94,12 @@
 	#bowlingFloor {
 		position:absolute;
 		width:1000px;
+	}
+	#bowlingBall {
+		position:absolute;
+		width:120px;
+		left:435px;
+		top:500px;
 	}
 </style>
 
@@ -417,11 +427,21 @@
 		<div id="bowlingGame">
 			<img id="bowlingFloor" src="/img/floor.png">
 			<div id="allPinImg">
-				<span id="pinImg7"><img class="pinImg" src="/img/pin.png"></span><span id="pinImg8"><img class="pinImg" src="/img/pin.png"></span><span id="pinImg9"><img class="pinImg" src="/img/pin.png"></span><span id="pinImg10"><img class="pinImg" src="/img/pin.png"></span>
-				<span id="pinImg4"><img class="pinImg" src="/img/pin.png"></span><span id="pinImg5"><img class="pinImg" src="/img/pin.png"></span><span id="pinImg6"><img class="pinImg" src="/img/pin.png"></span>
-				<span id="pinImg2"><img class="pinImg" src="/img/pin.png"></span><span id="pinImg3"><img class="pinImg" src="/img/pin.png"></span>
-				<span id="pinImg1"><img class="pinImg" src="/img/pin.png"></span>
+				<span class="pinTag" id="pinImg7"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg8"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg9"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg10"><img class="pinImg" src="/img/pin.png"></span>
+				<span class="pinTag" id="pinImg4"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg5"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg6"><img class="pinImg" src="/img/pin.png"></span>
+				<span class="pinTag" id="pinImg2"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg3"><img class="pinImg" src="/img/pin.png"></span>
+				<span class="pinTag" id="pinImg1"><img class="pinImg" src="/img/pin.png"></span>
 			</div>
+			<div id="allPinImgCopy">
+				<span class="pinTag" id="pinImg7"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg8"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg9"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg10"><img class="pinImg" src="/img/pin.png"></span>
+				<span class="pinTag" id="pinImg4"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg5"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg6"><img class="pinImg" src="/img/pin.png"></span>
+				<span class="pinTag" id="pinImg2"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg3"><img class="pinImg" src="/img/pin.png"></span>
+				<span class="pinTag" id="pinImg1"><img class="pinImg" src="/img/pin.png"></span>
+			</div>
+			<div id="hitPinImg">
+				<img src="/img/hitPin.png">
+			</div>
+			<img id="bowlingBall" src="/img/ball.png">
 		</div>
 
 		<div class="footer-copyright-area">
@@ -524,7 +544,9 @@
 		
 		// 경기 시작 전 데이터 입력 폼 비활성화
 		//$("#addPin").hide();
-
+		$("#hitPinImg").hide();
+		$("#allPinImgCopy").hide();
+		
 		// game 테이블에 경기 데이터를 입력하기 위해 데이터 출력하는 함수 실행
 		setGame();
 		
@@ -594,7 +616,7 @@
 			// console.log("버튼클릭");
 			
 			// 체크한 핀을 pin 배열의 값 저장하는 함수 실행
-			game.pin = setPinArray(game.pin);
+			game.pin = setPinArray(game.pin, game.turn);
 			// console.log("pin : ", game.pin);
 			
 			// 선수의 데이터를 기록하는 함수
