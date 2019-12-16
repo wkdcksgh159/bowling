@@ -4,14 +4,32 @@
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>Team Information</title>
-<style >
+<style>
+img{
+	width: 90px;
+	height: 60px;
+}
+.player{
+	display:inline-block;
+	margin: 30px;
+}
+.name{
+	margin: 10px;
+}
+.managerName{
+	margin: 10px;
+}
+
+
 </style>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- 팀 정보  -->
-<link media="all" rel="stylesheet" type="text/css"href="https://stillres.olympic.org/css/modules.css" />
-<link media="all" rel="stylesheet" type="text/css"href="https://stillres.olympic.org/css/all.css" />
+<link media="all" rel="stylesheet" type="text/css"
+	href="https://stillres.olympic.org/css/modules.css" />
+<link media="all" rel="stylesheet" type="text/css"
+	href="https://stillres.olympic.org/css/all.css" />
 <!-- favicon
 		============================================ -->
 <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
@@ -73,6 +91,9 @@
 <link rel="stylesheet" href="/css/data-table/bootstrap-editable.css">
 
 <script src="/js/vendor/modernizr-2.8.3.min.js"></script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -92,36 +113,44 @@
 								class="educate-icon educate-home icon-wrap"></span> <span
 								class="mini-click-non">홈</span>
 						</a></li>
-						
-						 <li>
-                            <a href="/news.html" aria-expanded="false"><span class="educate-icon educate-library icon-wrap"></span> <span class="mini-click-non">뉴스</span></a>
-                        </li>
-						
-						<li>
-                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-data-table icon-wrap"></span> <span class="mini-click-non">정보</span></a>
-                            <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="Peity Charts" href="/teamInformation.html"><span class="mini-sub-pro">팀정보</span></a></li>
-                                <li><a title="Data Table" href="/playerInformation.html"><span class="mini-sub-pro">선수정보</span></a></li>
-                            </ul>
-                        </li>
-						
-						<li>
-                            <a class="has-arrow" href="/all-students.html" aria-expanded="false"><span class="educate-icon educate-student icon-wrap"></span> <span class="mini-click-non">기록/순위</span></a>
-                            <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Students" href="/teamReport.html"><span class="mini-sub-pro">팀 기록</span></a></li>
-                                <li><a title="Add Students" href="/teamRanking.html"><span class="mini-sub-pro">팀 순위</span></a></li>
-                                <li><a title="Edit Students" href="/playerReport.html"><span class="mini-sub-pro">선수 기록</span></a></li>
-                                <li><a title="Students Profile" href="/playerRanking.html"><span class="mini-sub-pro">선수 순위</span></a></li>
-                            </ul>
-                        </li>
-						
-						<li>
-                            <a href="/schedule.html" aria-expanded="false"><span class="educate-icon educate-event icon-wrap sub-icon-mg" aria-hidden="true"></span> <span class="mini-click-non">일정/결과</span></a>
-                        </li>
-						
-						<li>
-                            <a  href="/stat.html" aria-expanded="false"><span class="educate-icon educate-charts icon-wrap"></span> <span class="mini-click-non">통계</span></a>
-                        </li>
+
+						<li><a href="/news.html" aria-expanded="false"><span
+								class="educate-icon educate-library icon-wrap"></span> <span
+								class="mini-click-non">뉴스</span></a></li>
+
+						<li><a class="has-arrow" href="#" aria-expanded="false"><span
+								class="educate-icon educate-data-table icon-wrap"></span> <span
+								class="mini-click-non">정보</span></a>
+							<ul class="submenu-angle" aria-expanded="false">
+								<li><a title="Peity Charts" href="/teamInformation.html"><span
+										class="mini-sub-pro">팀정보</span></a></li>
+								<li><a title="Data Table" href="/playerInformation.html"><span
+										class="mini-sub-pro">선수정보</span></a></li>
+							</ul></li>
+
+						<li><a class="has-arrow" href="/all-students.html"
+							aria-expanded="false"><span
+								class="educate-icon educate-student icon-wrap"></span> <span
+								class="mini-click-non">기록/순위</span></a>
+							<ul class="submenu-angle" aria-expanded="false">
+								<li><a title="All Students" href="/teamReport.html"><span
+										class="mini-sub-pro">팀 기록</span></a></li>
+								<li><a title="Add Students" href="/teamRanking.html"><span
+										class="mini-sub-pro">팀 순위</span></a></li>
+								<li><a title="Edit Students" href="/playerReport.html"><span
+										class="mini-sub-pro">선수 기록</span></a></li>
+								<li><a title="Students Profile" href="/playerRanking.html"><span
+										class="mini-sub-pro">선수 순위</span></a></li>
+							</ul></li>
+
+						<li><a href="/schedule.html" aria-expanded="false"><span
+								class="educate-icon educate-event icon-wrap sub-icon-mg"
+								aria-hidden="true"></span> <span class="mini-click-non">일정/결과</span></a>
+						</li>
+
+						<li><a href="/stat.html" aria-expanded="false"><span
+								class="educate-icon educate-charts icon-wrap"></span> <span
+								class="mini-click-non">통계</span></a></li>
 
 					</ul>
 				</nav>
@@ -129,391 +158,512 @@
 		</nav>
 	</div>
 	<!-- ### Left Menu END 건드리지 마세요 ################################################################################################################################################################# -->
-	
+
 	<!-- ### Top Menu Start 여기부터 건드리지 마세요 ########################################################################################################################################################################### -->
-    <div class="all-content-wrapper">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="logo-pro">
-                        <a href="/index.html"><img class="main-logo" src="/img/logo/logo.png" alt="" /></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="header-advance-area">
-            <div class="header-top-area">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="header-top-wraper">
-                                <div class="row">
-                                    <div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
-                                        <div class="menu-switcher-pro">
-                                            <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
-													<i class="educate-icon educate-nav"></i>
-												</button>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
-                                        <div class="header-top-menu tabl-d-n">
-                                            <ul class="nav navbar-nav mai-top-nav">
-                                                <li class="nav-item"><a href="/index.html" class="nav-link">Home</a>
-                                                </li>
-                                                <li class="nav-item"><a href="/news.html" class="nav-link">News</a>
-                                                </li>
-                                                <li class="nav-item dropdown res-dis-nn">
-                                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">Information <span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
-                                                    <div role="menu" class="dropdown-menu animated zoomIn">
-                                                        <a href="/teamInformation.html" class="dropdown-item">Team Information</a>
-                                                        <a href="/playerInformation.html" class="dropdown-item">Player Information</a>
-                                                    </div>
-                                                </li>
-                                                <li class="nav-item dropdown res-dis-nn">
-                                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">Report & Ranking<span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
-                                                    <div role="menu" class="dropdown-menu animated zoomIn">
-                                                        <a href="/teamReport.html" class="dropdown-item">Team Report</a>
-                                                        <a href="/playerReport.html" class="dropdown-item">Player Report</a>
-                                                        <a href="/teamRanking.html" class="dropdown-item">Team Ranking</a>
-                                                        <a href="/playerRanking.html" class="dropdown-item">Player Ranking</a>
-                                                    </div>
-                                                </li>
-                                                <li class="nav-item"><a href="/schedule.html" class="nav-link">Schedule</a>
-                                                </li>
-                                                <li class="nav-item"><a href="/.html" class="nav-link">Stat</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-                                        <div class="header-right-info">
-                                            <ul class="nav navbar-nav mai-top-nav header-right-menu">
-                                                <li class="nav-item dropdown">
-                                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="educate-icon educate-message edu-chat-pro" aria-hidden="true"></i><span class="indicator-ms"></span></a>
-                                                    <div role="menu" class="author-message-top dropdown-menu animated zoomIn">
-                                                        <div class="message-single-top">
-                                                            <h1>Message</h1>
-                                                        </div>
-                                                        <ul class="message-menu">
-                                                            <li>
-                                                                <a href="#">
-                                                                    <div class="message-img">
-                                                                        <img src="img/contact/1.jpg" alt="">
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                        <div class="message-view">
-                                                            <a href="#">수신받은 메세지가 없습니다</a>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="educate-icon educate-bell" aria-hidden="true"></i><span class="indicator-nt"></span></a>
-                                                    <div role="menu" class="notification-author dropdown-menu animated zoomIn">
-                                                        <div class="notification-single-top">
-                                                            <h1>Notifications</h1>
-                                                        </div>
-                                                        <ul class="notification-menu">
-                                                        </ul>
-                                                        <div class="notification-view">
-                                                            <a href="#">새로운 알림이 없습니다</a>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
-															<img src="img/product/pro4.jpg" alt="" />
-															<span class="admin-name">My Page</span>
-															<i class="fa fa-angle-down edu-icon edu-down-arrow"></i>
-														</a>
-                                                    <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
-                                                        <li><a href="#"><span id="login" class="edu-icon edu-locked author-log-ic"></span>Log In</a>
-                                                        </li>
-                                                        <li><a href="#"><span id="logOut" class="edu-icon edu-locked author-log-ic"></span>Log Out</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li class="nav-item nav-setting-open"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="educate-icon educate-menu"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-	<!-- ### Top Menu End 여기까지 건드리지 마세요 ########################################################################################################################################################################### -->
-	
-	<!-- ### Content Start 내용 ######################################################################################################################################################################################### -->
-          <div class="breadcome-area">
-                <div class="container-fluid" >
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="breadcome-list single-page-breadcome">
+	<div class="all-content-wrapper">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="logo-pro">
+						<a href="/index.html"><img class="main-logo"
+							src="/img/logo/logo.png" alt="" /></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="header-advance-area">
+			<div class="header-top-area">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<div class="header-top-wraper">
+								<div class="row">
+									<div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
+										<div class="menu-switcher-pro">
+											<button type="button" id="sidebarCollapse"
+												class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+												<i class="educate-icon educate-nav"></i>
+											</button>
+										</div>
+									</div>
+									<div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
+										<div class="header-top-menu tabl-d-n">
+											<ul class="nav navbar-nav mai-top-nav">
+												<li class="nav-item"><a href="/index.html"
+													class="nav-link">Home</a></li>
+												<li class="nav-item"><a href="/news.html"
+													class="nav-link">News</a></li>
+												<li class="nav-item dropdown res-dis-nn"><a href="#"
+													data-toggle="dropdown" role="button" aria-expanded="false"
+													class="nav-link dropdown-toggle">Information <span
+														class="angle-down-topmenu"><i
+															class="fa fa-angle-down"></i></span></a>
+													<div role="menu" class="dropdown-menu animated zoomIn">
+														<a href="/teamInformation.html" class="dropdown-item">Team
+															Information</a> <a href="/playerInformation.html"
+															class="dropdown-item">Player Information</a>
+													</div></li>
+												<li class="nav-item dropdown res-dis-nn"><a href="#"
+													data-toggle="dropdown" role="button" aria-expanded="false"
+													class="nav-link dropdown-toggle">Report & Ranking<span
+														class="angle-down-topmenu"><i
+															class="fa fa-angle-down"></i></span></a>
+													<div role="menu" class="dropdown-menu animated zoomIn">
+														<a href="/teamReport.html" class="dropdown-item">Team
+															Report</a> <a href="/playerReport.html" class="dropdown-item">Player
+															Report</a> <a href="/teamRanking.html" class="dropdown-item">Team
+															Ranking</a> <a href="/playerRanking.html"
+															class="dropdown-item">Player Ranking</a>
+													</div></li>
+												<li class="nav-item"><a href="/schedule.html"
+													class="nav-link">Schedule</a></li>
+												<li class="nav-item"><a href="/.html" class="nav-link">Stat</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+										<div class="header-right-info">
+											<ul class="nav navbar-nav mai-top-nav header-right-menu">
+												<li class="nav-item dropdown"><a href="#"
+													data-toggle="dropdown" role="button" aria-expanded="false"
+													class="nav-link dropdown-toggle"><i
+														class="educate-icon educate-message edu-chat-pro"
+														aria-hidden="true"></i><span class="indicator-ms"></span></a>
+													<div role="menu"
+														class="author-message-top dropdown-menu animated zoomIn">
+														<div class="message-single-top">
+															<h1>Message</h1>
+														</div>
+														<ul class="message-menu">
+															<li><a href="#">
+																	<div class="message-img">
+																		<img src="img/contact/1.jpg" alt="">
+																	</div>
+															</a></li>
+														</ul>
+														<div class="message-view">
+															<a href="#">수신받은 메세지가 없습니다</a>
+														</div>
+													</div></li>
+												<li class="nav-item"><a href="#" data-toggle="dropdown"
+													role="button" aria-expanded="false"
+													class="nav-link dropdown-toggle"><i
+														class="educate-icon educate-bell" aria-hidden="true"></i><span
+														class="indicator-nt"></span></a>
+													<div role="menu"
+														class="notification-author dropdown-menu animated zoomIn">
+														<div class="notification-single-top">
+															<h1>Notifications</h1>
+														</div>
+														<ul class="notification-menu">
+														</ul>
+														<div class="notification-view">
+															<a href="#">새로운 알림이 없습니다</a>
+														</div>
+													</div></li>
+												<li class="nav-item"><a href="#" data-toggle="dropdown"
+													role="button" aria-expanded="false"
+													class="nav-link dropdown-toggle"> <img
+														src="img/product/pro4.jpg" alt="" /> <span
+														class="admin-name">My Page</span> <i
+														class="fa fa-angle-down edu-icon edu-down-arrow"></i>
+												</a>
+													<ul role="menu"
+														class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+														<li><a href="#"><span id="login"
+																class="edu-icon edu-locked author-log-ic"></span>Log In</a>
+														</li>
+														<li><a href="#"><span id="logOut"
+																class="edu-icon edu-locked author-log-ic"></span>Log Out</a>
+														</li>
+													</ul></li>
+												<li class="nav-item nav-setting-open"><a href="#"
+													data-toggle="dropdown" role="button" aria-expanded="false"
+													class="nav-link dropdown-toggle"><i
+														class="educate-icon educate-menu"></i></a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- ### Top Menu End 여기까지 건드리지 마세요 ########################################################################################################################################################################### -->
 
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <div class="breadcome-heading">
-                                            <form role="search" class="sr-input-func">
-                                                <div>
-                                                	<h1><sapn id="getTeamName">팀 정보</h1>
-                                                </div>
-                                                
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <ul class="breadcome-menu">
-                                            <li><a href="#">Home</a> <span class="bread-slash">/</span>
-                                            </li>
-                                            <li><span class="bread-blod" id="getTeamName2">팀 정보</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+			<!-- ### Content Start 내용 ######################################################################################################################################################################################### -->
+			<div class="breadcome-area">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<div class="breadcome-list single-page-breadcome">
 
-	<!-- 화면에서 나오는 페이지 -->
-	<!-- Static Table Start -->
-        <div class="data-table-area mg-b-15" >
-            <div class="container-fluid">
-                <div class="row" >
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-                        <div class="sparkline13-list" >
-                            <div class="sparkline13-hd">
-                                <div class="main-sparkline13-hd" >
-                                </div>
-                            </div>
-                
-      <div class="countries">
-			<div class="box">
-					<a href="/korea">
-						<div class="flag-box">
-							<div class="flag90 kor" >
-								<span class="mask"></span>
+								<div class="row">
+									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+										<div class="breadcome-heading">
+											<form role="search" class="sr-input-func">
+												<div>
+													<h1>
+														<sapn id="getTeamName">팀 정보
+													</h1>
+												</div>
+
+											</form>
+										</div>
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+										<ul class="breadcome-menu">
+											<li><a href="#">Home</a> <span class="bread-slash">/</span>
+											</li>
+											<li><span class="bread-blod" id="getTeamName2">팀
+													정보</span></li>
+										</ul>
+									</div>
+								</div>
 							</div>
-						</div> 대한민국
-					</a>
+						</div>
+					</div>
 				</div>
-			
-			
-			
-				<div class="box"style="margin-right:10px;">
-					<a href="/japan">
-						<div class="flag-box">
-							<div class="flag90 jpn">
-								<span class="mask"></span>
+			</div>
+		</div>
+
+		<!-- 화면에서 나오는 페이지 -->
+		<!-- Static Table Start -->
+		<div class="data-table-area mg-b-15">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="sparkline13-list">
+							<div class="sparkline13-hd">
+								<div class="main-sparkline13-hd"></div>
 							</div>
-						</div> 일본
-					</a>
-				</div>
+							<div class="countries">
+								<div class="country" id="대한민국" name=0>
+									<div class="box">
+										<a href="#">
+											<div class="flag-box">
+												<div class="flag90 kor">
+													<span class="mask"></span>
+												</div>
+											</div> <span class="countryName">대한민국</span>
+										</a>
+									</div>
+								</div>
+								<div class="country" id="마카오" name=1>
+									<div class="box" style="margin-right: 10px;">
+										<a href="#">
+											<div class="flag-box">
+												<div class="flag90">
+													<span class="mask"><img src="/ma.jpg"></span>
+												</div>
 	
-				<div class="box" >
-					<a href="/china">
-						<div class="flag-box">
-							<div class="flag90 chn">
-								<span class="mask"></span>
-							</div>
+											</div> 마카오
+										</a>
+									</div>
+								</div>
+								<div class="country" id="말레이시아" name=2>
+									<div class="box">
+										<a href="#">
+											<div class="flag-box">
+												<div class="flag90 mas">
+													<span class="mask"></span>
+												</div>
 	
-						</div> 중국
-					</a>
-				</div>
-	
-				<div class="box">
-					<a href="/vietnam">
-						<div class="flag-box">
-							<div class="flag90 vie">
-								<span class="mask"></span>
-							</div>
-	
-						</div> 베트남
-					</a>
-				</div>
-	
-				<div class="box">
-					<a href="/thailand">
-						<div class="flag-box">
-							<div class="flag90 tha">
-								<span class="mask"></span>
-							</div>
-						</div> 태국
-					</a>
-				</div>
-	
-				<div class="box">
-					<a href="/taipei">
-						<div class="flag-box">
-							<div class="flag90 tpe">
-								<span class="mask"></span>
-							</div>
-	
-						</div> 타이베이
-					</a>
-				</div>
-					<div class="box" style="margin-right:10px;">
-					<a href="/taipei">
-						<div class="flag-box">
-							<div class="flag90 mas">
-								<span class="mask"></span>
-							</div>
-	
-						</div> 말레이시아
-					</a>
-				</div>
-					<div class="box">
-					<a href="/taipei">
-						<div class="flag-box">
-							<div class="flag90 mgl">
-								<span class="mask"></span>
-							</div>
-	
-						</div> 몽골
-					</a>
-				</div>
-					<div class="box">
-					<a href="/taipei">
-						<div class="flag-box">
-							<div class="flag90 brn">
-								<span class="mask"></span>
-							</div>
-	
-						</div> 바레인
-					</a>
-				</div>
-					<div class="box">
-					<a href="/taipei">
-						<div class="flag-box">
-							<div class="flag90 ksa">
-								<span class="mask"></span>
-							</div>
-	
-						</div> 카자흐스타
-					</a>
-				</div>
-					<div class="box">
-					<a href="/taipei">
-						<div class="flag-box">
-							<div class="flag90 sgp">
-								<span class="mask"></span>
-							</div>
-	
-						</div> 싱가포르
-					</a>
-				</div>
-					<div class="box" style="margin-right:10px;">
-					<a href="/taipei">
-						<div class="flag-box">
-							<div class="flag90 uae">
-								<span class="mask"></span>
-							</div>
-	
-						</div> 아랍에미리트
-					</a>
-				</div>
-					<div class="box">
-					<a href="/taipei">
-						<div class="flag-box">
-							<div class="flag90 ind">
-								<span class="mask"></span>
-							</div>
-	
-						</div> 인도
-					</a>
-				</div>
-					<div class="box">
-					<a href="/taipei">
-						<div class="flag-box">
-							<div class="flag90 ina">
-								<span class="mask"></span>
-							</div>
-	
-						</div> 인도네시아
-					</a>
-				</div>
-					<div class="box">
-					<a href="/taipei">
-						<div class="flag-box">
-							<div class="flag90 kaz">
-								<span class="mask"></span>
-							</div>
-	
-						</div> 카자흐스탄
-					</a>
-				</div>
-					<div class="box">
-					<a href="/taipei">
-						<div class="flag-box">
-							<div class="flag90 qat">
-								<span class="mask"></span>
-							</div>
-	
-						</div> 카타르
-					</a>
-				</div>
-					<div class="box" style="margin-right:10px;">
-					<a href="/taipei">
-						<div class="flag-box">
-							<div class="flag90 phi">
-								<span class="mask"></span>
-							</div>
-	
-						</div> 필리핀
-					</a>
-				</div>
-					<div class="box">
-					<a href="/taipei">
-						<div class="flag-box">
-							<div class="flag90 hkg">
-								<span class="mask"></span>
-							</div>
-	
-						</div> 홍콩
-					</a>
-				</div>
-					<div class="box">
-					<a href="/taipei">
-						<div class="flag-box">
-							<div class="flag90">
+											</div> 말레이시아
+										</a>
+									</div>
+								</div>
 							
-								<span class="mask"><img src="/ma.jpg"></span>
-							</div>
+								<div class="country" id="몽골" name=3>
+									<div class="box">
+										<a href="#">
+											<div class="flag-box">
+												<div class="flag90 mgl">
+													<span class="mask"></span>
+												</div>
 	
-						</div> 마카오
-					</a>
-				    </div>
-                </div>                                  
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
-      
-          
-        <!-- ### Content End 내용 ######################################################################################################################################################################################### -->
-        
-        <!-- ### Copyright Start 카피라이터 건드리지마세요 #############################################################################################################################################################################-->
-        <div class="footer-copyright-area">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="footer-copy-right">
-                            <p>Copyright © 2018. All rights reserved. Template by <a href="https://colorlib.com/wp/templates/">Colorlib</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- ### Copyright End 카피라이터 건드리지마세요 #############################################################################################################################################################################-->
-   
-    </div>
+											</div> 몽골
+										</a>
+									</div>
+								</div>
+								<div class="country" id="바레인" name=4>
+									<div class="box">
+										<a href="#">
+											<div class="flag-box">
+												<div class="flag90 brn">
+													<span class="mask"></span>
+												</div>
+	
+											</div> 바레인
+										</a>
+									</div>
+								</div>
+									
+								<div class="country" id="베트남" name=5>
+									<div class="box">
+										<a href="#">
+											<div class="flag-box">
+												<div class="flag90 vie">
+													<span class="mask"></span>
+												</div>
+	
+											</div> 베트남
+										</a>
+									</div>
+								</div>
+								<div class="country" id="사우디아라비아" name=6>
+									<div class="box" style="margin-right: 10px;">
+										<a href="#">
+											<div class="flag-box">
+												<div class="flag90 ksa">
+													<span class="mask"></span>
+												</div>
+	
+											</div> 사우디아라비아
+										</a>
+									</div>
+								</div>
+								<div class="country" id="싱가포르" name=7>	
+									<div class="box">
+										<a href="#">
+											<div class="flag-box">
+												<div class="flag90 sgp">
+													<span class="mask"></span>
+												</div>
+	
+											</div> 싱가포르
+										</a>
+									</div>
+								</div>
+								<div class="country" id="아랍에미리트" name=8>	
+									<div class="box" style="margin-right: 10px;">
+										<a href="#">
+											<div class="flag-box">
+												<div class="flag90 uae">
+													<span class="mask"></span>
+												</div>
+	
+											</div> 아랍에미리트
+										</a>
+									</div>
+								</div>
+								<div class="country" id="인도" name=9>	
+									<div class="box">
+										<a href="#">
+											<div class="flag-box">
+												<div class="flag90 ind">
+													<span class="mask"></span>
+												</div>
+	
+											</div> 인도
+										</a>
+									</div>
+								</div>
+								<div class="country" id="인도네시아" name=10>	
+									<div class="box">
+										<a href="#">
+											<div class="flag-box">
+												<div class="flag90 ina">
+													<span class="mask"></span>
+												</div>
+									
+											</div> 인도네시아
+										</a>
+									</div>	
+								</div>
+								<div class="country" id="일본" name=11>	
+									<div class="box" style="margin-right: 10px;">
+											<a href="#">
+												<div class="flag-box">
+													<div class="flag90 jpn">
+														<span class="mask"></span>
+													</div>
+												</div> 일본
+											</a>
+										</div>
+									</div>
+									<div class="country" id="중국" name=12>
+										<div class="box">
+											<a href="#">
+												<div class="flag-box">
+													<div class="flag90 chn">
+														<span class="mask"></span>
+													</div>
+	
+												</div> 중국
+											</a>
+										</div>
+									</div>
+									<div class="country" id="타이베이" name=13>
+										<div class="box">
+											<a href="#">
+												<div class="flag-box">
+													<div class="flag90 tpe">
+														<span class="mask"></span>
+													</div>
+	
+												</div> 타이베이
+											</a>
+										</div>
+									</div>
+										
+									<div class="country" id="카자흐스탄" name=14>
+									 	<div class="box" style="margin-right: 10px;">
+										<a href="#">
+											<div class="flag-box">
+												<div class="flag90 kaz">
+													<span class="mask"></span>
+												</div>
+	
+												</div> 카자흐스탄
+											</a>
+										</div>
+									</div>	
+									<div class="country" id="카타르" name=15>
+									<div class="box">
+										<a href="#">
+											<div class="flag-box">
+												<div class="flag90 qat">
+													<span class="mask"></span>
+												</div>
+	
+											</div> 카타르
+										</a>
+									</div>
+									</div>
+									<div class="country" id="태국" name=16>
+									<div class="box">
+											<a href="#">
+												<div class="flag-box">
+													<div class="flag90 tha">
+														<span class="mask"></span>
+													</div>
+												</div> 태국
+											</a>
+										</div>
+									</div>
+									<div class="country" id="필리핀" name=17>
+									<div class="box">
+										<a href="#">
+											<div class="flag-box">
+												<div class="flag90 phi">
+													<span class="mask"></span>
+												</div>
+	
+											</div> 필리핀
+										</a>
+									</div>
+									</div>
+									<div class="country" id="홍콩" name=18>
+									<div class="box">
+										<a href="#">
+											<div class="flag-box">
+												<div class="flag90 hkg">
+													<span class="mask"></span>
+												</div>
+	
+											</div> 홍콩
+										</a>
+									</div>
+								</div>
+								<div class="data-table-area mg-b-15" >
+						            <div class="container-fluid">
+						                <div class="row" >
+						                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+						                        <div class="sparkline13-list" >
+						                            <div class="sparkline13-hd">
+						                                <div class="main-sparkline13-hd" >
+						                                </div>
+						                            </div>
+							<section class="id-card-box" >
+							 <div class="countries" >
+						             <div class="logo-box" id="flag">  
+											<!-- <img src="/image/korea.png" style="width: 400px; height: 200px"> -->	
+									 </div>	
+							<div id="main">
+									<div class="item-list">
+										<div style="display: block;" class="slide">
+											
+											<div class="row">
+												<span class="label">팀 이름</span>
+												<div class="txt"><span id="teamName"></span></div>
+											</div>
+						
+											<div class="row">
+												<span class="label">주소</span>
+												<!-- <div class="txt">서울특별시 송파구 올림픽로 424(방이동) 올림픽컨벤션센터 1층</div> -->
+												<div class="txt"><span id="address" name="0"></span></div>
+											</div>
+											<div class="row">
+												<span class="label">전화번호</span>
+												<!-- <div class="txt"> +82 02 420 4280</div> -->
+												<div class="txt"><span id="phone"></span></div>
+											</div>
+											<div class="row">
+												<span class="label">Email</span>
+												<!-- <div class="txt">bowling@sports.or.kr</a></div> -->
+												<div class="txt"><span id="email"></span></a></div>
+											</div>
+											<div class="row">
+												<span class="label">사이트</span>
+												<!-- <div class="txt"><a href="http://www.bowling.or.kr/" target="_blank">http://www.bowling.or.kr/</a></div> -->
+												<div class="txt"><a href="#" target="_blank"><span id="website"></span></a></div>
+											</div>
+											<div class="row">
+												<span class="label">사무 총장</span>
+												<!-- <div class="txt">kim kil doo</div> -->
+												<div class="txt"><span id="secretarygeneral"></span></div>
+											</div>
+						
+										</div>
+									</div>
+								</div>
+							</div>
+						
+								
+						
+							</section>
+						    </div>
+						    </div>
+						    </div>
+						    </div>
+						    </div>
+								<div id="content" >
+									<div id="teamImg" align="center">
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- ### Content End 내용 ######################################################################################################################################################################################### -->
+
+	<!-- ### Copyright Start 카피라이터 건드리지마세요 #############################################################################################################################################################################-->
+	<div class="footer-copyright-area">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="footer-copy-right">
+						<p>
+							Copyright © 2018. All rights reserved. Template by <a
+								href="https://colorlib.com/wp/templates/">Colorlib</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ### Copyright End 카피라이터 건드리지마세요 #############################################################################################################################################################################-->
+
+	</div>
 
 	<!-- jquery
 		============================================ -->
@@ -573,18 +723,108 @@
 	<!-- main JS
 		============================================ -->
 	<script src="/js/main.js"></script>
-    <!-- data table JS
+	<!-- data table JS
 		============================================ -->
-    <script src="/js/data-table/bootstrap-table.js"></script>
-    <script src="/js/data-table/tableExport.js"></script>
-    <script src="/js/data-table/data-table-active.js"></script>
-    <script src="/js/data-table/bootstrap-table-editable.js"></script>
-    <script src="/js/data-table/bootstrap-editable.js"></script>
-    <script src="/js/data-table/bootstrap-table-resizable.js"></script>
-    <script src="/js/data-table/colResizable-1.5.source.js"></script>
-    <script src="/js/data-table/bootstrap-table-export.js"></script>
+	<script src="/js/data-table/bootstrap-table.js"></script>
+	<script src="/js/data-table/tableExport.js"></script>
+	<script src="/js/data-table/data-table-active.js"></script>
+	<script src="/js/data-table/bootstrap-table-editable.js"></script>
+	<script src="/js/data-table/bootstrap-editable.js"></script>
+	<script src="/js/data-table/bootstrap-table-resizable.js"></script>
+	<script src="/js/data-table/colResizable-1.5.source.js"></script>
+	<script src="/js/data-table/bootstrap-table-export.js"></script>
 
 </body>
 <script>
+	$(document).ready(function(){
+		
+		$("#content").hide();
+		
+		// 변수 선언
+		let countryId = null; // 선택한 나라의 이름
+		let countryNo = 0; // 선택한 나라의 번호
+
+		// 해당 팀의 선수 이름저장할 배열
+		let playerName = ["", "", "", "", "", "", "", "", "", ""];
+		
+		// 전체 국가 감독 이름 배열
+		let managerNameArray = ["강대연", "조상현", "추재준", "Claus Reggio", "Cathlene Cutmere", "Fallon Talboy", "Any Ochterlony", "Julio Frudd", "Wilbur Ogilvie", "Mic Mattschas", "Daffi Lozano", "Noak McAvey", "Flinn Boliver", "Donelle Chessel", "Morgan Kubasiewicz", "Job Oggers", "Christopher Cheshir", "Baxter Weepers", "Ernest Husband"];
+		
+		
+		// country 클래스명을 가진 19개의 국가를 클릭했을때 해당 국가의 정보를 보여주기위한 함수
+		$(".country").on("click", function(){
+			console.log("국가 클릭 !");
+
+			$(".country").hide();
+			$("#content").show();
+			
+			countryId = $(this).attr("id"); // 해당 국가의 선수를 출력하기위한 클릭한 국가의 id 저장
+			countryNo = $(this).attr("name"); // 해당 국가의 감독을 출력하기위한 클릭한 국가의 no 저장
+			
+			console.log("countryId : ", countryId);
+			console.log("countryNo : ", countryNo);
+			
+			// 선택한 국가의 속한 선수의 이름을 배열에 저장하기위한 함수
+			$.ajax({
+				url:"/getHomeTeamPlayer",
+				method:"POST",
+				data:{"teamName": countryId},
+				success:function(json){
+					console.log("success! json :", json);
+					$(json).each(function(index, item){
+						// 선수 이름을 저장할 배열에 선수 이름 저장
+						playerName[index+1] = item.playerName;
+						console.log("playerName[", index, "]", playerName[index]);
+					});
+					console.log("playerName : ", playerName);
+					
+					
+					// 해당 국가의 감독 출력
+					managerName = "<div class='manager'><img src=";
+					managerName += "/image/";
+					managerName += countryId+"0"; // 국가Id + 0 감독 이미지 출력
+					managerName += ".jpg>";
+					managerName += "<div class='managerName'>";
+					managerName += managerNameArray[countryNo]; // 감독 이름이 저장되어있는 배열에서 해당 국가 no를 index로 이용
+					console.log("manager : ", managerName[countryNo]);
+					managerName +="</div></div>";
+					console.log("managerName :", managerName);
+					$("#teamImg").append(managerName);
+					
+					// 해당 국가의 남자 선수 출력
+					for(let i=1; i<6; i++){
+						temp = "<div class='player'><img src=";
+						temp += "/image/";
+						temp += countryId + i; // 국가Id + index 선수 이미지 출력
+						// console.log("countryId + i : ", countryId + i);
+						temp += ".jpg>";
+						temp += "<div class='name'>";
+						temp += playerName[i]; // 해당 국가의 선수 이름이 저장되어있는 배열에서 index를 이용해서 선수 출력
+						console.log("playerName[", i, "] : ", playerName[i]);
+						temp +="</div></div>";
+						$("#teamImg").append(temp);
+						console.log("temp : ", temp);
+					}
+					$("#teamImg").append("<br>"); // 줄 바꿈
+					
+					// 해당 국가의 여자 선수 출력
+					for(let i=6; i<11; i++){
+						temp = "<div class='player'><img src=";
+						temp += "/image/";
+						temp += countryId + i; // 국가Id + index 선수 이미지 출력
+						console.log("countryId + i : ", countryId + i);
+						temp += ".jpg>";
+						temp += "<div class='name'>";
+						temp += playerName[i]; // 해당 국가의 선수 이름이 저장되어있는 배열에서 index를 이용해서 선수 출력
+						console.log("playerName[", i, "] : ", playerName[i]);
+						temp +="</div></div>";
+						$("#teamImg").append(temp);
+					}
+				}
+			});
+		});
+	});
+
+
 </script>
 </html>

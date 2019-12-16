@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+	<div id="getGripDistributionChart">
+		
+	</div>
+</body>
+<script>
+	$(document).ready(function(){
+		let gripArray = [];
+		let gripDisArray = [];
+
+		$.ajax({
+			url:"/getGripDistribution",
+			method:"POST",
+			success:function(json){
+				console.log("getGripDistribution 요청 실행 확인! : ", json);
+				$(json).each(function(index, item){
+					gripArray[index] = item.grip;
+					gripDisArray[index] = item.gripDis;
+				});
+				//myChart.destroy();
+				getGripDistributionChart(gripArray, gripDisArray);
+			}
+		});
+		
+		
+		let getGripDistributionChart = function(gripArray, gripDisArray){
+			console.log("getGripDistributionChart function success!", gripArray, gripDisArray); // 확인
+			
+			let ctx = document.getElementById('myChart'); // 차트 생성
+			
+			myChart = new Chart(ctx, {
+				type: 'pie', // 타입
+				data: {
+					labels: gripArray, // x축 (가로) 데이터
+					datasets: [{
+						label: '그립 분포도',
+						data: gripDisArray, // y축 (세로) 데이터
+			// ### 색 옵션 건드리지 마세요 ###############################################################################################################################################################
+						backgroundColor: [
+							'rgba(255, 99, 132, 0.2)',
+							'rgba(54, 162, 235, 0.2)',
+							'rgba(255, 206, 86, 0.2)',
+							'rgba(75, 192, 192, 0.2)',
+							'rgba(153, 102, 255, 0.2)',
+							'rgba(255, 159, 64, 0.2)',
+							'rgba(27, 27, 27, 0.2)',
+							'rgba(233, 177, 199, 0.2)',
+							'rgba(255, 255, 255, 0.2)',
+							'rgba(117, 140, 120, 0.2)'
+						],
+						borderColor: [
+							'rgba(255, 99, 132, 1)',
+							'rgba(54, 162, 235, 1)',
+							'rgba(255, 206, 86, 1)',
+							'rgba(75, 192, 192, 1)',
+							'rgba(153, 102, 255, 1)',
+							'rgba(255, 159, 64, 1)',
+							'rgba(27, 27, 27, 0.5)',
+							'rgba(255, 227, 226, 1)',
+							'rgba(25, 25, 25, 0.5)',
+							'rgba(117, 140, 120, 1)'
+						],
+			// ### 색 옵션 건드리지 마세요 ###############################################################################################################################################################
+						borderWidth: 1
+					}]
+				},
+				options: {
+					responsive: false,
+					scales: {
+						yAxes: [{
+							ticks: {
+								beginAtZero: true
+							}
+						}]
+					},
+				}
+			});
+			console.log("ctx 확인  : ",ctx);
+			$("#getGripDistributionChart").append(ctx); // 해당 위치에 그래프 추가
+		}
+	})
+</script>
+</html>

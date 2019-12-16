@@ -4,94 +4,187 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.example.bowling.mapper.BowlingPlayerMapper">
   	
-  	<!-- playerRecord 선수 한명의 상세정보를 출력하는 Mapper -->
-  	<select id="selectTeamPlayerOne" parameterType="com.example.bowling.vo.PlayerRecord"
-  									 resultType="com.example.bowling.vo.PlayerRecord">
-		SELECT p.player_name as playerName,
-			p.player_gender as gender,
-			pl.matchGame as matchGame,
-			pl.win as win,
-			pl.draw as draw,
-			pl.lose as lose,
-			pl.winRate as winRate,
-			pl.scoreAvg as scoreAvg,
-			pl.strikeAvg as strikeAvg
-			FROM team_player_contract tpc
-			INNER JOIN player p
-			INNER JOIN (
-			select 
-					ss.player_no 'player_no',
-					count(*) 'matchGame', 
-			      sum(case 
-			         when gr.team_result = 'win'
-			         then 1
-			         else 0
-			      end) 'win',
-			      sum(case 
-			         when gr.team_result = 'draw'
-			         then 1
-			         else 0
-			      end) 'draw',
-			      sum(case 
-			         when gr.team_result = 'lose'
-			         then 1
-			         else 0
-			      end) 'lose',
-			      round(sum(case 
-			         when gr.team_result = 'win'
-			         then 1
-			         else 0
-			      end)/count(*)*100) 'winRate',
-			      round(avg(gr.team_score)) 'scoreAvg',
-			      ss.strike 'strikeAvg'
-			from(select game_no, hplayer_no as player_no, hteam_score as team_score, hteam_result as team_result
-			      from game_result
-			      union all
-			      select game_no, aplayer_no as player_no, ateam_score as team_score, ateam_result as team_result
-			      from game_result) gr
-			INNER JOIN player p
-			INNER JOIN       (
-			         SELECT b.game_no, b.player_no,
-			               sum(case
-			                  when ballevent = 'strike'
-			                  then 1
-			                  ELSE 0
-			               END) AS strike
-			         FROM (SELECT game_no, player_no, frame, turn, pin1+pin2+pin3+pin4+pin5+pin6+pin7+pin8+pin9+pin10 AS pinsum,
-			               (case
-			                  when turn = 1
-			                  then case
-			                         when pin1+pin2+pin3+pin4+pin5+pin6+pin7+pin8+pin9+pin10 = 10
-			                         then 'strike'
-			                  ELSE 0
-			                  end
-			               END) AS ballevent
-			               from game_player
-			               ORDER BY game_no, player_no, frame, turn) b
-			         GROUP BY b.player_no 
-			      )ss
-			ON gr.player_no = p.player_no AND gr.player_no = ss.player_no
-			group by p.player_no
-			HAVING p.player_no = #{playerNo}
-			)pl
-			ON p.player_no = tpc.player_no AND pl.player_no = p.player_no
+  	<!-- playerRecord 선수의 승률을 계산하는 Mapper -->
+  	<select id="selectYearWinrate" parameterType="com.example.bowling.vo.PlayerRecord"
+  				  				   resultType="java.util.Map">
+  	SELECT gg.game_no, gg.player_no AS playerNo,
+		      ROUND(SUM(CASE
+		         WHEN gg.team_result = 'win'
+		         THEN 1
+		         ELSE 0
+		      END)/COUNT(*)*100) AS winrate,
+		      gg.game_date AS gameDate
+		FROM(SELECT gr.game_no, gr.player_no, gr.team_score, gr.team_result, g.game_date
+				FROM(select game_no, hplayer_no as player_no, hteam_score as team_score, hteam_result as team_result
+				FROM game_result
+				UNION ALL
+				SELECT game_no, aplayer_no as player_no, ateam_score as team_score, ateam_result as team_result
+				FROM game_result) gr
+				INNER JOIN game g ON gr.game_no = g.game_no) gg
+		WHERE gg.player_no = #{playerNo}
+		GROUP BY gg.player_no, YEAR(gg.game_date)
+  	
+  	</select>
+  	
+  	<!-- playerRecord 한 선수가 10개의 핀이 맞는 확률을 계산하는 Mapper -->
+  	<select id="selectPinProbability" parameterType="com.example.bowling.vo.PlayerRecord"
+  									  resultType="java.util.Map">
+  	SELECT player_no AS playerNo,
+		 pin1,
+		 pin2,
+		 pin3,
+		 pin4,
+		 pin5,
+		 pin6,
+		 pin7,
+		 pin8,
+		 pin9,
+		 pin10
+	from
+	(
+	SELECT f.player_no,
+	  round(SUM(p1)/COUNT(*)*100) AS 'pin1',
+	      round(SUM(p2)/COUNT(*)*100) AS 'pin2',
+	         round(SUM(p3)/COUNT(*)*100) AS 'pin3',
+	            round(SUM(p4)/COUNT(*)*100) AS 'pin4',
+	               round(SUM(p5)/COUNT(*)*100) AS 'pin5',
+	                  round(SUM(p6)/COUNT(*)*100) AS 'pin6',
+	                     round(SUM(p7)/COUNT(*)*100) AS 'pin7',
+	                        round(SUM(p8)/COUNT(*)*100) AS 'pin8',
+	                           round(SUM(p9)/COUNT(*)*100) AS 'pin9',
+	                              round(SUM(p10)/COUNT(*)*100) AS 'pin10'
+	from
+	(
+	SELECT game_no,player_no,frame,
+	sum(pin1) AS p1,sum(pin2) AS p2,sum(pin3) AS p3,sum(pin4) AS p4,sum(pin5) AS p5,
+	sum(pin6) AS p6,sum(pin7) AS p7,sum(pin8) AS p8,sum(pin9) AS p9,sum(pin10) AS p10
+	FROM game_player 
+	WHERE frame!=10
+	GROUP BY game_no,player_no,frame
+	ORDER BY game_no,player_no,frame,turn
+	) f
+	GROUP BY f.player_no
+	UNION ALL
+	SELECT t.player_no,
+	  round(SUM(p1)/COUNT(*)*100) AS 'pin1',
+	      round(SUM(p2)/COUNT(*)*100) AS 'pin2',
+	         round(SUM(p3)/COUNT(*)*100) AS 'pin3',
+	            round(SUM(p4)/COUNT(*)*100) AS 'pin4',
+	               round(SUM(p5)/COUNT(*)*100) AS 'pin5',
+	                  round(SUM(p6)/COUNT(*)*100) AS 'pin6',
+	                     round(SUM(p7)/COUNT(*)*100) AS 'pin7',
+	                        round(SUM(p8)/COUNT(*)*100) AS 'pin8',
+	                           round(SUM(p9)/COUNT(*)*100) AS 'pin9',
+	                              round(SUM(p10)/COUNT(*)*100) AS 'pin10'
+	from
+	(
+	SELECT game_no,player_no,frame,
+	sum(pin1) AS p1,sum(pin2) AS p2,sum(pin3) AS p3,sum(pin4) AS p4,sum(pin5) AS p5,
+	sum(pin6) AS p6,sum(pin7) AS p7,sum(pin8) AS p8,sum(pin9) AS p9,sum(pin10) AS p10
+	FROM game_player 
+	WHERE frame=10
+	GROUP BY game_no,player_no,turn
+	ORDER BY game_no,player_no,frame,turn
+	) t
+	GROUP BY t.player_no
+	) a
+	WHERE a.player_no = 1
+	GROUP BY a.player_no
+  	
+  	</select>
+  	
+  	<!-- playerRecord 한 선수가 게임당 스트라이크를 친 수를 출력하는 Mapper -->
+  	<select id="selectGameStrike" parameterType="com.example.bowling.vo.PlayerRecord"
+  				  resultType="java.util.Map">
+  	SELECT *
+	FROM (SELECT game_no as gameNo,player_no as player_no,
+	      sum(case
+	         when turn = 1 AND pin1+pin2+pin3+pin4+pin5+pin6+pin7+pin8+pin9+pin10 = 10 AND frame!=10
+	         then 1
+	         when frame=10 AND pin1+pin2+pin3+pin4+pin5+pin6+pin7+pin8+pin9+pin10 = 10
+	         then 1
+	         ELSE 0
+	      END) AS strike
+	   FROM game_player
+	   WHERE player_no = 1
+	   GROUP BY game_no,player_no
+	   ORDER BY game_no DESC
+	   LIMIT 10) s
+	ORDER BY gameNo
   	</select>
   	
   	<!-- playerRecord 팀에 소속된 선수들을 출력하는 Mapper -->
   	<select id="selectTeamPlayer" parameterType="com.example.bowling.vo.Team"
   								  resultType="com.example.bowling.vo.PlayerRecord">
-  	SELECT
-		tpc.team_name as teamName,
-		p.player_name as playerName,
-		p.player_gender as gender
-	FROM
-		team_player_contract as tpc
-		INNER JOIN
-			player as p
-		ON
-			p.player_no = tpc.player_no
-		WHERE tpc.team_name = #{teamName}
-  	
+  	SELECT 
+  		p.player_no as playerNo,
+  		p.player_name as playerName, 
+  		tpc.team_name as teamName, 
+  		p.player_gender as gender, 
+  		ifnull(a.matchGame, 0) as matchGame, 
+  		ifnull(a.win, 0) as win, 
+  		ifnull(a.draw, 0) as draw, 
+  		ifnull(a.lose, 0) as lose, 
+  		ifnull(a.winRate, 0) as winRate, 
+  		ifnull(a.scoreAvg, 0) as scoreAvg, 
+  		ifnull(a.strikeAvg, 0) as strikeAvg
+	FROM player p
+	INNER JOIN team_player_contract tpc on p.player_no = tpc.player_no
+	LEFT OUTER JOIN (select 
+	               ss.player_no 'player_no',
+	               count(*) 'matchGame', 
+	               sum(case 
+	                  when gr.team_result = 'win'
+	                  then 1
+	                  else 0
+	               end) 'win',
+	               sum(case 
+	                  when gr.team_result = 'draw'
+	                  then 1
+	                  else 0
+	               end) 'draw',
+	               sum(case 
+	                  when gr.team_result = 'lose'
+	                  then 1
+	                  else 0
+	               end) 'lose',
+	               round(sum(case 
+	                  when gr.team_result = 'win'
+	                  then 1
+	                  else 0
+	               end)/count(*)*100) 'winRate',
+	               round(avg(gr.team_score)) 'scoreAvg',
+	               ss.strike 'strikeAvg'
+	         from(select game_no, hplayer_no as player_no, hteam_score as team_score, hteam_result as team_result
+	               from game_result
+	               union all
+	               select game_no, aplayer_no as player_no, ateam_score as team_score, ateam_result as team_result
+	               from game_result) gr
+	         INNER JOIN player p
+	         INNER JOIN       (
+	                  SELECT b.game_no, b.player_no,
+	                        sum(case
+	                           when ballevent = 'strike'
+	                           then 1
+	                           ELSE 0
+	                        END) AS strike
+	                  FROM (SELECT game_no, player_no, frame, turn, pin1+pin2+pin3+pin4+pin5+pin6+pin7+pin8+pin9+pin10 AS pinsum,
+	                        (case
+	                           when turn = 1
+	                           then case
+	                                  when pin1+pin2+pin3+pin4+pin5+pin6+pin7+pin8+pin9+pin10 = 10
+	                                  then 'strike'
+	                           ELSE 0
+	                           end
+	                        END) AS ballevent
+	                        from game_player
+	                        ORDER BY game_no, player_no, frame, turn) b
+	                  GROUP BY b.player_no 
+	               )ss
+	         ON gr.player_no = p.player_no AND gr.player_no = ss.player_no
+	         group by p.player_no) a
+	         on p.player_no = a.player_no
+	         WHERE team_name = #{teamName}
   	</select>
   	
   	<!-- playerRanking 선수의 순위를 출력하는 Mapper  -->
@@ -120,9 +213,6 @@
 	  			<when test="column.equals('strikeAvg')">
 	  				row_number() over(order by strikeAvg desc) as rank,
 	  			</when>
-	  			<when test="column.equals('spareAvg')">
-	  				row_number() over(order by spareAvg desc) as rank,
-	  			</when>
 	  		</choose>
 	  		   gr.player_no as playerNo, p.player_name as playerName ,p.player_gender as gender,
 		      count(*) as matchGame, 
@@ -147,8 +237,7 @@
 		         else 0
 		      end)/count(*)*100) as winRate,
 		      round(avg(gr.team_score)) as scoreAvg,
-		      ss.strike as strikeAvg,
-		      ss.spare as spareAvg
+		      ss.strike as strikeAvg
 		from(select game_no, hplayer_no as player_no, hteam_score as team_score, hteam_result as team_result
 		      from game_result
 		      union all
@@ -161,22 +250,13 @@
 					         when ballevent = 'strike'
 					         then 1
 					         ELSE 0
-					      END) AS strike,
-					      sum(case
-					         when ballevent = 'spare'
-					         then 1
-					         ELSE 0
-					      END) AS spare
+					      END) AS strike
 					FROM (SELECT game_no, player_no, frame, turn, pin1+pin2+pin3+pin4+pin5+pin6+pin7+pin8+pin9+pin10 AS pinsum,
 					      (case
 					         when turn = 1
 					         then case
 					                when pin1+pin2+pin3+pin4+pin5+pin6+pin7+pin8+pin9+pin10 = 10
 					                then 'strike'
-					                when pin1+pin2+pin3+pin4+pin5+pin6+pin7+pin8+pin9+pin10 + LEAD(pin1+pin2+pin3+pin4+pin5+pin6+pin7+pin8+pin9+pin10) over(ORDER BY game_no, player_no, frame, turn) = 10
-					                AND pin1+pin2+pin3+pin4+pin5+pin6+pin7+pin8+pin9+pin10 != 10
-					                then 'spare'
-					                  ELSE 0
 					              end
 					         ELSE 0
 					      END) AS ballevent
@@ -210,9 +290,6 @@
   			</when>
   			<when test="column.equals('strikeAvg')">
   				order by strikeAvg desc
-  			</when>
-  			<when test="column.equals('spareAvg')">
-  				order by spareAvg desc
   			</when>
 	  	</choose>
   	</select>

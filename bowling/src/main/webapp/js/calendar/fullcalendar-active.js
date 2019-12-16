@@ -12,7 +12,7 @@ $(function() {
 		url:"/schedule",
 		method:"post",
 		success:function(json){
-			console.log(json);
+			//console.log(json);
 			//evnet 형태에 맞게 배열  생성
 			$(json).each(function(index,item){
 				//승자 변수
@@ -23,18 +23,18 @@ $(function() {
 				}else{
 					winner = item.ateamName;
 				}
-				console.log("chicken dinner>",winner);
+				//console.log("chicken dinner>",winner);
 				let event = {
 								//내용
 						title:item.hteamName+" "+item.hteamScore+" "+":"+" "+item.ateamScore+" "+item.ateamName+"\nWinner:"+winner,
 							//날짜 형식 'YYYY-MM-DD'
 						start:item.gameDate
 					}
-				console.log(event);
+				//console.log(event);
 				//calender 배열에 객체 event 추가
 				calender.push(event);
 			});
-			console.log(calender);
+			//console.log(calender);
 			
 			//캘린더 
 			

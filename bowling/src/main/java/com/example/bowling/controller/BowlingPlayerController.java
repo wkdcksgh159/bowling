@@ -1,6 +1,7 @@
 package com.example.bowling.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,33 +16,49 @@ import com.example.bowling.vo.TeamPlayerContract;
 public class BowlingPlayerController {
 	@Autowired BowlingPlayerService bowlingPlayerService;
 	
-	// playerReport 선수의 상세기록을 출력하기위한 controller
-	@PostMapping("/getTeamPlayerOne")
-	public List<PlayerRecord> selectTeamPlayerOne(PlayerRecord playerRecord){
-		System.out.println("----------------selecTeamPlayerOneController-------------------");
-		System.out.println("Controller PlayerRecord: "+playerRecord);
-		return bowlingPlayerService.selectTeamPlayOne(playerRecord);
+	//playerRecord 선수의 승률을 계산하는 Controller
+	@PostMapping("/getYearWinrate")
+	public List<Map<String,Object>> getYearWinrate(PlayerRecord playerRecord){
+		System.out.println("----------------getYearWinrateContoller-------------------");
+		System.out.println("PlayerRecord Contoller: "+playerRecord);
+		return bowlingPlayerService.getYearWinrate(playerRecord);
+	}
+	
+	// playerRecord 한 선수가 하나 하나의 핀이 맞는 확를을 계산하는 Controller
+	@PostMapping("/getPinProbability")
+	public List<Map<String,Object>> getPinProbability(PlayerRecord playerRecord){
+		System.out.println("----------------getPinProbabilityController-------------------");
+		System.out.println("PlayerRecord Controller: "+playerRecord);
+		return bowlingPlayerService.getPinProbability(playerRecord);
+	}
+	
+	// playerRecord 한 선수가 게임당 스트라이크를 친 수를 출력하는 Controller
+	@PostMapping("/getStrike")
+	public List<Map<String, Object>> getStrike(PlayerRecord playerRecord){
+		System.out.println("----------------getStrikeController-------------------");
+		System.out.println("PlayerRecord Controller: "+playerRecord);
+		return bowlingPlayerService.getStrike(playerRecord);
 	}
 	
 	// playerReport 팀에 소속된 선수를 불러오는 controller
 	@PostMapping("/getTeamPlayer")
-	public List<PlayerRecord> selecTeamPlayer(Team team){
-		System.out.println("----------------selecTeamPlayerController-------------------");
+	public List<PlayerRecord> getTeamPlayer(Team team){
+		System.out.println("----------------getTeamPlayerController-------------------");
 		System.out.println("Controller Team: "+team);
-		return bowlingPlayerService.selectTeamPlayer(team);
+		return bowlingPlayerService.getTeamPlayer(team);
 	}
 	
 	// playerReport 팀목록을 불러오는 controller
 	@PostMapping("/getTeam")
-	public List<Team> selectTeam(){
-		System.out.println("----------------selectTeamListController-------------------");
-		return bowlingPlayerService.selectTeamList();
+	public List<Team> getTeam(){
+		System.out.println("----------------getTeamListController-------------------");
+		return bowlingPlayerService.getTeamList();
 	}
 	
 	// playerRanking 개인랭킹을 불러오는 controller
 	@PostMapping("/playerRecord")
-	public List<PlayerRecord> selectPlayerRecordList(PlayerRecord playerRecord) {
-		System.out.println("selectPlayerRecordList : "+playerRecord);
-		return bowlingPlayerService.selectPlayerRecordList(playerRecord);
+	public List<PlayerRecord> getPlayerRecordList(PlayerRecord playerRecord) {
+		System.out.println("getPlayerRecordList : "+playerRecord);
+		return bowlingPlayerService.getPlayerRecordList(playerRecord);
 	}
 }
