@@ -233,12 +233,12 @@
 	<select id="selectTeamReport" parameterType="String" resultType="com.example.bowling.vo.TeamRecord">
 		select
 			t as teamName,
-			sum(t.c) as totalGame,
+			sum(t.c) as matchGame,
 			sum(t.w) as win,
 			sum(t.d) as draw,
 			sum(t.l) as lose,
-			round(avg(t.a),0) as avgScore,
-			round(t.w/t.c*100) as avgWin,
+			round(avg(t.a),0) as scoreAvg,
+			round(t.w/t.c*100) as winAvg,
 			round(sum(t.s),0) as totalScore
 			
 		from(

@@ -15,4 +15,5 @@ public class TeamRecord {
 	private int strikeAvg;
 	private String gender;
 	private String column;
+	private int totalScore;
 }
