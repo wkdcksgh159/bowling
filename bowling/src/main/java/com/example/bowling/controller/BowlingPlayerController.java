@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.bowling.service.BowlingPlayerService;
 import com.example.bowling.vo.PlayerRecord;
 import com.example.bowling.vo.Team;
-import com.example.bowling.vo.TeamPlayerContract;
 
 @RestController
 public class BowlingPlayerController {
