@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.bowling.mapper.BowlingMapper;
 import com.example.bowling.mapper.BowlingPlayerMapper;
+import com.example.bowling.vo.Paging;
 import com.example.bowling.vo.PlayerRecord;
 import com.example.bowling.vo.Team;
 
@@ -68,8 +69,30 @@ public class BowlingPlayerServiceImpl implements BowlingPlayerService{
 	
 	@Override
 	// playerRanking 개인랭킹을 불러오는 service
-	public List<PlayerRecord> getPlayerRecordList(PlayerRecord playerRecord){
-		System.out.println("getPlayerRecordList : "+playerRecord);
+	public List<PlayerRecord> getPlayerRecordList(PlayerRecord playerRecord,int currentPage){
+		System.out.println("getPlayerRecordList : "+playerRecord+",page:"+currentPage);
+		int rowPerPage=3;
+		int beginRow = (currentPage-1)*rowPerPage;
+		
+		Paging paging = new Paging();
+		paging.setBeginRow(beginRow);
+		paging.setRowPerPage(rowPerPage);
+		playerRecord.setPaging(paging);
 		return bowlingPlayerMapper.selectPlayerRanking(playerRecord);
+	}
+	
+	@Override
+	// playerRanking 개인 랭킹 마지막 페이지를 불러오는 service
+	public int getLastPage() {
+		System.out.println("getLastPage");
+		int totalCount=bowlingPlayerMapper.selectTotalCount();
+		System.out.println("전체 행:"+totalCount);
+		int rowPerPage=3;
+		int lastPage = totalCount/rowPerPage;
+		if(totalCount%rowPerPage!=0) {
+			lastPage+=1;
+		}
+		System.out.println("마지막 페이지"+lastPage);
+		return lastPage;
 	}
 }

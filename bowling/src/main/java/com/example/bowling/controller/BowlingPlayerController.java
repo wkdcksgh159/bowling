@@ -56,8 +56,15 @@ public class BowlingPlayerController {
 	
 	// playerRanking 개인랭킹을 불러오는 controller
 	@PostMapping("/playerRecord")
-	public List<PlayerRecord> getPlayerRecordList(PlayerRecord playerRecord) {
-		System.out.println("getPlayerRecordList : "+playerRecord);
-		return bowlingPlayerService.getPlayerRecordList(playerRecord);
+	public List<PlayerRecord> getPlayerRecordList(PlayerRecord playerRecord,int currentPage) {
+		System.out.println("getPlayerRecordList : "+playerRecord+",page:"+currentPage);
+		return bowlingPlayerService.getPlayerRecordList(playerRecord,currentPage);
+	}
+	
+	//playerRanking 마지막 페이지를 불러오는 controller
+	@PostMapping("/getPlayerLastPage")
+	public int getLastPage() {
+		System.out.println("-----------------------getLastPage------------------------");
+		return bowlingPlayerService.getLastPage();
 	}
 }

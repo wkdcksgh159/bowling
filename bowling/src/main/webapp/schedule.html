@@ -300,7 +300,7 @@ table.calendar td{
 				<button id="next" class="btn btn-default">다음</button>
 			</div>
 			<!-- 전광판 테이블 -->
-			<table id="scoreBoard" class="table table-bordered">
+			<table id="scoreBoard" class="table table-dark">
 				<thead>
 					<tr>
 				         <th class="backslash"><div>프레임</div>이름</th>
@@ -555,104 +555,37 @@ let printSchedule = function(currentPage){
 		//일정 리스트 보여준다
 		$("#scheduleTable").show();
 		console.log("현재 페이지:",currentPage);
+		//리스트 출력 함수 실행
 		printSchedule(currentPage);
-/* 		//일정 리스트 출력
-		$.ajax({
-			url:"/schedulePage",
-			method:"post",
-			data:{"currentPage":currentPage},
-			success:function(json){
-				console.log(json);
-				
-				$(json).each(function(index,item){
-					//일정 리스트 append 출력
-					$("#scheduleList").append(
-						"<tr>"
-						+"<td id='"+item.gameNo+"' class='game'><a>"+item.gameDate+"</a></td>"
-						+"<td>"+item.hteamName+"</td>"
-						+"<td>"+item.hteamScore+"</td>"
-						+"<td>"+item.hteamResult+"</td>"
-						+"<td>"+item.ateamScore+"</td>"
-						+"<td>"+item.ateamName+"</td>"
-						+"<td>"+item.ateamResult+"</td>"
-						+"</tr>"
-					);
-				});//~464
-				
-				$(".game").click(function(){
-					$("#scheduleTable").hide();
-					$("#scoreBoard").show();
-					//리스트중 날짜 클릭시 id값으로 gameNo값을 받는다
-					gameNo = $(this).attr("id");
-					console.log(gameNo);
-					//날짜 클릭시 gameNo값을 받아 ajax로 넘긴다.
-						$.ajax({
-							url:"/scheduleOne",
-							method:"post",
-							data:{"gameNo":gameNo},
-							success:function(json){
-								//전광판 각 행을 비워준다.
-								$("#fTurn").empty();
-								$("#fFrame").empty();
-								$("#sTurn").empty();
-								$("#sFrame").empty();
-								//해당 게임 넘버에 상세기록 출력
-								console.log(json);
-								//frame 합
-								let fFrameSum=0;
-								let sFrameSum=0;
-								//홈팀 어웨이팀 선수이름 출력
-								$("#fTurn").append("<td rowspan='2' id='homeTeamPlayer'>"+json[0].playerName+"</td>");
-								$("#sTurn").append("<td rowspan='2' id='awayTeamPlayer'>"+json[json.length-1].playerName+"</td>");
-								
-								$(json).each(function(index,item){
-									//hometeam선수 이름일때
-										if(item.playerName==json[0].playerName){
-											//turn에 값이 point일때 ,frame으로 append
-											if(item.turn=="point"){
-												if(item.frame==10){//마지막 10frame에서는 3칸을 합쳐준다
-													fFrameSum += item.score;//첫번째 선수 전체 합(기존 점수에 추가)
-													console.log("10Frame:",item.frame,">",item.score);
-													$("#fFrame").append("<td colspan='3'>"+item.score+"</td>");	
-												}else{//10frame제외 frame값 출력
-													fFrameSum += item.score;//첫번째 선수 전체 합(기존 점수에 추가)
-													console.log("frame>",item.frame,":",item.score);
-													$("#fFrame").append("<td colspan='2'>"+item.score+"</td>");	
-												}
-											}else{//turn값에 출력
-												console.log("frame",item.frame,"-turn:",item.turn);
-												$("#fTurn").append("<td>"+item.score+"</td>");
-											}
-										}else{//awayteam선수 이름일때
-											//turn에 값이 point일때 ,frame으로 append
-											if(item.turn=="point"){
-												if(item.frame==10){//마지막 10frame에서는 3칸을 합쳐준다
-													sFrameSum += item.score;//첫번째 선수 전체 합(기존 점수에 추가)
-													console.log("10Frame:",item.frame,">",item.score);
-													$("#sFrame").append("<td colspan='3'>"+item.score+"</td>");	
-												}else{//10frame제외 frame값 출력
-													sFrameSum += item.score;//첫번째 선수 전체 합(기존 점수에 추가)
-													console.log("frame>",item.frame,":",item.score);
-													$("#sFrame").append("<td colspan='2'>"+item.score+"</td>");	
-												}
-											}else{//turn값에 출력
-												console.log("frame",item.frame,"-turn:",item.turn);
-												$("#sTurn").append("<td>"+item.score+"</td>");
-											}
-										}
-								});//반복 
-								console.log("fram 합계 H:",fFrameSum,",A:",sFrameSum);
-									$("#fTurn").append("<td rowspan='2'>"+fFrameSum+"</td>");
-									$("#sTurn").append("<td rowspan='2'>"+sFrameSum+"</td>");
-							}//success
-						});//ajax ~486
-				})//date click ~479
-				
-			}//list success
-		});// ~457 */
 	});//리스트 버튼 클릭 ~448
 	
+	//이전 버튼
+	$("#prev").click(function(){
+		$("#next").show();
+		//page 값 -1
+		currentPage-=1;
+		console.log("page:",currentPage);
+			if(currentPage==1){
+				$("#prev").hide();
+			}
+		
+		//리스트 출력 함수 실행
+		printSchedule(currentPage);
+	})
 	
+	//다음 버튼
+	$("#next").click(function(){
+		$("#prev").show();
+		//page 값 +1
+		currentPage+=1;
+		console.log("page:",currentPage);
+			if(currentPage==lastPage){
+				$("#next").hide();
+			}	
+		
+		//리스트 출력 함수 실행
+		printSchedule(currentPage);
+	});
 	
 	
 	

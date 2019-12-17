@@ -17,6 +17,14 @@ public class PlayerRecord {
 	private int scoreAvg;
 	private String gender;
 	private String column;
+	private Paging paging;
+	@Override
+	public String toString() {
+		return "PlayerRecord [rank=" + rank + ", playerNo=" + playerNo + ", playerName=" + playerName + ", strikeAvg="
+				+ strikeAvg + ", spareAvg=" + spareAvg + ", score=" + score + ", winRate=" + winRate + ", win=" + win
+				+ ", lose=" + lose + ", draw=" + draw + ", matchGame=" + matchGame + ", scoreAvg=" + scoreAvg
+				+ ", gender=" + gender + ", column=" + column + ", paging=" + paging + "]";
+	}
 	public int getRank() {
 		return rank;
 	}
@@ -101,11 +109,11 @@ public class PlayerRecord {
 	public void setColumn(String column) {
 		this.column = column;
 	}
-	@Override
-	public String toString() {
-		return "PlayerRecord [rank=" + rank + ", playerNo=" + playerNo + ", playerName=" + playerName + ", strikeAvg="
-				+ strikeAvg + ", spareAvg=" + spareAvg + ", score=" + score + ", winRate=" + winRate + ", win=" + win
-				+ ", lose=" + lose + ", draw=" + draw + ", matchGame=" + matchGame + ", scoreAvg=" + scoreAvg
-				+ ", gender=" + gender + ", column=" + column + "]";
+	public Paging getPaging() {
+		return paging;
 	}
+	public void setPaging(Paging paging) {
+		this.paging = paging;
+	}
+	
 }

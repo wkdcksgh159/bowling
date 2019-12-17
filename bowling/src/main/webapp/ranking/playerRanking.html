@@ -306,10 +306,10 @@
                                     		<tr>
                                     			<td>
 			                                    	<select id="gender" class="form-control dt-tb">
-													<option value="ALL">전체</option>
-													<option value="M">남</option>
-													<option value="F">여</option>
-												</select>
+														<option value="ALL">전체</option>
+														<option value="M">남</option>
+														<option value="F">여</option>
+													</select>
                                     			</td>
                                     			<td>
                                     				<select id="getRanking" class="form-control dt-tb">
@@ -328,46 +328,51 @@
                                     			</td>
                                     		</tr>
                                     	</table>
+                                    	
                                     </div>
-                                    <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
-					                                        data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
-									<thead>
-										<tr>
-											<th>
-												순위
-											</th>
-											<th>
-												이름
-											</th>
-											<th>
-												성별
-											</th>
-											<th>
-												경기수
-											</th>
-											<th>
-												승
-											</th>
-											<th>
-												무
-											</th>
-											<th>
-												패
-											</th>
-											<th>
-												승률
-											</th>
-											<th>
-												평균점수
-											</th>
-											<th>
-												평균스트라이크
-											</th>
-										</tr>
-									</thead>
-									<tbody id="getPlayerRanking">
-									</tbody>
-								</table>
+                                    <div id="pagingTable">
+	                                    <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
+						                                        data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+										<thead>
+											<tr>
+												<th>
+													순위
+												</th>
+												<th>
+													이름
+												</th>
+												<th>
+													성별
+												</th>
+												<th>
+													경기수
+												</th>
+												<th>
+													승
+												</th>
+												<th>
+													무
+												</th>
+												<th>
+													패
+												</th>
+												<th>
+													승률
+												</th>
+												<th>
+													평균점수
+												</th>
+												<th>
+													평균스트라이크
+												</th>
+											</tr>
+										</thead>
+										<tbody id="getPlayerRanking">
+										</tbody>
+											
+									</table>
+									<button id="prev">이전</button><button id="next">다음</button>
+								</div>
                             </div>
                         </div>
                     </div>
@@ -467,40 +472,99 @@
 
 <script>
 	$(document).ready(function() {
-		$(".table").hide();
+		$("#table").hide();
+		$("#prev").hide();
+		$("#next").hide();
+		let currentPage=1;
+		let gender = "";
+		let column = "";
+		let lastPage = 0;
+		//lastPage 값 가져오기
+		$.ajax({
+			url:"/getPlayerLastPage",
+			method:"post",
+			success:function(json){
+				console.log("lastPage:",json);
+				lastPage = json;
+			}
+		});
+		
+		//랭킹 출력 함수
+		let playerRecord=function(currentPage,gender,column){		
+						// 개인 랭킹을 불러오는 ajax
+							$.ajax({
+								url:"/playerRecord",
+								method:"POST",
+								data:{
+									"gender":$("#gender").val(),
+									"column":$("#getRanking option:selected").val(),
+									"currentPage":currentPage
+									 },
+								success:function(json){
+									console.log($("#getRanking option:selected").val());
+									$("#getPlayerRanking").empty();
+									$(json).each(function(index, item){
+											console.log("json",json);
+											temp = "<tr><td>"+item.rank+"</td>";
+											temp += "<td>"+item.playerName+"</td> <td>"+item.gender+"</td> <td>"+item.matchGame+"</td>";
+											temp += "<td>"+item.win+"</td> <td>"+item.draw+"</td> <td>"+item.lose+"</td>";
+											temp += "<td>"+item.winRate+"</td> <td>"+item.scoreAvg+"</td> <td>"+item.strikeAvg+"</td>";
+											temp += "</tr>";
+											$("#getPlayerRanking").append(temp);
+									});
+									$("#table").show();
+								}
+							});
+						}
+		
 		
 		$("#getRankingBtn").click(function(){
 			console.log("버튼 클릭");
+			currentPage=1;
 			//정렬 항목을 선택을 안하면 알림창을 띄운다.
 			if($("#getRanking").val() == "선택"){
 				alert("정렬을 할 항목을 선택해주세요.");
 			}else{
+				$("#next").show();
+				if(currentPage==1){
+					$("#prev").hide();
+				}
 				console.log($("#getRanking").val());
+				gender = $("#gender").val();
+				column = $("#getRanking option:selected").val();
+				console.log("성별:",gender,",column:",column); 
+				
 				// 선택박스에서 선택된 값들에 따라 검색 결과가 달라진다.
-				// 개인 랭킹을 불러오는 ajax
-				$.ajax({
-					url:"/playerRecord",
-					method:"POST",
-					data:{"gender":$("#gender").val(),
-						  "column":$("#getRanking option:selected").val()
-						 },
-					success:function(json){
-						console.log($("#getRanking option:selected").val());
-						$("#getPlayerRanking").empty();
-						$(json).each(function(index, item){
-								console.log("json",json);
-								temp = "<tr><td>"+item.rank+"</td>";
-								temp += "<td>"+item.playerName+"</td> <td>"+item.gender+"</td> <td>"+item.matchGame+"</td>";
-								temp += "<td>"+item.win+"</td> <td>"+item.draw+"</td> <td>"+item.lose+"</td>";
-								temp += "<td>"+item.winRate+"</td> <td>"+item.scoreAvg+"</td> <td>"+item.strikeAvg+"</td>";
-								temp += "</tr>";
-								$("#getPlayerRanking").append(temp);
-						});
-						$(".table").show();
-					}
-				});
+		  		playerRecord(currentPage,gender,column);
+				
 			}
 		});
+		
+		//이전 버튼 클릭
+		$("#prev").click(function(){
+			currentPage-=1;
+			console.log("현제 페이지-",currentPage);
+			$("#next").show();
+			if(currentPage==1){
+				$("#prev").hide();
+			}
+			// 선택박스에서 선택된 값들에 따라 검색 결과가 달라진다.
+	  		playerRecord(currentPage,gender,column);
+		})
+		
+		//다음 버튼 클릭
+		$("#next").click(function(){
+			currentPage+=1;
+			console.log("현제 페이지-",currentPage);
+			$("#prev").show();
+			if(currentPage==lastPage){
+				$("#next").hide();
+			}
+			// 선택박스에서 선택된 값들에 따라 검색 결과가 달라진다.
+	  		playerRecord(currentPage,gender,column);
+		})
+		
 	});
+	
 </script>
 </html>   
