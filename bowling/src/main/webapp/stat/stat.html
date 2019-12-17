@@ -79,7 +79,7 @@
 		padding:10px;
 		display:inline-block;
 		vertical-align:top;
-		width:200px;
+		width:300px;
 		border:1px solid;
 	}
 </style>
@@ -302,41 +302,7 @@
                                 </div>
                             </div>
                             <div class="sparkline13-graph">
-                                <div class="datatable-dashv1-list custom-datatable-overright">
-                                    <div id="toolbar">
-                                    	<table>
-                                    		<tr>
-                                    			<td>
-			                                    	<!-- 팀 선택 -->
-			                                        <select id="getTeam" class="form-control dt-tb">
-														<option value="0">팀 선택</option>
-													</select>
-                                    			</td>
-                                    			<td>
-                                    				<button class="btn btn-default" id="getTeamBtn">조회</button>
-                                    			</td>
-                                    		</tr>
-                                    	</table>
-                                    </div>
-                                    <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
-                                        data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
-                                        <thead>
-                                            <tr>
-												<th>팀 이름</th>
-												<th>경기 수</th>
-												<th>전체 점수</th>
-												<th>평균 점수</th>
-												<th>승률</th>
-												<th>승</th>
-												<th>무</th>
-												<th>패</th>
-                                            </tr>
-                                        </thead>
-										<tbody id="teamReport">
-											
-										</tbody>
-                                    </table>
-                                    <br><hr>
+                                <div id="allCharts">
                                     <div class="charts1" id="getGripDistributionChart">
                                     	<!-- 선수별 그립 분포도 그래프 -->
                                     </div>
@@ -346,9 +312,9 @@
                                     <div class="charts1" id="getHandDistributionChart">
                                     	<!-- 선수별 손잡이 분포도 그래프 -->
                                     </div>
-                                    <span class="comments">
-                                    	선수별 주로 사용하는 손잡이 분포도
-                                    </span>
+                                    <fieldset class="comments">
+                                    	<legend style="font-size:15px;width:250px;">선수별 주로 사용하는 손잡이 분포도</legend>안녕하세요 저는 장찬호 입니다.안녕하세요 저는 장찬호 입니다.안녕하세요 저는 장찬호 입니다.안녕하세요 저는 장찬호 입니다.안녕하세요 저는 장찬호 입니다.안녕하세요 저는 장찬호 입니다.안녕하세요 저는 장찬호 입니다.안녕하세요 저는 장찬호 입니다.안녕하세요 저는 장찬호 입니다.안녕하세요 저는 장찬호 입니다.
+                                    </fieldset>
                                     <br>
                                     <div class="charts2" id="getBallDistributionChart">
                                     	<!-- 선수 성별별 공 분포도 그래프 -->
@@ -470,7 +436,6 @@
 <script>
 	// ### 여기다가 jquery 사용하세요 ####################################################################################################################################################################################################
 	
-	
 	// 그립 분포도를 불러오는 ajax
 	$.ajax({
 		url:"/getGripDistribution",
@@ -505,7 +470,7 @@
 						'rgba(255, 159, 64, 0.2)',
 						'rgba(27, 27, 27, 0.2)',
 						'rgba(233, 177, 199, 0.2)',
-						'rgba(255, 255, 255, 0.2)',
+						'rgba(54, 162, 235, 0.2)',
 						'rgba(117, 140, 120, 0.2)'
 					],
 					
@@ -674,7 +639,7 @@
 		
 		let ctx = document.getElementById('myChart4');
 		
-		myChart4 = new Chart(ctx, {
+		let myChart4 = new Chart(ctx, {
 			type: 'bar',
 			data: {
 				labels: teamArray,
@@ -689,9 +654,18 @@
 						'rgba(153, 102, 255, 0.2)',
 						'rgba(255, 159, 64, 0.2)',
 						'rgba(27, 27, 27, 0.2)',
-						'rgba(233, 177, 199, 0.2)', //
+						'rgba(233, 177, 199, 0.2)', 
 						'rgba(255, 255, 255, 0.2)',
-						'rgba(117, 140, 120, 0.2)'
+						'rgba(117, 140, 120, 0.2)',
+						'rgba(21, 127, 0, 0.2)',
+						'rgba(0, 183, 183, 0.2)',
+						'rgba(156, 0, 183, 0.2)',
+						'rgba(237, 0, 90, 0.2)',
+						'rgba(66, 0, 73, 0.2)',
+						'rgba(178, 62, 0, 0.2)',
+						'rgba(0, 239, 91, 0.2)',
+						'rgba(0, 38, 104, 0.2)',
+						'rgba(249, 0, 241, 0.2)'
 					],
 					borderColor: [
 						'rgba(255, 99, 132, 1)',
@@ -701,9 +675,18 @@
 						'rgba(153, 102, 255, 1)',
 						'rgba(255, 159, 64, 1)',
 						'rgba(27, 27, 27, 0.5)',
-						'rgba(255, 227, 226, 1)', //
+						'rgba(255, 227, 226, 1)', 
 						'rgba(25, 25, 25, 0.5)', 
-						'rgba(117, 140, 120, 1)'
+						'rgba(117, 140, 120, 1)',
+						'rgba(21, 127, 0, 1)',
+						'rgba(0, 183, 183, 1)',
+						'rgba(156, 0, 183, 1)',
+						'rgba(237, 0, 90, 1)',
+						'rgba(66, 0, 73, 1)',
+						'rgba(178, 62, 0, 1)',
+						'rgba(0, 239, 91, 1)',
+						'rgba(0, 38, 104, 1)',
+						'rgba(249, 0, 241, 1)'
 					],
 					borderWidth: 1
 				}]
