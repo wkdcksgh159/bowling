@@ -16,4 +16,6 @@ public interface BowlingScheduleMapper {
 	public List<Schedule> selectSchedule();
  	
 	public List<Map<String,Object>> selectScheduleOne(int gameNo);
+	
+	public int selectTotalCount();
 }

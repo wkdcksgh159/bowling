@@ -11,4 +11,6 @@ public interface BowlingScheduleService {
 	public List<Schedule> getSchedule();
 	
 	public List<Map<String,Object>> getScheduleOne(int gameNo);
+	
+	public int getLastPage();
 }

@@ -46,5 +46,11 @@ public class BowlingScheduleController {
 		
 		return list;
 	}
-	
+	//페이징을 위한 마지막 페이지 구하기
+	@PostMapping("/getLastPage")
+	public int getLastPage() {
+		System.out.println("bowling controller getLastPage");
+		int lastPage = bowlingScheduleService.getLastPage();
+		return lastPage;
+	}
 }

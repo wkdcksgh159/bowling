@@ -17,6 +17,18 @@ public class BowlingScheduleServiceImpl implements BowlingScheduleService{
 	@Autowired BowlingScheduleMapper bowlingScheduleMapper;
 	
 	@Override
+	public int getLastPage() {
+		System.out.println("schedule service lastPage");
+		int totalCount = bowlingScheduleMapper.selectTotalCount();
+		int rowPerPage =10;
+		int lastPage = totalCount/rowPerPage;
+		if(totalCount%rowPerPage!=0){
+			lastPage+=1;
+		}
+		return lastPage;
+	}
+	
+	@Override
 	public List<Schedule> getSchedule() {
 		System.out.println("calender Lit Service");
 		return bowlingScheduleMapper.selectSchedule();
