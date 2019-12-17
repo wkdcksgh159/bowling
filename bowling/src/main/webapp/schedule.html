@@ -369,15 +369,17 @@ $(document).ready(function(){
 	})
 	//리스트 출력 버튼
 	$("#listShow").click(function(){
+		$("#scheduleList").empty();
 		//달력 숨김,전광판 숨김
 		$("#calender").hide();
 		$("#scoreBoard").hide();
 		//일정 리스트 보여준다
 		$("#scheduleTable").show();
 		let currentPage=1;
+		let gameNo=0;
 		//일정 리스트 출력
 		$.ajax({
-			url:"/schedule",
+			url:"/schedulePage",
 			method:"post",
 			data:{"currentPage":currentPage},
 			success:function(json){
@@ -396,11 +398,174 @@ $(document).ready(function(){
 						+"</tr>"
 						);
 				});
+				
+				$("#prev").click(function(){
+					$("#scheduleList").empty();
+					currentPage-=1;
+					$.ajax({
+						url:"/schedulePage",
+						method:"post",
+						data:{"currentPage":currentPage},
+						success:function(json){
+							
+							console.log(json);
+							$(json).each(function(index,item){
+							$("#scheduleList").append(
+									"<tr>"
+									+"<td id='"+item.gameNo+"' class='game'><a>"+item.gameDate+"</a></td>"
+									+"<td>"+item.hteamName+"</td>"
+									+"<td>"+item.hteamScore+"</td>"
+									+"<td>"+item.hteamResult+"</td>"
+									+"<td>"+item.ateamScore+"</td>"
+									+"<td>"+item.ateamName+"</td>"
+									+"<td>"+item.ateamResult+"</td>"
+									+"</tr>"
+									);
+							});
+							$(".game").click(function(){
+								$("#scheduleTable").hide();
+								$("#scoreBoard").show();
+								//리스트중 날짜 클릭시 id값으로 gameNo값을 받는다
+								gameNo = $(this).attr("id");
+								console.log(gameNo);
+								//날짜 클릭시 gameNo값을 받아 ajax로 넘긴다.
+									$.ajax({
+										url:"/scheduleOne",
+										method:"post",
+										data:{"gameNo":gameNo},
+										success:function(json){
+											$("#fTurn").empty();
+											$("#fFrame").empty();
+											$("#sTurn").empty();
+											$("#sFrame").empty();
+											//해당 게임 넘버에 상세기록 출력
+											console.log(json);
+											//frame 합
+											let fFrameSum=0;
+											let sFrameSum=0;
+											$("#fTurn").append("<td rowspan='2' id='homeTeamPlayer'>"+json[0].playerName+"</td>");
+											$("#sTurn").append("<td rowspan='2' id='awayTeamPlayer'>"+json[json.length-1].playerName+"</td>");
+											$(json).each(function(index,item){
+													if(item.playerName==json[0].playerName){ 
+														//hometeam일때
+														if(item.turn=="point"){//turn 1,2일때 값만 출력
+															console.log("hF:",item.turn,item.score);
+															fFrameSum += item.score;
+															console.log("f합계",fFrameSum);
+															$("#fFrame").append("<td colspan='2'>"+item.score+"</td>");	
+														}else{
+															console.log("hT",item.turn);
+															$("#fTurn").append("<td>"+item.score+"</td>");
+														}	
+													}else{
+														//awayteam
+														if(item.turn=="point"){//turn 1,2일때 값만 출력
+															console.log("aF:",item.turn,item.score);
+															sFrameSum += item.score;
+															console.log("s합계",sFrameSum);
+															$("#sFrame").append("<td colspan='2'>"+item.score+"</td>");	
+														}else{
+															console.log("aT",item.turn);
+															$("#sTurn").append("<td>"+item.score+"</td>");
+														}	
+													}
+													
+											})//반복 
+											console.log("fram 합계 H:",fFrameSum,",A:",sFrameSum);
+											$("#fTurn").append("<td rowspan='2'>"+fFrameSum+"</td>");
+											$("#sTurn").append("<td rowspan='2'>"+sFrameSum+"</td>");
+										}//success
+									});//ajax
+							})//date click
+						}
+					});	
+				});
+				$("#next").click(function(){
+					$("#scheduleList").empty();
+					currentPage+=1;
+					$.ajax({
+						url:"/schedulePage",
+						method:"post",
+						data:{"currentPage":currentPage},
+						success:function(json){
+							
+							console.log(json);
+							$(json).each(function(index,item){
+							$("#scheduleList").append(
+									"<tr>"
+									+"<td id='"+item.gameNo+"' class='game'><a>"+item.gameDate+"</a></td>"
+									+"<td>"+item.hteamName+"</td>"
+									+"<td>"+item.hteamScore+"</td>"
+									+"<td>"+item.hteamResult+"</td>"
+									+"<td>"+item.ateamScore+"</td>"
+									+"<td>"+item.ateamName+"</td>"
+									+"<td>"+item.ateamResult+"</td>"
+									+"</tr>"
+									);
+							});
+							$(".game").click(function(){
+								$("#scheduleTable").hide();
+								$("#scoreBoard").show();
+								//리스트중 날짜 클릭시 id값으로 gameNo값을 받는다
+								gameNo = $(this).attr("id");
+								console.log(gameNo);
+								//날짜 클릭시 gameNo값을 받아 ajax로 넘긴다.
+									$.ajax({
+										url:"/scheduleOne",
+										method:"post",
+										data:{"gameNo":gameNo},
+										success:function(json){
+											$("#fTurn").empty();
+											$("#fFrame").empty();
+											$("#sTurn").empty();
+											$("#sFrame").empty();
+											//해당 게임 넘버에 상세기록 출력
+											console.log(json);
+											//frame 합
+											let fFrameSum=0;
+											let sFrameSum=0;
+											$("#fTurn").append("<td rowspan='2' id='homeTeamPlayer'>"+json[0].playerName+"</td>");
+											$("#sTurn").append("<td rowspan='2' id='awayTeamPlayer'>"+json[json.length-1].playerName+"</td>");
+											$(json).each(function(index,item){
+													if(item.playerName==json[0].playerName){ 
+														//hometeam일때
+														if(item.turn=="point"){//turn 1,2일때 값만 출력
+															console.log("hF:",item.turn,item.score);
+															fFrameSum += item.score;
+															console.log("f합계",fFrameSum);
+															$("#fFrame").append("<td colspan='2'>"+item.score+"</td>");	
+														}else{
+															console.log("hT",item.turn);
+															$("#fTurn").append("<td>"+item.score+"</td>");
+														}	
+													}else{
+														//awayteam
+														if(item.turn=="point"){//turn 1,2일때 값만 출력
+															console.log("aF:",item.turn,item.score);
+															sFrameSum += item.score;
+															console.log("s합계",sFrameSum);
+															$("#sFrame").append("<td colspan='2'>"+item.score+"</td>");	
+														}else{
+															console.log("aT",item.turn);
+															$("#sTurn").append("<td>"+item.score+"</td>");
+														}	
+													}
+													
+											})//반복 
+											console.log("fram 합계 H:",fFrameSum,",A:",sFrameSum);
+											$("#fTurn").append("<td rowspan='2'>"+fFrameSum+"</td>");
+											$("#sTurn").append("<td rowspan='2'>"+sFrameSum+"</td>");
+										}//success
+									});//ajax
+							})//date click
+						}
+					});
+				})
 				$(".game").click(function(){
 					$("#scheduleTable").hide();
 					$("#scoreBoard").show();
 					//리스트중 날짜 클릭시 id값으로 gameNo값을 받는다
-					let gameNo = $(this).attr("id");
+					gameNo = $(this).attr("id");
 					console.log(gameNo);
 					//날짜 클릭시 gameNo값을 받아 ajax로 넘긴다.
 						$.ajax({
