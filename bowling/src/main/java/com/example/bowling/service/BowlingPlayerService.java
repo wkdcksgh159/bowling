@@ -8,7 +8,7 @@ import com.example.bowling.vo.Team;
 
 public interface BowlingPlayerService {
 	//playerRanking 마지막 페이지를 불러오는 service
-	public int getLastPage();
+	public int getLastPage(PlayerRecord playerRecord);
 	//playerRanking 개인 랭킹을 불러오는 service
 	public List<PlayerRecord> getPlayerRecordList(PlayerRecord playerRecord,int currentPage);
 	//playerReport 팀의 명단을 불러오는 service

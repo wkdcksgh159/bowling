@@ -83,9 +83,9 @@ public class BowlingPlayerServiceImpl implements BowlingPlayerService{
 	
 	@Override
 	// playerRanking 개인 랭킹 마지막 페이지를 불러오는 service
-	public int getLastPage() {
+	public int getLastPage(PlayerRecord playerRecord) {
 		System.out.println("getLastPage");
-		int totalCount=bowlingPlayerMapper.selectTotalCount();
+		int totalCount=bowlingPlayerMapper.selectTotalCount(playerRecord);
 		System.out.println("전체 행:"+totalCount);
 		int rowPerPage=3;
 		int lastPage = totalCount/rowPerPage;

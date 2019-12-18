@@ -63,8 +63,9 @@ public class BowlingPlayerController {
 	
 	//playerRanking 마지막 페이지를 불러오는 controller
 	@PostMapping("/getPlayerLastPage")
-	public int getLastPage() {
+	public int getLastPage(PlayerRecord playerRecord) {
 		System.out.println("-----------------------getLastPage------------------------");
-		return bowlingPlayerService.getLastPage();
+		System.out.println("Controller playerRecord: "+playerRecord);
+		return bowlingPlayerService.getLastPage(playerRecord);
 	}
 }

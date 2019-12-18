@@ -371,7 +371,7 @@
 										</tbody>
 											
 									</table>
-									<button id="prev">이전</button><button id="next">다음</button>
+									<button id="prev" class="btn btn-default">이전</button><button id="next" class="btn btn-default">다음</button>
 								</div>
                             </div>
                         </div>
@@ -479,15 +479,6 @@
 		let gender = "";
 		let column = "";
 		let lastPage = 0;
-		//lastPage 값 가져오기
-		$.ajax({
-			url:"/getPlayerLastPage",
-			method:"post",
-			success:function(json){
-				console.log("lastPage:",json);
-				lastPage = json;
-			}
-		});
 		
 		//랭킹 출력 함수
 		let playerRecord=function(currentPage,gender,column){		
@@ -512,6 +503,22 @@
 											temp += "</tr>";
 											$("#getPlayerRanking").append(temp);
 									});
+									
+									//lastPage 값 가져오기
+									$.ajax({
+										url:"/getPlayerLastPage",
+										data:{"gender":gender},
+										method:"post",
+										success:function(json){
+											console.log("lastPage:",json);
+											lastPage = json;
+											if(lastPage == 1){
+												$("#prev").hide();
+												$("#next").hide();
+											}
+										}
+									});
+									
 									$("#table").show();
 								}
 							});

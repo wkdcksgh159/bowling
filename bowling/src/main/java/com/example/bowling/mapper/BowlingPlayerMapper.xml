@@ -296,7 +296,8 @@
   	</select>
   	
   	<!-- player ranking 전체 행 -->
-  	<select id="selectTotalCount" resultType="int">
+  	<select id="selectTotalCount" 	parameterType="com.example.bowling.vo.PlayerRecord"
+  									resultType="int">
   		SELECT COUNT(*) as count
 		FROM 
 			(select
@@ -353,5 +354,8 @@
 			ON gr.player_no = p.player_no AND gr.player_no = ss.player_no
 			group by gr.player_no
 			) al
+			<if test="gender != 'ALL'">
+			WHERE gender = #{gender}
+			</if>
   	</select>
   </mapper>
