@@ -3,6 +3,7 @@ package com.example.bowling.vo;
 import lombok.Data;
 
 @Data
+
 public class Referee {
 	private int gameNo;
 	private int refereeNo;

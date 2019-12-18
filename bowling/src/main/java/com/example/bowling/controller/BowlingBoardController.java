@@ -12,7 +12,7 @@ import com.example.bowling.service.BowlingBoardService;
 import com.example.bowling.vo.Board;
 
 @RestController
-public class BowlingBoardController {
+public class BowlingBoardController { 
 	@Autowired
 	private BowlingBoardService bowlingBoardService;
 

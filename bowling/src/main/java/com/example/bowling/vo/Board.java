@@ -3,6 +3,7 @@ package com.example.bowling.vo;
 import lombok.Data;
 
 @Data
+
 public class Board {
 	private int boardNo;
 	private String boardPw;
