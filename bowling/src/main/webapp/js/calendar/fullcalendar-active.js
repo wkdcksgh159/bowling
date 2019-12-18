@@ -46,7 +46,7 @@ $(function() {
 					left: 'prev,next today',
 					center: 'title',
 					//오른쪽 메뉴, 달 ,한주,하루 기준 일정 표 출력
-					right: 'month,agendaWeek,agendaDay'
+					right: 'month,agendaDay'
 				},
 				editable: true,
 				eventLimit: true, // allow "more" link when too many events
