@@ -289,38 +289,28 @@
                             	<!-- 기사 리스트 -->
                             	<!-- 향후  css적용 -->
 					<div>
-						<ul>
+						<ul id = list>
 							<li>
-								<a href = "/admin/newsAp.html"><span>샘플기사1</span></a>
+								<img alt="bowling" src="/img/newsImg/1.jpg" width="100" height="100">
+								<a href = "http://www.ilyoseoul.co.kr/news/articleView.html?idxno=249657" target = "_blank"><span>[아시안게임 볼링] 여자 6인조 볼링, 8년 만에 금메달</span></a>
 							</li>
+							<br>
 							<li>
-								<a href = ""><span>샘플기사2</span></a>
+								<img alt="bowling" src="/img/newsImg/2.jpg" width="100" height="100">
+								<a href = "http://www.cnbnews.com/news/article.html?no=430776" target = "_blank"><span>제20회 합천군 협회장배 볼링대회 개최</span></a>
 							</li>
+							<br>
 							<li>
-								<a href = ""><span>샘플기사3</span></a>
+								<img alt="bowling" src="/img/newsImg/3.jpg" width="100" height="100">
+								<a href = "http://www.kgnews.co.kr/news/articleView.html?idxno=564001" target = "_blank"><span>볼링 공 하나로 ‘3관왕’ 스트라이크</span></a>
 							</li>
-							<li>
-								<a href = ""><span>샘플기사4</span></a>
-							</li>
-							<li>
-								<a href = ""><span>샘플기사5</span></a>
-							</li>
-							<li>
-								<a href = ""><span>샘플기사6</span></a>
-							</li>
-							<li>
-								<a href = ""><span>샘플기사7</span></a>
-							</li>
-							<li>
-								<a href = ""><span>샘플기사8</span></a>
-							</li>
-							<li>
-								<a href = ""><span>샘플기사9</span></a>
-							</li>
-							<li>
-								<a href = ""><span>샘플기사10</span></a>
-							</li>
+							
 						</ul>
+						<!-- <a href = "/pushstate/page2/" id = "next">다음</a> -->
+								<!-- 페이지 이동 버튼 -->
+								<!-- 절대 클릭하지 마시오 -->
+									<button type = "button">다음</button>
+									
 					</div>
 										
                             <div class="sparkline13-graph">
@@ -346,16 +336,19 @@
 							<h3>전문가의 말</h3>
 								<div>
 									<div>
-										<span>장기자의 살펴보기</span>
-										<span>by 장찬호</span>
+										<img alt="bowling" src="/img/newsImg/4.jpg" width="100" height="100">
+										<a href = "https://sports.news.naver.com/news.nhn?oid=544&aid=0000000051" target = "_blank"><span>[이은경의 삼위일체] 볼링① 12번의 스트라이크, 퍼펙트게임을 위하여</span></a>
+										<br>
+										<span>by 이은경 </span>
 									</div>
-									<a href = ""><span>대한민국 볼링은</span></a>
+									
 									<p>
-										대한 볼링협회장 권혁태(23)는 2019년 12월 12일 기자회견을 열고... 
+										시원한 스트라이크. 볼링 하면 가장 먼저 떠오르는 장면이다.
+										볼링은 일상생활에서 쉽게 접할 수 있는 운동이다 
 									</p>
 								</div>
 						</div>
-										
+
                             <div class="sparkline13-graph">
                             </div>
                         </div>
@@ -455,7 +448,24 @@
 <canvas id="myChart2" width="400" height="400"></canvas>
 <canvas id="myChart3" width="400" height="400"></canvas>
 <!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
 	// ### 여기다가 jquery 사용하세요 ####################################################################################################################################################################################################
+	$result['paging'] = array(
+		
+		'startPage' => $startPage,          //시작페이지
+		'endPage' => $endPage,              //종료페이지
+		'totalBlock' => $totalBlock,        //전체 페이지 블럭 갯수
+		'totalPage' => $totalPage,          // 전체 페이지 갯수
+		'blockPageNum' => $blockPageNum,    //한페이지에 나올 블럭갯수
+		'rowsByPage' => $rowsByPage,        //한페이지에 나올 리스트갯수
+		'totalCount' => $totalCount,        //전체 리스트갯수
+		'block' => $block,                  //현재 페이지가 어느 블럭에 포함되어있는지
+		'page' => $page                     //현재 페이지
+	);
+	var page = 1;                       //페이지 변수를 1로 초기화
+
+	var searchKey = '';                 //검색기능을 위해 검색 변수 초기화
+
 </script>
 </html>
