@@ -17,7 +17,14 @@ public class BowlingAdminServiceImpl implements BowlingAdminService {
 	@Override
 	public String adminLogin(Admin admin){
 		System.out.println("admin login serviceImpl------------------------------------");
+		System.out.println("admin : "+ admin);
 		
-		return bowlingAdminMapper.loginCheck(admin);
+		String loginCheck = bowlingAdminMapper.login(admin);
+		System.out.println("login Result : "+ loginCheck);
+		if(loginCheck != null) {
+			return loginCheck;
+		}else {
+			return null;
+		}
 	}
 }

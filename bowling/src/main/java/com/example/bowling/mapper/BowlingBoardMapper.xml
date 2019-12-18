@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.example.bowling.mapper.BowlingBoardMapper">
+	<!-- 수정 -->
+	<update id="updateBoard" parameterType="com.example.bowling.vo.Board">
+        UPDATE board
+        SET board_title = #{boardTitle},
+            board_content = #{boardContent},
+            board_last_date = NOW()
+        WHERE board_no = #{boardNo}
+    </update>
+    <!-- 삭제 -->
+    <delete id="deleteBoard" parameterType="com.example.bowling.vo.Board">
+        DELETE FROM board
+        WHERE board_no = #{boardNo}
+    </delete>
+    <!-- 상세보기 -->
+    <select id="selectBoard" parameterType="int" resultType="com.example.bowling.vo.Board">
+        SELECT
+            board_category as boardCategory,
+            board_title as boardTitle,
+            board_content as boardContent,
+            board_user as boardUser,
+            board_first_date as boardFirstDate,
+            board_last_date as boardLastDate
+        FROM board
+        WHERE board_no = #{boardNo}
+    </select>
+    <!-- boardCount -->
+    <select id="selectBoardCount" parameterType="java.lang.String" resultType="int">
+        SELECT COUNT(*) FROM board
+        <where>
+            <if test="searchWord != null">
+                board_title like CONCAT('%',#{searchWord},'%')
+            </if>
+        </where>
+    </select>
+ 	<!-- boardList -->
+    <select id="selectBoardList"
+        resultType="com.example.bowling.vo.Board">
+        SELECT
+            board_no as boardNo,
+            board_title as boardTitle,
+            board_user as boardUser,
+            board_first_date as boardFirstDate
+        FROM board   
+        ORDER BY board_first_date DESC
+    </select>
+ 	<!-- 입력 -->
+    <insert id="insertBoard"
+        parameterType="com.example.bowling.vo.Board">
+        INSERT INTO board(
+            board_title,
+            board_content,
+            board_user,
+            board_first_date,
+            board_last_date,
+            board_category
+        ) VALUES (
+            #{boardTitle},
+            #{boardContent},
+            #{boardUser},
+            NOW(),
+            NOW(),
+            #{boardCategory}
+        )
+    </insert>
+</mapper>
