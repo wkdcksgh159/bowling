@@ -6,194 +6,6 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
-/*GLOBALS*/
-* {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-
-a {
-	text-decoration: none;
-	color: #666;
-}
-
-a:hover {
-	color: #1bc1a3;
-}
-
-body, hmtl {
-	background: #ecf0f1;
-	font-family: 'Anton', sans-serif;
-}
-
-#wrapper {
-	width: 600px;
-	margin: 50px auto;
-	height: 400px;
-	position: relative;
-	color: #fff;
-	text-shadow: rgba(0, 0, 0, 0.1) 2px 2px 0px;
-}
-
-#slider-wrap {
-	width: 600px;
-	height: 400px;
-	position: relative;
-	overflow: hidden;
-}
-
-#slider-wrap ul#slider {
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-}
-
-#slider-wrap ul#slider li {
-	float: left;
-	position: relative;
-	width: 600px;
-	height: 400px;
-}
-
-#slider-wrap ul#slider li>div {
-	position: absolute;
-	top: 20px;
-	left: 35px;
-}
-
-#slider-wrap ul#slider li>div h3 {
-	font-size: 36px;
-	text-transform: uppercase;
-}
-
-#slider-wrap ul#slider li>div span {
-	font-family: Neucha, Arial, sans serif;
-	font-size: 21px;
-}
-
-#slider-wrap ul#slider li img {
-	display: block;
-	width: 100%;
-	height: 100%;
-}
-
-/*btns*/
-.btns {
-	position: absolute;
-	width: 50px;
-	height: 60px;
-	top: 50%;
-	margin-top: -25px;
-	line-height: 57px;
-	text-align: center;
-	cursor: pointer;
-	background: rgba(0, 0, 0, 0.1);
-	z-index: 100;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-khtml-user-select: none;
-	-ms-user-select: none;
-	-webkit-transition: all 0.1s ease;
-	-moz-transition: all 0.1s ease;
-	-o-transition: all 0.1s ease;
-	-ms-transition: all 0.1s ease;
-	transition: all 0.1s ease;
-}
-
-.btns:hover {
-	background: rgba(0, 0, 0, 0.3);
-}
-
-#next {
-	right: -50px;
-	border-radius: 7px 0px 0px 7px;
-}
-
-#previous {
-	left: -50px;
-	border-radius: 0px 7px 7px 7px;
-}
-
-#counter {
-	top: 30px;
-	right: 35px;
-	width: auto;
-	position: absolute;
-}
-
-#slider-wrap.active #next {
-	right: 0px;
-}
-
-#slider-wrap.active #previous {
-	left: 0px;
-}
-
-/*bar*/
-#pagination-wrap {
-	min-width: 20px;
-	margin-top: 350px;
-	margin-left: auto;
-	margin-right: auto;
-	height: 15px;
-	position: relative;
-	text-align: center;
-}
-
-#pagination-wrap ul {
-	width: 100%;
-}
-
-#pagination-wrap ul li {
-	margin: 0 4px;
-	display: inline-block;
-	width: 5px;
-	height: 5px;
-	border-radius: 50%;
-	background: #fff;
-	opacity: 0.5;
-	position: relative;
-	top: 0;
-}
-
-#pagination-wrap ul li.active {
-	width: 12px;
-	height: 12px;
-	top: 3px;
-	opacity: 1;
-	box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 0px;
-}
-
-/*Header*/
-h1, h2 {
-	text-shadow: none;
-	text-align: center;
-}
-
-h1 {
-	color: #666;
-	text-transform: uppercase;
-	font-size: 36px;
-}
-
-h2 {
-	color: #7f8c8d;
-	font-family: Neucha, Arial, sans serif;
-	font-size: 18px;
-	margin-bottom: 30px;
-}
-
-/*ANIMATION*/
-#slider-wrap ul, #pagination-wrap ul li {
-	-webkit-transition: all 0.3s cubic-bezier(1, .01, .32, 1);
-	-moz-transition: all 0.3s cubic-bezier(1, .01, .32, 1);
-	-o-transition: all 0.3s cubic-bezier(1, .01, .32, 1);
-	-ms-transition: all 0.3s cubic-bezier(1, .01, .32, 1);
-	transition: all 0.3s cubic-bezier(1, .01, .32, 1);
-}
 </style>
 <link
 	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
@@ -202,6 +14,7 @@ h2 {
 	rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Neucha'
 	rel='stylesheet' type='text/css'>
+<link href="/scripts/slide.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div id="wrapper">
@@ -209,37 +22,42 @@ h2 {
 			<ul id="slider">
 				<li data-color="#1abc9c">
 					<div>
-						<h3>Slide #1</h3>
-						<span>Sub-title #1</span>
-					</div> <img src="https://fakeimg.pl/350x200/960a96/000?text=11111">
+						<h3>[아시안게임 볼링] 여자 6인조 볼링, 8년 만에 금메달</h3>
+						<span>[일요서울 | 오두환 기자] 한국 볼링이 8년 만에 아시안게임 여자 6인조 정상에 섰다.</span>
+					</div> 
+					<img src="http://www.ilyoseoul.co.kr/news/photo/201808/249657_176678_1929.jpg">
 				</li>
 
 				<li data-color="#3498db">
 					<div>
-						<h3>Slide #2</h3>
-						<span>Sub-title #2</span>
-					</div> <img src="https://fakeimg.pl/350x200/D27328/000?text=22222">
+						<h3>제20회 합천군 협회장배 볼링대회 개최</h3>
+						<span>우의와 친목을 도모, 건강증진과 삶의 질 향상, 볼링 저변확대를 위한 계기</span>
+					</div> 
+					<img src="http://www.cnbnews.com/data/photos/20191251/art_262228_1576473438.jpg">
 				</li>
 
 				<li data-color="#9b59b6">
 					<div>
-						<h3>Slide #3</h3>
-						<span>Sub-title #3</span>
-					</div> <img src="https://fakeimg.pl/350x200/FF607F/000?text=33333">
+						<h3>볼링 공 하나로 ‘3관왕’ 스트라이크</h3>
+						<span>오반석(안양시장애인볼링협회) 아시안패러게임 2관왕 스타 “세계무대도 정상 등극할래요”</span>
+					</div> 
+					<img src="http://www.kgnews.co.kr/news/photo/201910/564001_193856_431.jpg">
 				</li>
 
 				<li data-color="#34495e">
 					<div>
 						<h3>Slide #4</h3>
 						<span>Sub-title #4</span>
-					</div> <img src="https://fakeimg.pl/350x200/0A6E0A/000?text=44444">
+					</div> 
+					<img src="https://fakeimg.pl/350x200/0A6E0A/000?text=44444">
 				</li>
 
 				<li data-color="#e74c3c">
 					<div>
 						<h3>Slide #5</h3>
 						<span>Sub-title #5</span>
-					</div> <img src="https://fakeimg.pl/350x200/0064CD/000?text=55555">
+					</div> 
+					<img src="https://fakeimg.pl/350x200/0064CD/000?text=55555">
 				</li>
 
 
@@ -265,103 +83,103 @@ h2 {
 	</div>
 </body>
 <script>
-	//current position
-	var pos = 0;
-	//number of slides
-	var totalSlides = $('#slider-wrap ul li').length;
-	//get the slide width
-	var sliderWidth = $('#slider-wrap').width();
+//current position
+var pos = 0;
+//number of slides
+var totalSlides = $('#slider-wrap ul li').length;
+//get the slide width
+var sliderWidth = $('#slider-wrap').width();
 
-	$(document).ready(function() {
+$(document).ready(function() {
 
-		/*****************
-		 BUILD THE SLIDER
-		 *****************/
-		//set width to be 'x' times the number of slides
-		$('#slider-wrap ul#slider').width(sliderWidth * totalSlides);
+	/*****************
+	 BUILD THE SLIDER
+	 *****************/
+	//set width to be 'x' times the number of slides
+	$('#slider-wrap ul#slider').width(sliderWidth * totalSlides);
 
-		//next slide    
-		$('#next').click(function() {
-			slideRight();
-		});
+	//next slide    
+	$('#next').click(function() {
+		slideRight();
+	});
 
-		//previous slide
-		$('#previous').click(function() {
-			slideLeft();
-		});
+	//previous slide
+	$('#previous').click(function() {
+		slideLeft();
+	});
 
-		/*************************
-		 //*> OPTIONAL SETTINGS
-		 ************************/
-		//automatic slider
-		var autoSlider = setInterval(slideRight, 3000);
-
-		//for each slide 
-		$.each($('#slider-wrap ul li'), function() {
-
-			//create a pagination
-			var li = document.createElement('li');
-			$('#pagination-wrap ul').append(li);
-		});
-
-		//counter
-		countSlides();
-
-		//pagination
-		pagination();
-
-		//hide/show controls/btns when hover
-		//pause automatic slide when hover
-		$('#slider-wrap').hover(function() {
-			$(this).addClass('active');
-			clearInterval(autoSlider);
-		}, function() {
-			$(this).removeClass('active');
-			autoSlider = setInterval(slideRight, 3000);
-		});
-
-	});//DOCUMENT READY
-
-	/***********
-	 SLIDE LEFT
-	 ************/
-	function slideLeft() {
-		pos--;
-		if (pos == -1) {
-			pos = totalSlides - 1;
-		}
-		$('#slider-wrap ul#slider').css('left', -(sliderWidth * pos));
-
-		//*> optional
-		countSlides();
-		pagination();
-	}
-
-	/************
-	 SLIDE RIGHT
-	 *************/
-	function slideRight() {
-		pos++;
-		if (pos == totalSlides) {
-			pos = 0;
-		}
-		$('#slider-wrap ul#slider').css('left', -(sliderWidth * pos));
-
-		//*> optional 
-		countSlides();
-		pagination();
-	}
-
-	/************************
+	/*************************
 	 //*> OPTIONAL SETTINGS
 	 ************************/
-	function countSlides() {
-		$('#counter').html(pos + 1 + ' / ' + totalSlides);
-	}
+	//automatic slider
+	var autoSlider = setInterval(slideRight, 3000);
 
-	function pagination() {
-		$('#pagination-wrap ul li').removeClass('active');
-		$('#pagination-wrap ul li:eq(' + pos + ')').addClass('active');
+	//for each slide 
+	$.each($('#slider-wrap ul li'), function() {
+
+		//create a pagination
+		var li = document.createElement('li');
+		$('#pagination-wrap ul').append(li);
+	});
+
+	//counter
+	countSlides();
+
+	//pagination
+	pagination();
+
+	//hide/show controls/btns when hover
+	//pause automatic slide when hover
+	$('#slider-wrap').hover(function() {
+		$(this).addClass('active');
+		clearInterval(autoSlider);
+	}, function() {
+		$(this).removeClass('active');
+		autoSlider = setInterval(slideRight, 3000);
+	});
+
+});//DOCUMENT READY
+
+/***********
+ SLIDE LEFT
+ ************/
+function slideLeft() {
+	pos--;
+	if (pos == -1) {
+		pos = totalSlides - 1;
 	}
+	$('#slider-wrap ul#slider').css('left', -(sliderWidth * pos));
+
+	//*> optional
+	countSlides();
+	pagination();
+}
+
+/************
+ SLIDE RIGHT
+ *************/
+function slideRight() {
+	pos++;
+	if (pos == totalSlides) {
+		pos = 0;
+	}
+	$('#slider-wrap ul#slider').css('left', -(sliderWidth * pos));
+
+	//*> optional 
+	countSlides();
+	pagination();
+}
+
+/************************
+ //*> OPTIONAL SETTINGS
+ ************************/
+function countSlides() {
+	$('#counter').html(pos + 1 + ' / ' + totalSlides);
+}
+
+function pagination() {
+	$('#pagination-wrap ul li').removeClass('active');
+	$('#pagination-wrap ul li:eq(' + pos + ')').addClass('active');
+}
 </script>
 </html>

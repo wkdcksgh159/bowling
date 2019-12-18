@@ -66,6 +66,16 @@
 <link rel="stylesheet" href="/css/data-table/bootstrap-table.css">
 <link rel="stylesheet" href="/css/data-table/bootstrap-editable.css">
 
+<!-- news slide -->
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Anton'
+	rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Neucha'
+	rel='stylesheet' type='text/css'>
+<link href="/scripts/slide.css" rel="stylesheet" type="text/css">
+
 <script src="/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
@@ -330,7 +340,7 @@
         <br>
         <div class="product-sales-area mg-tb-30">
             <div class="container-fluid">
-                <div class="row">
+                <div class="row" style="width:1150px;">
                     <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
                         <div class="product-sales-chart">
                             <div class="portlet-title">
@@ -347,7 +357,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="extra-area-chart" style="height: 356px;"></div>
+                            <div id="extra-area-chart" style="width:800px;height:400px;">
+                            </div>
                         </div>
                     </div>
                     </div>
@@ -542,8 +553,13 @@
 <canvas id="myChart2" width="400" height="400"></canvas>
 <canvas id="myChart3" width="400" height="400"></canvas>
 <!-- jQuery -->
+
 <script>
 	// ### 여기다가 jquery 사용하세요 ####################################################################################################################################################################################################
+	
+	$("#extra-area-chart").load("/scripts/slide.html");
+	
+	
 	$(".admin").hide();
 	
 	$.ajax({
@@ -552,6 +568,7 @@
 			success:function(json){
 				console.log("로그인 확인");
 				console.log(json);
+				console.log($("#extra-area-chart").css("width"));
 				if(json == 0){
 					$("#login").append("<a href='/admin/adminLogin.html'><span class='edu-icon edu-locked author-log-ic'></span>Log In</a>");
 					$(".admin").hide();

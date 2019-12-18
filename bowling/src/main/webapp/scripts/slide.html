@@ -1,0 +1,166 @@
+<meta charset="utf-8">
+<div id="wrapper">
+		<div id="slider-wrap">
+			<ul id="slider">
+				<li data-color="#1abc9c">
+					<div>
+						<h3><a href="http://www.ilyoseoul.co.kr/news/articleView.html?idxno=249657" target="_blank" style="color:white;">[아시안게임 볼링] 여자 6인조 볼링, 8년 만에 금메달</a></h3>
+						<span>[일요서울 | 오두환 기자] 한국 볼링이 8년 만에 아시안게임 여자 6인조 정상에 섰다.</span>
+					</div> 
+					<img src="http://www.ilyoseoul.co.kr/news/photo/201808/249657_176678_1929.jpg">
+				</li>
+
+				<li data-color="#3498db">
+					<div>
+						<h3><a href="http://www.cnbnews.com/news/article.html?no=430776" target="_blank" style="color:white;">제20회 합천군 협회장배 볼링대회 개최</a></h3>
+						<span>우의와 친목을 도모, 건강증진과 삶의 질 향상, 볼링 저변확대를 위한 계기</span>
+					</div> 
+					<img src="http://www.cnbnews.com/data/photos/20191251/art_262228_1576473438.jpg">
+				</li>
+
+				<li data-color="#9b59b6">
+					<div>
+						<h3><a href="http://www.kgnews.co.kr/news/articleView.html?idxno=564001" target="_blank" style="color:white;">볼링 공 하나로 ‘3관왕’ 스트라이크</a></h3>
+						<span>오반석(안양시장애인볼링협회) 아시안패러게임 2관왕 스타 “세계무대도 정상 등극할래요”</span>
+					</div> 
+					<img src="http://www.kgnews.co.kr/news/photo/201910/564001_193856_431.jpg">
+				</li>
+
+				<li data-color="#34495e">
+					<div>
+						<h3><a href="http://www.fnnews.com/news/201808272108417565" target="_blank" style="color:white;">볼링 박종우·이연지, 남녀 마스터스 은메달</a></h3>
+						<span>볼링 국가대표 박종우와 이연지가 2018 자카르타·팔렘방 아시안게임 볼링 남녀 마스터스에서 은메달을 목에 걸었다.</span>
+					</div> 
+					<img src="/img/newsImg/5.jpg">
+				</li>
+
+				<li data-color="#e74c3c">
+					<div>
+						<h3><a href="http://www.incheonnews.com/news/articleView.html?idxno=110546" target="_blank" style="color:white;">홍해솔, 아시안게임 볼링 3연속 금메달</a></h3>
+						<span>인천교통공사 남자볼링팀 홍해솔 선수가 게임 3연속 금메달을 차지했다</span>
+					</div> 
+					<img src="http://www.incheonnews.com/news/photo/201808/110546_113202_3217.jpg">
+				</li>
+
+
+			</ul>
+
+			<!--controls-->
+			<div class="btns" id="next">
+				<i class="fa fa-arrow-right"></i>
+			</div>
+			<div class="btns" id="previous">
+				<i class="fa fa-arrow-left"></i>
+			</div>
+			<div id="counter"></div>
+
+			<div id="pagination-wrap">
+				<ul>
+				</ul>
+			</div>
+			<!--controls-->
+
+		</div>
+
+	</div>
+	
+<script>
+	//current position
+	var pos = 0;
+	//number of slides
+	var totalSlides = $('#slider-wrap ul li').length;
+	//get the slide width
+	var sliderWidth = $('#slider-wrap').width();
+	
+	$(document).ready(function() {
+	
+		/*****************
+		 BUILD THE SLIDER
+		 *****************/
+		//set width to be 'x' times the number of slides
+		$('#slider-wrap ul#slider').width(sliderWidth * totalSlides);
+	
+		//next slide    
+		$('#next').click(function() {
+			slideRight();
+		});
+	
+		//previous slide
+		$('#previous').click(function() {
+			slideLeft();
+		});
+	
+		/*************************
+		 //*> OPTIONAL SETTINGS
+		 ************************/
+		//automatic slider
+		var autoSlider = setInterval(slideRight, 3000);
+	
+		//for each slide 
+		$.each($('#slider-wrap ul li'), function() {
+	
+			//create a pagination
+			var li = document.createElement('li');
+			$('#pagination-wrap ul').append(li);
+		});
+	
+		//counter
+		countSlides();
+	
+		//pagination
+		pagination();
+	
+		//hide/show controls/btns when hover
+		//pause automatic slide when hover
+		$('#slider-wrap').hover(function() {
+			$(this).addClass('active');
+			clearInterval(autoSlider);
+		}, function() {
+			$(this).removeClass('active');
+			autoSlider = setInterval(slideRight, 3000);
+		});
+	
+	});//DOCUMENT READY
+	
+	/***********
+	 SLIDE LEFT
+	 ************/
+	function slideLeft() {
+		pos--;
+		if (pos == -1) {
+			pos = totalSlides - 1;
+		}
+		$('#slider-wrap ul#slider').css('left', -(sliderWidth * pos));
+	
+		//*> optional
+		countSlides();
+		pagination();
+	}
+	
+	/************
+	 SLIDE RIGHT
+	 *************/
+	function slideRight() {
+		pos++;
+		if (pos == totalSlides) {
+			pos = 0;
+		}
+		$('#slider-wrap ul#slider').css('left', -(sliderWidth * pos));
+	
+		//*> optional 
+		countSlides();
+		pagination();
+	}
+	
+	/************************
+	 //*> OPTIONAL SETTINGS
+	 ************************/
+	function countSlides() {
+		$('#counter').html(pos + 1 + ' / ' + totalSlides);
+	}
+	
+	function pagination() {
+		$('#pagination-wrap ul li').removeClass('active');
+		$('#pagination-wrap ul li:eq(' + pos + ')').addClass('active');
+	}
+</script>
