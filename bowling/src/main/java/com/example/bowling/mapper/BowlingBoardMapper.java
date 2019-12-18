@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.bowling.vo.Board;
-import com.example.bowling.vo.BoardPage;
+import com.example.bowling.vo.Comment;
 
 @Mapper
 public interface BowlingBoardMapper {
@@ -19,7 +19,10 @@ public interface BowlingBoardMapper {
 	public int deleteBoard(Board board);
 	// 리스트 페이징
 	public List<Board> selectBoardList();
-	// 게시물 총 숫자
-	public int selectBoardCount(String searchWord);
-
+	// 개시판 댓글
+	public int insertComment(Comment comment);
+	// 댓글 출력
+	public List<Comment> selectCommentList(int boardNo);
+	// 댓글 삭제
+	public int deleteComment(Comment comment);
 }

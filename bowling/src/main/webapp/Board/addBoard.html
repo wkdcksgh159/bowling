@@ -298,6 +298,7 @@
 										<td><input type = "text" id = "title"></td>
 										<td><input type = "text" id = "user"></td>
 										<td><input type = "text" id = "content"></td>
+										<td><input type = "password" id = "password"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -426,19 +427,10 @@
 				data:{
 					"boardTitle" : $("#title").val(),
 					"boardUser":$("#user").val(),
-					"boardContent":$("#content").val()
-					
+					"boardContent":$("#content").val(),
+					"boardPw":$("#password").val() 
 					},
 				success:function(json){
-					$("#category").append("<option value=0>카테 고리</option>");
-					$(json).each(function(index, item){
-						temp = "<option value='";
-						temp += item.category;
-						temp += "'>";
-						temp += "</option>";
-						temp += ""
-						$("#category").append(temp);
-					});
 					location.href = "/Board/selectBoardList.html";
 				} 
 			});

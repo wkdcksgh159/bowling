@@ -294,9 +294,11 @@
 								        <div>boardContent :
 								            <textarea class="form-control" id="boardContent" rows="5" cols="50"></textarea>
 								        </div>
+								        <div>boardPassword :
+								             <input id="boardPw" type="password">
+								        </div>
 								        <div>
 								            <button id="updateButton" type="button">글수정</button>
-								            
 								        </div>
                             <div class="sparkline13-graph">
                             </div>
@@ -431,7 +433,8 @@
 					method:"POST",
 					data:{"boardNo" : $("#boardNo").val(),
 						  "boardTitle" : $("#boardTitle").val(),
-						  "boardContent" : $("#boardContent").val()
+						  "boardContent" : $("#boardContent").val(),
+						  "boardPw" : $("#boardPw").val()
 					},
 					success:function(){
 						console.log("수정");

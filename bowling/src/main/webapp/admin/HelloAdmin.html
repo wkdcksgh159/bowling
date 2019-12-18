@@ -51,10 +51,6 @@
 		============================================ -->
 <link rel="stylesheet" href="/css/metisMenu/metisMenu.min.css">
 <link rel="stylesheet" href="/css/metisMenu/metisMenu-vertical.css">
-<!-- calendar CSS
-		============================================ -->
-<link rel="stylesheet" href="/css/calendar/fullcalendar.min.css">
-<link rel="stylesheet" href="/css/calendar/fullcalendar.print.min.css">
 <!-- style CSS
 		============================================ -->
 <link rel="stylesheet" href="/style.css">
@@ -67,6 +63,7 @@
 <link rel="stylesheet" href="/css/data-table/bootstrap-editable.css">
 
 <script src="/js/vendor/modernizr-2.8.3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 </head>
 
 <body>
@@ -94,18 +91,18 @@
 						<li>
                             <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-data-table icon-wrap"></span> <span class="mini-click-non">정보</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="Peity Charts" href="/teamInformation.html"><span class="mini-sub-pro">팀정보</span></a></li>
-                                <li><a title="Data Table" href="/playerInformation.html"><span class="mini-sub-pro">선수정보</span></a></li>
+                                <li><a href="/information/teamInformation.html"><span class="mini-sub-pro">팀정보</span></a></li>
+                                <li><a href="/information/playerInformation.html"><span class="mini-sub-pro">선수정보</span></a></li>
                             </ul>
                         </li>
 						
 						<li>
-                            <a class="has-arrow" href="/all-students.html" aria-expanded="false"><span class="educate-icon educate-student icon-wrap"></span> <span class="mini-click-non">기록/순위</span></a>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-student icon-wrap"></span> <span class="mini-click-non">기록/순위</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Students" href="/teamReport.html"><span class="mini-sub-pro">팀 기록</span></a></li>
-                                <li><a title="Add Students" href="/teamRanking.html"><span class="mini-sub-pro">팀 순위</span></a></li>
-                                <li><a title="Edit Students" href="/playerReport.html"><span class="mini-sub-pro">선수 기록</span></a></li>
-                                <li><a title="Students Profile" href="/playerRanking.html"><span class="mini-sub-pro">선수 순위</span></a></li>
+                                <li><a href="/report/teamReport.html"><span class="mini-sub-pro">팀 기록</span></a></li>
+                                <li><a href="/ranking/teamRanking.html"><span class="mini-sub-pro">팀 순위</span></a></li>
+                                <li><a href="/report/playerReport.html"><span class="mini-sub-pro">선수 기록</span></a></li>
+                                <li><a href="/ranking/playerRanking.html"><span class="mini-sub-pro">선수 순위</span></a></li>
                             </ul>
                         </li>
 						
@@ -114,7 +111,7 @@
                         </li>
 						
 						<li>
-                            <a  href="/stat.html" aria-expanded="false"><span class="educate-icon educate-charts icon-wrap"></span> <span class="mini-click-non">통계</span></a>
+                            <a  href="/stat/stat.html" aria-expanded="false"><span class="educate-icon educate-charts icon-wrap"></span> <span class="mini-click-non">통계</span></a>
                         </li>
 
 					</ul>
@@ -159,22 +156,22 @@
                                                 <li class="nav-item dropdown res-dis-nn">
                                                     <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">Information <span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
                                                     <div role="menu" class="dropdown-menu animated zoomIn">
-                                                        <a href="/teamInformation.html" class="dropdown-item">Team Information</a>
-                                                        <a href="/playerInformation.html" class="dropdown-item">Player Information</a>
+                                                        <a href="/information/teamInformation.html" class="dropdown-item">Team Information</a>
+                                                        <a href="/information/playerInformation.html" class="dropdown-item">Player Information</a>
                                                     </div>
                                                 </li>
                                                 <li class="nav-item dropdown res-dis-nn">
                                                     <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">Report & Ranking<span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
                                                     <div role="menu" class="dropdown-menu animated zoomIn">
-                                                        <a href="/teamReport.html" class="dropdown-item">Team Report</a>
-                                                        <a href="/playerReport.html" class="dropdown-item">Player Report</a>
-                                                        <a href="/teamRanking.html" class="dropdown-item">Team Ranking</a>
-                                                        <a href="/playerRanking.html" class="dropdown-item">Player Ranking</a>
+                                                        <a href="/report/teamReport.html" class="dropdown-item">Team Report</a>
+                                                        <a href="/report/playerReport.html" class="dropdown-item">Player Report</a>
+                                                        <a href="/ranking/teamRanking.html" class="dropdown-item">Team Ranking</a>
+                                                        <a href="/ranking/playerRanking.html" class="dropdown-item">Player Ranking</a>
                                                     </div>
                                                 </li>
                                                 <li class="nav-item"><a href="/schedule.html" class="nav-link">Schedule</a>
                                                 </li>
-                                                <li class="nav-item"><a href="/stat.html" class="nav-link">Stat</a>
+                                                <li class="nav-item"><a href="/stat/stat.html" class="nav-link">Stat</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -192,7 +189,7 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="message-img">
-                                                                       
+                                                                        <img src="img/contact/1.jpg" alt="">
                                                                     </div>
                                                                 </a>
                                                             </li>
@@ -216,7 +213,7 @@
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
-															
+															<img src="img/product/pro4.jpg" alt="" />
 															<span class="admin-name">My Page</span>
 															<i class="fa fa-angle-down edu-icon edu-down-arrow"></i>
 														</a>
@@ -361,11 +358,6 @@
 	<script src="/js/sparkline/jquery.sparkline.min.js"></script>
 	<script src="/js/sparkline/jquery.charts-sparkline.js"></script>
 	<script src="/js/sparkline/sparkline-active.js"></script>
-	<!-- calendar JS
-		============================================ -->
-	<script src="/js/calendar/moment.min.js"></script>
-	<script src="/js/calendar/fullcalendar.min.js"></script>
-	<script src="/js/calendar/fullcalendar-active.js"></script>
 	<!-- plugins JS
 		============================================ -->
 	<script src="/js/plugins.js"></script>
@@ -384,21 +376,12 @@
     <script src="/js/data-table/bootstrap-table-export.js"></script>
 
 </body>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
-<canvas id="myChart" width="400" height="400"></canvas>
-<canvas id="myChart2" width="400" height="400"></canvas>
-<canvas id="myChart3" width="400" height="400"></canvas>
 <!-- jQuery -->
 <script>
 	// ### 여기다가 jquery 사용하세요 ####################################################################################################################################################################################################
-$(document).ready(function(){
-		// 로그인 하지 않으면 볼수 없다
-		//if (session.getAttribute("login") == null) {
-	      //  response.sendRedirect("/admin/adminlogin.html");
-	    //}
-		
-		$.ajax({
+	
+	$.ajax({
 			url:"/loginResult",
 			method:"POST",
 			success:function(json){
@@ -409,6 +392,8 @@ $(document).ready(function(){
 				}
 			}
 		});
+	
+	$(document).ready(function(){
 		
 		$("#adminLogout").click(function(){
 			$.ajax({

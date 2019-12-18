@@ -3,23 +3,49 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace = "com.example.bowling.mapper.BowlingBoardMapper">
+	
+	<!-- 게시판 댓글 삭제 -->
+	<delete id="deleteComment" parameterType="com.example.bowling.vo.Comment">
+  		DELETE FROM comment
+  		WHERE comment_no = #{commentNo} AND comment_pw = #{commentPw}
+  	</delete>
+	
+	
+	<!-- 개시판 댓글 출력 -->
+	<select id="selectCommentList" resultType="com.example.bowling.vo.Comment"
+  			parameterType="int">
+  		SELECT
+  			comment_no as CommentNo,
+  			comment_content as CommentContent,
+  			comment_user as CommentUser
+  		FROM comment
+  		WHERE board_no = #{boardNo}
+  	</select>
+	
+	<!-- 개시판 댓글 추가 -->
+	<insert id="insertComment" parameterType="com.example.bowling.vo.Comment">
+	INSERT INTO 
+		comment(board_no, comment_pw, comment_content, comment_user) 
+		values(#{boardNo},#{commentPw},#{commentContent},#{commentUser})
+	</insert>
+	
 	<!-- 수정 -->
 	<update id="updateBoard" parameterType="com.example.bowling.vo.Board">
         UPDATE board
         SET board_title = #{boardTitle},
             board_content = #{boardContent},
             board_last_date = NOW()
-        WHERE board_no = #{boardNo}
+        WHERE board_no = #{boardNo} AND board_pw = #{boardPw}
     </update>
     <!-- 삭제 -->
     <delete id="deleteBoard" parameterType="com.example.bowling.vo.Board">
         DELETE FROM board
-        WHERE board_no = #{boardNo}
+        WHERE board_no = #{boardNo} AND board_pw = #{boardPw}
     </delete>
     <!-- 상세보기 -->
     <select id="selectBoard" parameterType="int" resultType="com.example.bowling.vo.Board">
         SELECT
-            board_category as boardCategory,
+            board_no as boardNo,
             board_title as boardTitle,
             board_content as boardContent,
             board_user as boardUser,
@@ -57,14 +83,14 @@
             board_user,
             board_first_date,
             board_last_date,
-            board_category
+            board_pw
         ) VALUES (
             #{boardTitle},
             #{boardContent},
             #{boardUser},
             NOW(),
             NOW(),
-            #{boardCategory}
+            #{boardPw}
         )
     </insert>
 </mapper>

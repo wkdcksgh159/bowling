@@ -1,16 +1,13 @@
 package com.example.bowling.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.bowling.vo.Comment;
 import com.example.bowling.service.BowlingBoardService;
 import com.example.bowling.vo.Board;
 
@@ -19,15 +16,43 @@ public class BowlingBoardController {
 	@Autowired
 	private BowlingBoardService bowlingBoardService;
 
-	 // 댓글
+	//댓글 삭제
+	@PostMapping("/removeComment")
+	public String removeComment(Comment comment) {
+		System.out.println("comment: "+comment);
+		int row = bowlingBoardService.removeComment(comment);
+		if(row == 0) {
+			return "fail";
+		}else {
+			return "success";
+		}
+		
+	}
+	
+	// 댓글 목록 출력
+	@PostMapping("/getCommentList")
+	public List<Comment> getCommentList(@RequestParam(value="boardNo") int boardNo){
+		System.out.println("/getCommentList: "+boardNo);
+		List<Comment> list = bowlingBoardService.getCommentList(boardNo);
+		System.out.println("list: "+list);
+		return list;
+	}
+	
+	
+	 // 댓글 추가
+	@PostMapping("/addComment")
+	public String addComment(Comment comment) {
+		System.out.println("-----addComment-----");
+		System.out.println(comment);
+		int row = bowlingBoardService.addComment(comment);
+		//service interface 호출
+		if(row == 0) {
+			return "fail";
+		}
+		
+		return "success";
+	}
 	 
-//	 @GetMapping("/modifyBoard")
-//	 public String modify(Model model, @RequestParam("boardNo")int boardNo) {
-//		 System.out.println("get selectBoard controller---------------------------");
-//		 //Board board = bowlingBoardService.selectBoard(boardNo);
-//		 model.addAttribute("board", board); 
-//	 return "modifyBoard"; }
-//	 
 	 @PostMapping("/updateBoard")
 	 public int updateBoard(Board board) {
 		 System.out.println("post selectBoard controller-----------------------------");
@@ -37,15 +62,10 @@ public class BowlingBoardController {
 	 
 	 // removeBoard
 	 
-	 @GetMapping("/removeBoard")
-	 public String removeBoard(@RequestParam("boardNo")int boardNo) { 
-		 System.out.println("get remove controller---------------------------------------------"); 
-		 return "removeBoard"; 
-	}
-	 
 	 @PostMapping("/removeBoard") 
 	 public int removeBoard(Board board) {
 	 System.out.println("post remove controller-------------------------------------------");
+	 System.out.println("Board: "+board);
 	 int row = bowlingBoardService.removeBoard(board); 
 	 return row; 
 	 }

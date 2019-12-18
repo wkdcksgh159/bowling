@@ -1,8 +1,8 @@
 package com.example.bowling.service;
 
 import java.util.List;
-import java.util.Map;
 
+import com.example.bowling.vo.Comment;
 import com.example.bowling.vo.Board;
 
 public interface BowlingBoardService {
@@ -16,5 +16,11 @@ public interface BowlingBoardService {
 	public int removeBoard(Board board);
 	// 게시판 리스트
 	public List<Board> selectBoardList();
-
+	// 게시판 댓글 추가
+	public int addComment(Comment comment);
+	// 게시판 댓글 리스트 출력
+	public List<Comment> getCommentList(int boardNo);
+	// 게시판 댓글 삭제
+	public int removeComment(Comment comment);
+	
 }
