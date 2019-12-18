@@ -1,25 +1,9 @@
 <!doctype html>
 <html class="no-js" lang="en">
-
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>Index</title>
-<style>
-	table, th {
-		text-align: center;
-	}
-	.backslash {
-      background: url('http://cdn.zetawiki.com/png/backslash.png');
-      background-size: 100% 100%;
-      text-align: left;
-      font-size:10px;
-      width:100px;
-   }
-   .backslash div {
-   		text-align: right;
-   		}
-</style>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- favicon
@@ -81,23 +65,59 @@
 		============================================ -->
 <script src="/js/vendor/modernizr-2.8.3.min.js"></script>
 <style type="text/css">
-.cal_top{
-    text-align: center;
-    font-size: 30px;
-}
-.cal{
-    text-align: center;    
-}
-table.calendar{
-    border: 1px solid black;
-    display: inline-table;
-    text-align: left;
-}
-table.calendar td{
-    vertical-align: top;
-    border: 1px solid skyblue;
-    width: 100px;
-}
+	
+	.cal_top{
+	    text-align: center;
+	    font-size: 30px;
+	}
+	.cal{
+	    text-align: center;    
+	}
+	table.calendar{
+	    border: 1px solid black;
+	    display: inline-table;
+	    text-align: left;
+	}
+	table.calendar td{
+	    vertical-align: top;
+	    border: 1px solid skyblue;
+	    width: 100px;
+	}
+	#scoreBoard  {
+      width:900px;
+      height:200px;
+      /* border:3px double white; */
+      border-collapse:separate;
+      background-color:black;
+      color:white;
+      font-weight:bold;
+   }
+   #scoreBoard td, th {
+   	  border:3px double white;
+   	  text-align:center;
+   	  vertical-align: middle;
+   }
+	.backslash {
+      background: url('/img/backslash.png');
+      background-size: 100% 100%;
+      text-align: left;
+      font-size:10px;
+      width:100px;
+   }
+   .backslash div {text-align: right;}
+   #totalScore {
+   	  width:100px;
+   	  text-align:center;
+   }
+    .footer-copyright-area {
+      position:relative;
+      top:400px;
+   }
+    .backslash div {text-align: right;}
+    #totalScore {
+   	  width:100px;
+   }
+
 </style>
 </head>
 
@@ -272,25 +292,26 @@ table.calendar td{
 		<!-- 화면에서 나오는 페이지 -->
 		<div>
 
-			<h1>스캐줄</h1>
+			<h1>Schedule</h1>
 			<!-- <ol>
 				<li><a href="report/addReport.html">add report</a> <!-- Index.html 생성  -->
 				</li>
 			</ol>	
-			<button id="listShow" type="button" class="btn btn-primary">일정 리스트</button>
-			<button id="calenderShow" type="button" class="btn btn-primary">달력</button>
+		<button id="listShow" type="button" class="btn btn-primary">일정 리스트</button>
+		<button id="calenderShow" type="button" class="btn btn-primary">달력</button>
 			<!-- 리스트 테이블 출력 -->
+			<br>
 			<div id="scheduleTable">
 				<table class="table">
 					<thead>
 						<tr>
-							<th><center>날짜</center></th>
-							<th><center>홈팀</center></th>
-							<th><center>홈 점수</center></th>
-							<th><center>홈 결과</center></th>
-							<th><center>Away 점수</center></th>
-							<th><center>Away 팀</center></th>
-							<th><center>Away 결과</center></th>
+							<th>날짜</th>
+							<th>홈팀</th>
+							<th>홈 점수</th>
+							<th>홈 결과</th>
+							<th>Away 점수</th>
+							<th>Away 팀</th>
+							<th>Away 결과</th>
 						</tr>
 					</thead>
 					<tbody id="scheduleList">
@@ -299,22 +320,24 @@ table.calendar td{
 				<button id="prev" class="btn btn-default">이전</button>
 				<button id="next" class="btn btn-default">다음</button>
 			</div>
+			<br>
+			
 			<!-- 전광판 테이블 -->
 			<table id="scoreBoard" class="table table-dark">
 				<thead>
 					<tr>
 				         <th class="backslash"><div>프레임</div>이름</th>
-				         <th colspan="2" style="width:60px"><center>1</center></th>
-				         <th colspan="2" style="width:60px"><center>2</center></th>
-				         <th colspan="2" style="width:60px"><center>3</center></th>
-				         <th colspan="2" style="width:60px"><center>4</center></th>
-				         <th colspan="2" style="width:60px"><center><center>5</center></th>
-				         <th colspan="2" style="width:60px"><center>6</center></th>
-				         <th colspan="2" style="width:60px"><center>7</center></th>
-				         <th colspan="2" style="width:60px"><center>8</center></th>
-				         <th colspan="2" style="width:60px"><center>9</center></th>
-				         <th colspan="3" style="width:60px"><center>10</center></th>
-				         <th id="totalScore">총 점수</center></th>
+				         <th colspan="2" style="width:60px">1</th>
+				         <th colspan="2" style="width:60px">2</th>
+				         <th colspan="2" style="width:60px">3</th>
+				         <th colspan="2" style="width:60px">4</th>
+				         <th colspan="2" style="width:60px">5</th>
+				         <th colspan="2" style="width:60px">6</th>
+				         <th colspan="2" style="width:60px">7</th>
+				         <th colspan="2" style="width:60px">8</th>
+				         <th colspan="2" style="width:60px">9</th>
+				         <th colspan="3" style="width:60px">10</th>
+				         <th id="totalScore">총 점수</th>
 					</tr>
 				</thead>
 				<tbody id="board">
@@ -324,6 +347,7 @@ table.calendar td{
 					<tr id="sFrame"></tr>
 				</tbody>
 			</table>
+			
 			<br>
 						 <!--  달력 -->
 			<div id="calender" class="calender-area mg-b-15">
@@ -393,16 +417,6 @@ table.calendar td{
 		============================================ -->
 	<script src="/js/metisMenu/metisMenu.min.js"></script>
 	<script src="/js/metisMenu/metisMenu-active.js"></script>
-	<!-- morrisjs
-		============================================ -->
-	<script src="/js/morrisjs/raphael-min.js"></script>
-	<script src="/js/morrisjs/morris.js"></script>
-	<script src="/js/morrisjs/morris-active.js"></script>
-	<!-- morrisjs
-		============================================ -->
-	<script src="/js/sparkline/jquery.sparkline.min.js"></script>
-	<script src="/js/sparkline/jquery.charts-sparkline.js"></script>
-	<script src="/js/sparkline/sparkline-active.js"></script>
 	<!-- calendar js
 		============================================ -->
 	<script src="/js/calendar/moment.min.js"></script>
@@ -443,105 +457,105 @@ $(document).ready(function(){
 			}
 		});
 
-				//일정 출력 및 날짜 클릭시 전광판 출력 함수
-let printSchedule = function(currentPage){
-						//매게 변수 확인
-						console.log(currentPage);
+	//일정 출력 및 날짜 클릭시 전광판 출력 함수
+	let printSchedule = function(currentPage){
+		//매게 변수 확인
+		console.log(currentPage);
+		$.ajax({
+			url:"/schedulePage",
+			method:"post",
+			data:{"currentPage":currentPage},
+			success:function(json){
+				console.log("일정 리스트 확인:",json);
+				$("#scheduleList").empty();
+				//반복 출력
+					$(json).each(function(index,item){
+						$("#scheduleList").append(
+								"<tr>"
+								+"<td id='"+item.gameNo+"' class='game'><a>"+item.gameDate+"</a></td>"
+								+"<td>"+item.hteamName+"</td>"
+								+"<td>"+item.hteamScore+"</td>"
+								+"<td>"+item.hteamResult+"</td>"
+								+"<td>"+item.ateamScore+"</td>"
+								+"<td>"+item.ateamName+"</td>"
+								+"<td>"+item.ateamResult+"</td>"
+								+"</tr>"
+						);
+					});
+				
+					$(".game").click(function(){
+						//기존에 일정 리스트 숨김
+						$("#scheduleTable").hide();
+						//전광판 기본 틀 show
+						$("#scoreBoard").show();
+						//선택한 날짜 id값을 변수에 복사
+						gameNo = $(this).attr("id");
+						console.log("게임:",gameNo);
+							//전광판 새롭게 클릭을 대비 비워준다
 							$.ajax({
-								url:"/schedulePage",
+								url:"/scheduleOne",
 								method:"post",
-								data:{"currentPage":currentPage},
+								data:{"gameNo":gameNo},
 								success:function(json){
-									console.log("일정 리스트 확인:",json);
-									$("#scheduleList").empty();
-									//반복 출력
-										$(json).each(function(index,item){
-											$("#scheduleList").append(
-													"<tr>"
-													+"<td id='"+item.gameNo+"' class='game'><a>"+item.gameDate+"</a></td>"
-													+"<td>"+item.hteamName+"</td>"
-													+"<td>"+item.hteamScore+"</td>"
-													+"<td>"+item.hteamResult+"</td>"
-													+"<td>"+item.ateamScore+"</td>"
-													+"<td>"+item.ateamName+"</td>"
-													+"<td>"+item.ateamResult+"</td>"
-													+"</tr>"
-											);
-										});
+									console.log("전광판 값:"+json);
+									//전광판 각 행을 비워준다.
+									$("#fTurn").empty();
+									$("#fFrame").empty();
+									$("#sTurn").empty();
+									$("#sFrame").empty();
+									//첫,두번째 선수에 접체 합계를 위한 변수 
+									let fFrameSum=0;
+									let sFrameSum=0;
 									
-										$(".game").click(function(){
-											//기존에 일정 리스트 숨김
-											$("#scheduleTable").hide();
-											//전광판 기본 틀 show
-											$("#scoreBoard").show();
-											//선택한 날짜 id값을 변수에 복사
-											gameNo = $(this).attr("id");
-											console.log("게임:",gameNo);
-												//전광판 새롭게 클릭을 대비 비워준다
-												$.ajax({
-													url:"/scheduleOne",
-													method:"post",
-													data:{"gameNo":gameNo},
-													success:function(json){
-														console.log("전광판 값:"+json);
-														//전광판 각 행을 비워준다.
-														$("#fTurn").empty();
-														$("#fFrame").empty();
-														$("#sTurn").empty();
-														$("#sFrame").empty();
-														//첫,두번째 선수에 접체 합계를 위한 변수 
-														let fFrameSum=0;
-														let sFrameSum=0;
-														
-														//홈팀 어웨이팀 선수이름 출력
-														$("#fTurn").append("<td rowspan='2' id='homeTeamPlayer'>"+json[0].playerName+"</td>");
-														$("#sTurn").append("<td rowspan='2' id='awayTeamPlayer'>"+json[json.length-1].playerName+"</td>");
-														
-														$(json).each(function(index,item){
-															//hometeam선수 이름일때
-																if(item.playerName==json[0].playerName){
-																	//turn에 값이 point일때 ,frame으로 append
-																	if(item.turn=="point"){
-																		if(item.frame==10){//마지막 10frame에서는 3칸을 합쳐준다
-																			fFrameSum += item.score;//첫번째 선수 전체 합(기존 점수에 추가)
-																			console.log("10Frame:",item.frame,">",item.score);
-																			$("#fFrame").append("<td colspan='3'>"+item.score+"</td>");	
-																		}else{//10frame제외 frame값 출력
-																			fFrameSum += item.score;//첫번째 선수 전체 합(기존 점수에 추가)
-																			console.log("frame>",item.frame,":",item.score);
-																			$("#fFrame").append("<td colspan='2'>"+item.score+"</td>");	
-																		}
-																	}else{//turn값에 출력
-																		console.log("frame",item.frame,"-turn:",item.turn);
-																		$("#fTurn").append("<td>"+item.score+"</td>");
-																	}
-																}else{//awayteam선수 이름일때
-																	//turn에 값이 point일때 ,frame으로 append
-																	if(item.turn=="point"){
-																		if(item.frame==10){//마지막 10frame에서는 3칸을 합쳐준다
-																			sFrameSum += item.score;//첫번째 선수 전체 합(기존 점수에 추가)
-																			console.log("10Frame:",item.frame,">",item.score);
-																			$("#sFrame").append("<td colspan='3'>"+item.score+"</td>");	
-																		}else{//10frame제외 frame값 출력
-																			sFrameSum += item.score;//첫번째 선수 전체 합(기존 점수에 추가)
-																			console.log("frame>",item.frame,":",item.score);
-																			$("#sFrame").append("<td colspan='2'>"+item.score+"</td>");	
-																		}
-																	}else{//turn값에 출력
-																		console.log("frame",item.frame,"-turn:",item.turn);
-																		$("#sTurn").append("<td>"+item.score+"</td>");
-																	}
-																}
-														});//반복 
-														console.log("fram 합계 H:",fFrameSum,",A:",sFrameSum);
-															$("#fTurn").append("<td rowspan='2'>"+fFrameSum+"</td>");
-															$("#sTurn").append("<td rowspan='2'>"+sFrameSum+"</td>");
+									//홈팀 어웨이팀 선수이름 출력
+									$("#fTurn").append("<td rowspan='2' class='playerName' id='homeTeamPlayer'>"+json[0].playerName+"</td>");
+									$("#sTurn").append("<td rowspan='2' class='playerName' id='awayTeamPlayer'>"+json[json.length-1].playerName+"</td>");
+									
+									$(json).each(function(index,item){
+										//hometeam선수 이름일때
+											if(item.playerName==json[0].playerName){
+												//turn에 값이 point일때 ,frame으로 append
+												if(item.turn=="point"){
+													if(item.frame==10){//마지막 10frame에서는 3칸을 합쳐준다
+														fFrameSum += item.score;//첫번째 선수 전체 합(기존 점수에 추가)
+														console.log("10Frame:",item.frame,">",item.score);
+														$("#fFrame").append("<td class='scoreSum' colspan='3'>"+item.score+"</td>");	
+													}else{//10frame제외 frame값 출력
+														fFrameSum += item.score;//첫번째 선수 전체 합(기존 점수에 추가)
+														console.log("frame>",item.frame,":",item.score);
+														$("#fFrame").append("<td colspan='2'>"+item.score+"</td>");	
 													}
-												});
-										});
+												}else{//turn값에 출력
+													console.log("frame",item.frame,"-turn:",item.turn);
+													$("#fTurn").append("<td>"+item.score+"</td>");
+												}
+											}else{//awayteam선수 이름일때
+												//turn에 값이 point일때 ,frame으로 append
+												if(item.turn=="point"){
+													if(item.frame==10){//마지막 10frame에서는 3칸을 합쳐준다
+														sFrameSum += item.score;//첫번째 선수 전체 합(기존 점수에 추가)
+														console.log("10Frame:",item.frame,">",item.score);
+														$("#sFrame").append("<td colspan='3'>"+item.score+"</td>");	
+													}else{//10frame제외 frame값 출력
+														sFrameSum += item.score;//첫번째 선수 전체 합(기존 점수에 추가)
+														console.log("frame>",item.frame,":",item.score);
+														$("#sFrame").append("<td colspan='2'>"+item.score+"</td>");	
+													}
+												}else{//turn값에 출력
+													console.log("frame",item.frame,"-turn:",item.turn);
+													$("#sTurn").append("<td>"+item.score+"</td>");
+												}
+											}
+									});//반복 
+									console.log("fram 합계 H:",fFrameSum,",A:",sFrameSum);
+										$("#fTurn").append("<td rowspan='2'>"+fFrameSum+"</td>");
+										$("#sTurn").append("<td rowspan='2'>"+sFrameSum+"</td>");
 								}
 							});
-					}
+					});
+			}
+		});
+	}
 		
 		
 		
@@ -586,10 +600,6 @@ let printSchedule = function(currentPage){
 		//리스트 출력 함수 실행
 		printSchedule(currentPage);
 	});
-	
-	
-	
-	
 })
 </script>
 </html>

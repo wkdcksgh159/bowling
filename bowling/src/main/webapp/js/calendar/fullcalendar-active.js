@@ -6,8 +6,10 @@ $(function() {
 	var TODAY = todayDate.format('YYYY-MM-DD');
 	var TOMORROW = todayDate.clone().add(1, 'day').format('YYYY-MM-DD');
 */
+	//달력에 일정을 넣을 배열 
 	let calender =new Array();
 	
+	//일정 리스트 
 	$.ajax({
 		url:"/schedule",
 		method:"post",
@@ -17,7 +19,7 @@ $(function() {
 			$(json).each(function(index,item){
 				//승자 변수
 				let winner = "";
-				//점수 비교 더 클경우 winner 변수에 값 복사
+				//점수 비교 더 클경우 winner 변수에 값 복사(승리한 팀)
 				if(item.hteamScore>item.ateamScore){
 					winner = item.hteamName;
 				}else{
@@ -36,13 +38,15 @@ $(function() {
 			});
 			//console.log(calender);
 			
-			//캘린더 
+			//캘린더 출력
 			
 			$('#calendar').fullCalendar({
 				header: {
+					//왼쪽 메뉴 이전 달,다음 달
 					left: 'prev,next today',
 					center: 'title',
-					right: 'month,agendaWeek,agendaDay,listWeek'
+					//오른쪽 메뉴, 달 ,한주,하루 기준 일정 표 출력
+					right: 'month,agendaWeek,agendaDay'
 				},
 				editable: true,
 				eventLimit: true, // allow "more" link when too many events
