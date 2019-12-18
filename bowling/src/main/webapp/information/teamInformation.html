@@ -6,10 +6,7 @@
 <title>Team Information</title>
 
 <style>
-img{
-	width: 90px;
-	height: 60px;
-}
+
 .player{
 	display:inline-block;
 	margin: 30px;
@@ -279,10 +276,10 @@ img{
 								<!--  배너 태그 -->
 								
 								   <section class="banner-box noc-kor" >
-								    <div class="holder">
-								      <h1 id="banner" value="country"></h1>
-								    </div>
-								</section>
+									    <div class="holder">
+									      <h1 id="banner" value="country"></h1>
+									    </div>
+									</section>
 								
 							</div>
 						</div>
@@ -824,8 +821,8 @@ img{
 					// 해당 국가의 감독 출력
 					managerName = "<div class='manager'><img src=";
 					managerName += "/image/";
-					managerName += countryId+"0"; // 국가Id + 0 감독 이미지 출력
-					managerName += ".jpg>";
+					managerName += countryId+"11"; // 국가Id + 0 감독 이미지 출력
+					managerName += ".jpg style='width: 100px; height: 120px'>";
 					managerName += "<div class='managerName'>";
 					managerName += managerNameArray[countryNo]; // 감독 이름이 저장되어있는 배열에서 해당 국가 no를 index로 이용
 					console.log("manager : ", managerName[countryNo]);
@@ -841,7 +838,7 @@ img{
 						temp += "/image/";
 						temp += countryId + i; // 국가Id + index 선수 이미지 출력
 						// console.log("countryId + i : ", countryId + i);
-						temp += ".jpg>";
+						temp += ".jpg style='width: 100px; height: 120px'>";
 						temp += "<div class='name'>";
 						temp += playerName[i]; // 해당 국가의 선수 이름이 저장되어있는 배열에서 index를 이용해서 선수 출력
 						console.log("playerName[", i, "] : ", playerName[i]);
@@ -860,7 +857,7 @@ img{
 						temp += "/image/";
 						temp += countryId + i; // 국가Id + index 선수 이미지 출력
 						console.log("countryId + i : ", countryId + i);
-						temp += ".jpg>";
+						temp += ".jpg style='width: 100px; height: 120px'>";
 						temp += "<div class='name'>";
 						temp += playerName[i]; // 해당 국가의 선수 이름이 저장되어있는 배열에서 index를 이용해서 선수 출력
 						console.log("playerName[", i, "] : ", playerName[i]);

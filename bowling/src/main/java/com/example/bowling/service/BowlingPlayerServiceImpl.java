@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.bowling.mapper.BowlingMapper;
 import com.example.bowling.mapper.BowlingPlayerMapper;
 import com.example.bowling.vo.Paging;
+import com.example.bowling.vo.PlayerInforMation;
 import com.example.bowling.vo.PlayerRecord;
 import com.example.bowling.vo.Team;
 
@@ -18,6 +19,17 @@ import com.example.bowling.vo.Team;
 public class BowlingPlayerServiceImpl implements BowlingPlayerService{
 	@Autowired BowlingPlayerMapper bowlingPlayerMapper;
 	@Autowired BowlingMapper bowlingMapper;
+	
+	@Override
+	//playerInforMation 선수의 정보를 출력하는 Service
+	public PlayerInforMation getPlayerInforMation(String playerName) {
+		System.out.println("bowilng serviceImpl getPlayerReport -----------------------------");
+		System.out.println("playerName : " + playerName);
+		PlayerInforMation playerInforMation = bowlingPlayerMapper.selectPlayerInforMation(playerName);
+		System.out.println("playerInforMation : "+ playerInforMation);
+		return playerInforMation;
+	}
+	
 	
 	@Override
 	//playerRecord 선수의 승률을 계산하는 Service

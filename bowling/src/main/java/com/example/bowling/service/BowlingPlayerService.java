@@ -3,10 +3,13 @@ package com.example.bowling.service;
 import java.util.List;
 import java.util.Map;
 
+import com.example.bowling.vo.PlayerInforMation;
 import com.example.bowling.vo.PlayerRecord;
 import com.example.bowling.vo.Team;
 
 public interface BowlingPlayerService {
+	//playerInforMation 선수 정보를 출력하는 service
+	public PlayerInforMation getPlayerInforMation(String playerName);
 	//playerRanking 마지막 페이지를 불러오는 service
 	public int getLastPage(PlayerRecord playerRecord);
 	//playerRanking 개인 랭킹을 불러오는 service

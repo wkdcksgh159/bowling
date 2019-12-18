@@ -4,6 +4,23 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.example.bowling.mapper.BowlingPlayerMapper">
   	
+  	<!-- playerInforMation 선수의 정보를 출력하는 Mapper -->
+  	<select id="selectPlayerInforMation" parameterType="String" resultType="com.example.bowling.vo.PlayerInforMation">
+  	
+  	SELECT p.player_no as playerNo, p.player_country as playerCountry, p.player_name as playerName, p.player_age as playerAge, p.player_gender as playerGender, p.player_hand as playerHand, pb.pound as pound,tp.salary as salary,g.grip as grip
+		FROM player p
+		INNER JOIN player_ball pb
+		ON p.player_no=pb.player_no
+		INNER JOIN team_player_contract tp
+		ON p.player_no=tp.player_no
+		INNER JOIN player_grip pg
+		ON p.player_no=pg.player_no
+		INNER JOIN grip g
+		ON pg.grip_no=g.grip_no
+	WHERE p.player_name = #{playerName}
+	
+	
+	</select>
   	<!-- playerRecord 선수의 승률을 계산하는 Mapper -->
   	<select id="selectYearWinrate" parameterType="com.example.bowling.vo.PlayerRecord"
   				  				   resultType="java.util.Map">

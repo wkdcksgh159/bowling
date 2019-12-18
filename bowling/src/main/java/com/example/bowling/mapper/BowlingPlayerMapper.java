@@ -5,11 +5,14 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.example.bowling.vo.PlayerInforMation;
 import com.example.bowling.vo.PlayerRecord;
 import com.example.bowling.vo.Team;
 
 @Mapper
 public interface BowlingPlayerMapper {	
+	//playerInforMation 선수 정보를 출력하는 Mapper
+	public PlayerInforMation selectPlayerInforMation(String playerName);
 	//playerRanking 전체 행수를 가져오는 Mapper
 	public int selectTotalCount(PlayerRecord playerRecord);
 	//playerRecord 선수의 승률을 계산하는 Mapper

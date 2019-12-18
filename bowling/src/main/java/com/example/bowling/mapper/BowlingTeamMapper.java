@@ -11,7 +11,6 @@ import com.example.bowling.vo.TeamRecord;
 public interface BowlingTeamMapper {
 	// 팀의 순위를 불러오는 mapper
 	public List<TeamRecord> selectTeamRecord(TeamRecord teamRecord);
-	
 	// 해당 팀의 각 핀을 쓰러트린 평균을 가져오는 mapper
 	public List<TeamChart> selectTeamPinAvgChart(String teamName);
 	// 해당 팀의 승률을 가져오는 mapper

@@ -8,12 +8,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.bowling.service.BowlingPlayerService;
+import com.example.bowling.vo.PlayerInforMation;
 import com.example.bowling.vo.PlayerRecord;
 import com.example.bowling.vo.Team;
 
 @RestController
 public class BowlingPlayerController {
 	@Autowired BowlingPlayerService bowlingPlayerService;
+	
+	//playerInforMation 선수 정보를 출력하는 Controller
+	@PostMapping("/getPlayerInforMation")
+	public PlayerInforMation getPlayerInforMation(String playerName) {
+		System.out.println("bowilng controller getTeamReport -----------------------------");
+		System.out.println("playerName : " + playerName);
+		PlayerInforMation playerInforMation = bowlingPlayerService.getPlayerInforMation(playerName);
+		System.out.println("playerInforMation : " + playerInforMation);
+		return playerInforMation;
+	}
+	
 	
 	//playerRecord 선수의 승률을 계산하는 Controller
 	@PostMapping("/getYearWinrate")
