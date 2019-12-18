@@ -131,19 +131,32 @@
 // ### 핀 입력 버튼 클릭시 체크된 핀 배열 값 저장 START ####################################################################
 	
 	// 체크한 핀을 pin 배열의 값 저장하는 함수
-	let setPinArray = function(pin, turn){
+	let setPinArray = function(pin, turn, player){
 		// console.log("setPinArray function 도착 !");
 		console.log("pin, turn",pin, turn);
 		
 		console.log($("#bowlingBall").css("top"));
 		
+		// 공이 굴러가는동안 모든 버튼 비활성화
 		$("button").attr("disabled", true);
+		$(".pinCheck").attr("disabled", true);
 		
+		if(player == 1){
+			$("#homeTeamPlayer").css("background-color", "red");
+			$("#awayTeamPlayer").css("background-color", "black");
+		}
+		if(player == 2){
+			$("#awayTeamPlayer").css("background-color", "red");
+			$("#homeTeamPlayer").css("background-color", "black");
+		}
+		
+		// 공 이미지의 현재 위치와 크기를 가져온뒤 변수에 저장
 		ballTop = parseInt($("#bowlingBall").css("top"));
 		console.log("ballTop : ",ballTop);
 		ballWidth = parseInt($("#bowlingBall").css("width"));
 		console.log("ballWidth : ",ballWidth);
 		
+		// 0.0002초마다 볼링공의 위치를 위로 5px씩 이동시키고 100px단위로 이동할때마다 크기를 5px씩 줄인다, 현재위치가 top:120px보다 작아질경우(핀에 닿을경우) 반복문을 끝낸다
 		ballTopFunc = setInterval(function(){
 			ballTop -= 5;
 			$("#bowlingBall").css("top", ballTop);
@@ -164,15 +177,18 @@
 		}, 0.2);
 		console.log(ballTop);
 		
+		// 공이 핀에 맞을경우(약 0.3초뒤) 모든핀의 이미지를 숨기고 핀이 공에 맞아 흐트러지는 이미지를 출력함
 		setTimeout(function(){
 			$("#allPinImg").hide();
 			$("#hitPinImg").show();
 		}, 300);
 		
+		// 모든 과정이 끝나고(약 2초뒤) 공의 위치와 크기를 원상태로 돌리고 모든 버튼을 활성화 및 흐트러진 핀 이미지를 숨긴뒤 모든핀 이미지를 다시 출력
 		setTimeout(function(){
 			$("#bowlingBall").css("top", 500);
 			$("#bowlingBall").css("width", 120);
 			$("button").attr("disabled", false);
+			$(".pinCheck:not(:checked)").attr("disabled", false);
 			$("#allPinImg").show();
 			$("#hitPinImg").hide();
 		}, 2000);
@@ -183,7 +199,7 @@
 		 * 체크된 value값을 가지고 pinImgX 태그를 찾아서 태그 안의 핀 이미지를 지움
 		 * turn이 1일경우 핀 이미지를 다시 세팅후 실행
 		 */
-		if(turn == 1){
+		if(turn == 1 && $(".pinCheck").length != 10){
 			$(".pinTag").empty();
 			$(".pinTag").append("<img class='pinImg' src='/img/pin.png'></span>");
 		}
@@ -198,6 +214,18 @@
 				$(pinNum).empty();
 			});
 		}, 2000);
+		
+		if(turn == 2) {
+			setTimeout(function(){
+				$(".pinTag").empty();
+				$(".pinTag").append("<img class='pinImg' src='/img/pin.png'></span>");
+			}, 3000);
+		}
+		if($(".pinCheck:checked").length == 10){
+			setTimeout(function(){
+				$(".pinTag").append("<img class='pinImg' src='/img/pin.png'></span>");
+			}, 3000);
+		}
 		
 		// console.log("setPinArray function pin : ", pin);
 		return pin;

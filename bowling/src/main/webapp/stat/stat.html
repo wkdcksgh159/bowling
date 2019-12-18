@@ -119,14 +119,14 @@
                             <a class="has-arrow" href="/all-students.html" aria-expanded="false"><span class="educate-icon educate-student icon-wrap"></span> <span class="mini-click-non">기록/순위</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="All Students" href="/report/teamReport.html"><span class="mini-sub-pro">팀 기록</span></a></li>
-                                <li><a title="Add Students" href="/report/teamRanking.html"><span class="mini-sub-pro">팀 순위</span></a></li>
+                                <li><a title="Add Students" href="/ranking/teamRanking.html"><span class="mini-sub-pro">팀 순위</span></a></li>
                                 <li><a title="Edit Students" href="/report/playerReport.html"><span class="mini-sub-pro">선수 기록</span></a></li>
-                                <li><a title="Students Profile" href="/report/playerRanking.html"><span class="mini-sub-pro">선수 순위</span></a></li>
+                                <li><a title="Students Profile" href="/ranking/playerRanking.html"><span class="mini-sub-pro">선수 순위</span></a></li>
                             </ul>
                         </li>
 						
 						<li>
-                            <a href="/schedule/schedule.html" aria-expanded="false"><span class="educate-icon educate-event icon-wrap sub-icon-mg" aria-hidden="true"></span> <span class="mini-click-non">일정/결과</span></a>
+                            <a href="/schedule.html" aria-expanded="false"><span class="educate-icon educate-event icon-wrap sub-icon-mg" aria-hidden="true"></span> <span class="mini-click-non">일정/결과</span></a>
                         </li>
 						
 						<li>
@@ -184,11 +184,11 @@
                                                     <div role="menu" class="dropdown-menu animated zoomIn">
                                                         <a href="/report/teamReport.html" class="dropdown-item">Team Report</a>
                                                         <a href="/report/playerReport.html" class="dropdown-item">Player Report</a>
-                                                        <a href="/report/teamRanking.html" class="dropdown-item">Team Ranking</a>
-                                                        <a href="/report/playerRanking.html" class="dropdown-item">Player Ranking</a>
+                                                        <a href="/ranking/teamRanking.html" class="dropdown-item">Team Ranking</a>
+                                                        <a href="/ranking/playerRanking.html" class="dropdown-item">Player Ranking</a>
                                                     </div>
                                                 </li>
-                                                <li class="nav-item"><a href="/schedule/schedule.html" class="nav-link">Schedule</a>
+                                                <li class="nav-item"><a href="/schedule.html" class="nav-link">Schedule</a>
                                                 </li>
                                                 <li class="nav-item"><a href="/stat/stat.html" class="nav-link">Stat</a>
                                                 </li>
@@ -306,28 +306,28 @@
                                     <div class="charts1" id="getGripDistributionChart">
                                     	<!-- 선수별 그립 분포도 그래프 -->
                                     </div>
-                                    <span class="comments">
-                                    	선수별 선호하는 그립 분포도<br>
-                                    </span>
+	                                    <fieldset class="comments">
+	                                    	<legend style="font-size:15px;width:auto;">그립 분포도(%)</legend>선수별 선호하는 그립(공을 잡는 방식)을 볼수있는 그래프이다, 그립의 종류는 크게 중지와 약지를 2마디끝 까지 넣는 컨벤셔널 그립, 중지와 약지를 2마디의 중간까지만 넣는 세미 핑거 그립, 중지와 약지를 1마디끝 까지 넣는 핑거팁 그립이 있다, 그래프를 보면 대부분의 선수가 핑거팁 그립을 사용하는걸 볼수있는데 그 이유는 핑거팁 그립은 그립이 불안정한 대신에 리프팅과 회전력, 핀 액션이 강하며 볼에 대한 감각과 컨트롤이 용이하기 때문이다
+	                                    </fieldset>
                                     <div class="charts1" id="getHandDistributionChart">
                                     	<!-- 선수별 손잡이 분포도 그래프 -->
                                     </div>
-                                    <fieldset class="comments">
-                                    	<legend style="font-size:15px;width:250px;">선수별 주로 사용하는 손잡이 분포도</legend>안녕하세요 저는 장찬호 입니다.안녕하세요 저는 장찬호 입니다.안녕하세요 저는 장찬호 입니다.안녕하세요 저는 장찬호 입니다.안녕하세요 저는 장찬호 입니다.안녕하세요 저는 장찬호 입니다.안녕하세요 저는 장찬호 입니다.안녕하세요 저는 장찬호 입니다.안녕하세요 저는 장찬호 입니다.안녕하세요 저는 장찬호 입니다.
-                                    </fieldset>
+	                                    <fieldset class="comments">
+	                                    	<legend style="font-size:15px;width:auto;">손잡이 분포도(%)</legend>선수별 주로 사용하는 손잡이(왼손, 오른손)를 볼수있는 그래프이다, 볼링은 왼손이냐 오른손이냐에따라 스핀의 회전방향과 진행방향이 정 반대라 프로선수들은 어떤 손잡이가 많을지 통계를 내봤더니 놀랍게도 모두 오른손잡이였다
+	                                    </fieldset>
                                     <br>
                                     <div class="charts2" id="getBallDistributionChart">
                                     	<!-- 선수 성별별 공 분포도 그래프 -->
                                     </div>
-                                    <span class="comments">
-                                    	성별별 주로 사용하는 공의 무게 분포도
-                                    </span>
+	                                    <fieldset class="comments">
+	                                    	<legend style="font-size:15px;width:auto;">공 무게 분포도(%)</legend>선수의 성별별 주로 사용하는 공의 무게를 볼수있는 그래프이다, 볼링공의 무게는 4파운드부터 16파운드까지 다양하게 있는데 그 중 대회에서 사용할수있는 규격은 11~16파운드이다, 그래프를 보면 의외로 남자선수들이 사용하는 공 무게보다 여자선수들이 사용하는 공 무게가 더 높은데 그 이유는 남자선수들은 가벼운 공에 강한 스핀을 넣어서 곡선으로 던지는걸 선호하고 여자선수들은 크고 무거운 공으로 방향을 정확하게 줘서 직선으로 던지는걸 선호하기 때문이다
+	                                    </fieldset>
                                     <div class="charts2" id="getSalaryDistributionChart">
                                     	<!-- 팀 별 평균연봉 그래프 -->
                                     </div>
-                                    <span class="comments">
-                                    	팀 별 평균연봉
-                                    </span>
+	                                    <fieldset class="comments">
+	                                    	<legend style="font-size:15px;width:auto;">팀 별 평균연봉</legend>팀 별 평균연봉을 볼수있는 그래프이다, 프로팀에 입단하거나 외국으로 용병을 나갈 선수들이 볼수있게 팀 별 평균연봉을 집계해봤는데 팀 별 평균연봉이 제일 높은곳은 몽골이고 팀 별 평균연봉이 제일 낮은곳은 태국이었다 대한민국은 그 중간쯤으로 상대적으로 많지도 그렇다고 적지도 않은 딱 평균에 걸쳐진 연봉이었다
+	                                    </fieldset>
                                 </div>
                             </div>
                         </div>
@@ -602,7 +602,7 @@
 	            },
 	            title: {
 	                display: true,
-	                text: 'Radar Chart'
+	                text: '공 무게 분포도'
 	            },
 	            scale: {
 	              ticks: {
@@ -644,7 +644,7 @@
 			data: {
 				labels: teamArray,
 				datasets: [{
-					label: '팀 별 평균연봉',
+					label: '팀 명',
 					data: SalaryDisArray,
 					backgroundColor: [
 						'rgba(255, 99, 132, 0.2)',
@@ -701,6 +701,10 @@
 						}
 					}]
 				},
+				title: {
+	                display: true,
+	                text: '팀 별 평균연봉'
+	            },
 			}
 		});
 		$("#getSalaryDistributionChart").append(ctx);
