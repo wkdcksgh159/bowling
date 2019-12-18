@@ -84,9 +84,9 @@
 	    width: 100px;
 	}
 	#scoreBoard  {
-      width:900px;
+      /* width:900px;
       height:200px;
-      /* border:3px double white; */
+      border:3px double white; */
       border-collapse:separate;
       background-color:black;
       color:white;
@@ -325,6 +325,8 @@
 			<!-- 전광판 테이블 -->
 			<table id="scoreBoard" class="table table-dark">
 				<thead>
+				<tr id="boardPan1"></tr>
+				<tr id="boardPan2"></tr>
 					<tr>
 				         <th class="backslash"><div>프레임</div>이름</th>
 				         <th colspan="2" style="width:60px">1</th>
@@ -497,16 +499,40 @@ $(document).ready(function(){
 								method:"post",
 								data:{"gameNo":gameNo},
 								success:function(json){
-									console.log("전광판 값:"+json);
+									console.log("전광판 값:",json);
 									//전광판 각 행을 비워준다.
 									$("#fTurn").empty();
 									$("#fFrame").empty();
 									$("#sTurn").empty();
 									$("#sFrame").empty();
+									
 									//첫,두번째 선수에 접체 합계를 위한 변수 
 									let fFrameSum=0;
 									let sFrameSum=0;
 									
+								 	//해당 선수 나라 이미지 
+									let hCountryImage="/image/"+json[0].playerCountry+"flag.png";
+									let aCountryImage="/image/"+json[json.length-1].playerCountry+"flag.png";
+									console.log("hT:",hCountryImage,"aT",aCountryImage);
+									//선수 번호
+									let hPlayerNo = json[0].playerNo%10;
+									let aPlayerNo = json[json.length-1].playerNo%10;
+									console.log("hPn",hPlayerNo,"aPn:",aPlayerNo);
+									
+									//해당 선수 이미지
+									let hplayerImage="/image/"+json[0].playerCountry+hPlayerNo+".jpg";
+									let aplayerImage="/image/"+json[json.length-1].playerCountry+aPlayerNo+".jpg";
+									console.log("hP",hplayerImage,"aP",aplayerImage);
+									$("#boardPan1").empty(); 
+									$("#boardPan2").empty();		
+									//선수 이미지 출력 
+									$("#boardPan1").append(
+											"<td colspan='8'><img src='"+hCountryImage+"'></td>"//h나라 이미지 출력
+											+"<td rowspan='2' colspan='7'><img src='/image/vs.png'></td>"//vs
+											+"<td colspan='8'><img src='"+aCountryImage+"'></td>");//a나라 이미지 출력
+									$("#boardPan2").append(
+											+"<td colspan='8'><img src='"+hplayerImage+"'></td>"//h player 이미지 출력
+											+"<td colspan='8'><img src='"+aplayerImage+"'></td>");//a player 이미지 출력 
 									//홈팀 어웨이팀 선수이름 출력
 									$("#fTurn").append("<td rowspan='2' class='playerName' id='homeTeamPlayer'>"+json[0].playerName+"</td>");
 									$("#sTurn").append("<td rowspan='2' class='playerName' id='awayTeamPlayer'>"+json[json.length-1].playerName+"</td>");

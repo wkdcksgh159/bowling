@@ -3,12 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.example.bowling.mapper.BowlingScheduleMapper">
+  		<!-- 전체 행 수 구하기 -->
 		<select id="selectTotalCount" resultType="int">
 			select COUNT(*)
 			from game g inner join game_result gr
 			on g.game_no = gr.game_no
 		</select>
-		
+		<!-- 페이징을 위해 rowPerPage 수만큼 리스트 출력 -->
 		<select id="selectSchedulePage" parameterType="com.example.bowling.vo.Paging" resultType="com.example.bowling.vo.Schedule">
 		select g.game_no as gameNo,game_date as gameDate,
 			gr.hteam_name as hteamName,gr.hteam_score as hteamScore,gr.hteam_result as hteamResult,
@@ -18,7 +19,7 @@
 		order by gameDate desc
 		limit #{beginRow},#{rowPerPage}
 		</select>
-		
+		<!-- 일정 전체 리스트 출력 -->
 		<select id="selectSchedule" resultType="com.example.bowling.vo.Schedule">
 			select g.game_no as gameNo,game_date as gameDate,
 			gr.hteam_name as hteamName,gr.hteam_score as hteamScore,gr.hteam_result as hteamResult,
@@ -26,9 +27,9 @@
 		from game g inner join game_result gr
 		on g.game_no = gr.game_no
 		</select>
-		
+		<!-- 전광판을 위한 한 경기에 점수 출력 -->
 		<select id="selectScheduleOne" parameterType="int" resultType="Map">
-			SELECT p.game_no AS gameNo, p.player_no AS playerNo,p.player_name AS playerName, p.frame AS frame, p.pturn AS turn, 
+			SELECT p.game_no AS gameNo, p.player_no AS playerNo,p.player_name AS playerName, p.frame AS frame, p.pturn AS turn,p.player_country AS playerCountry, 
 		                              (case
 		                                 when p.pturn = 'point' and p.pinSum = 10 AND p.frame != 10
 		                                 then (case 
@@ -45,7 +46,7 @@
 		                                        END)
 		                                 ELSE p.pinSum
 		                              END) 'score'
-		                        FROM (SELECT gp.game_no, gp.player_no, gp.frame,p.player_name,ifnull(turn, 'point') AS pturn, sum(pin1+pin2+pin3+pin4+pin5+pin6+pin7+pin8+pin9+pin10) AS pinSum
+		                        FROM (SELECT gp.game_no,p.player_country, gp.player_no, gp.frame,p.player_name,ifnull(turn, 'point') AS pturn, sum(pin1+pin2+pin3+pin4+pin5+pin6+pin7+pin8+pin9+pin10) AS pinSum
 		                              FROM game_player gp INNER JOIN player p
 		                              ON p.player_no=gp.player_no
 		                              WHERE game_no = #{gameNo}
