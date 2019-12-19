@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>template</title>
+<title>addBoard</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- favicon
@@ -67,21 +67,9 @@
 <link rel="stylesheet" href="/css/data-table/bootstrap-editable.css">
 
 <script src="/js/vendor/modernizr-2.8.3.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<style>
-	#title {
-		padding:10px;
-		border:1px solid;
-	}
-	#user {
-		padding:10px;
-		border:1px solid;
-	}
-	#update {
-		padding:10px;
-		border:1px solid;
-	}
-</style>
+
+
+
 </head>
 
 <body>
@@ -103,29 +91,29 @@
 						</a></li>
 						
 						 <li>
-                            <a href="/news.html" aria-expanded="false"><span class="educate-icon educate-library icon-wrap"></span> <span class="mini-click-non">뉴스</span></a>
+                            <a href="/admin/news.html" aria-expanded="false"><span class="educate-icon educate-library icon-wrap"></span> <span class="mini-click-non">뉴스</span></a>
                         </li>
 						
 						<li>
                             <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-data-table icon-wrap"></span> <span class="mini-click-non">정보</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a href="/information/teamInformation.html"><span class="mini-sub-pro">팀정보</span></a></li>
-                                <li><a href="/information/playerInformation.html"><span class="mini-sub-pro">선수정보</span></a></li>
+                                <li><a title="Peity Charts" href="/information/teamInformation.html"><span class="mini-sub-pro">팀정보</span></a></li>
+                                <li><a title="Data Table" href="/information/playerInformation.html"><span class="mini-sub-pro">선수정보</span></a></li>
                             </ul>
                         </li>
 						
 						<li>
-                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-student icon-wrap"></span> <span class="mini-click-non">기록/순위</span></a>
+                            <a class="has-arrow" href="/all-students.html" aria-expanded="false"><span class="educate-icon educate-student icon-wrap"></span> <span class="mini-click-non">기록/순위</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a href="/report/teamReport.html"><span class="mini-sub-pro">팀 기록</span></a></li>
-                                <li><a href="/ranking/teamRanking.html"><span class="mini-sub-pro">팀 순위</span></a></li>
-                                <li><a href="/report/playerReport.html"><span class="mini-sub-pro">선수 기록</span></a></li>
-                                <li><a href="/ranking/playerRanking.html"><span class="mini-sub-pro">선수 순위</span></a></li>
+                                <li><a title="All Students" href="/report/teamReport.html"><span class="mini-sub-pro">팀 기록</span></a></li>
+                                <li><a title="Add Students" href="/report/teamRanking.html"><span class="mini-sub-pro">팀 순위</span></a></li>
+                                <li><a title="Edit Students" href="/report/playerReport.html"><span class="mini-sub-pro">선수 기록</span></a></li>
+                                <li><a title="Students Profile" href="/report/playerRanking.html"><span class="mini-sub-pro">선수 순위</span></a></li>
                             </ul>
                         </li>
 						
 						<li>
-                            <a href="/schedule.html" aria-expanded="false"><span class="educate-icon educate-event icon-wrap sub-icon-mg" aria-hidden="true"></span> <span class="mini-click-non">일정/결과</span></a>
+                            <a href="/schedule/schedule.html" aria-expanded="false"><span class="educate-icon educate-event icon-wrap sub-icon-mg" aria-hidden="true"></span> <span class="mini-click-non">일정/결과</span></a>
                         </li>
 						
 						<li>
@@ -169,7 +157,7 @@
                                             <ul class="nav navbar-nav mai-top-nav">
                                                 <li class="nav-item"><a href="/index.html" class="nav-link">Home</a>
                                                 </li>
-                                                <li class="nav-item"><a href="/news.html" class="nav-link">News</a>
+                                                <li class="nav-item"><a href="/admin/news.html" class="nav-link">News</a>
                                                 </li>
                                                 <li class="nav-item dropdown res-dis-nn">
                                                     <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">Information <span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
@@ -183,11 +171,11 @@
                                                     <div role="menu" class="dropdown-menu animated zoomIn">
                                                         <a href="/report/teamReport.html" class="dropdown-item">Team Report</a>
                                                         <a href="/report/playerReport.html" class="dropdown-item">Player Report</a>
-                                                        <a href="/ranking/teamRanking.html" class="dropdown-item">Team Ranking</a>
-                                                        <a href="/ranking/playerRanking.html" class="dropdown-item">Player Ranking</a>
+                                                        <a href="/report/teamRanking.html" class="dropdown-item">Team Ranking</a>
+                                                        <a href="/report/playerRanking.html" class="dropdown-item">Player Ranking</a>
                                                     </div>
                                                 </li>
-                                                <li class="nav-item"><a href="/schedule.html" class="nav-link">Schedule</a>
+                                                <li class="nav-item"><a href="/schedule/schedule.html" class="nav-link">Schedule</a>
                                                 </li>
                                                 <li class="nav-item"><a href="/stat/stat.html" class="nav-link">Stat</a>
                                                 </li>
@@ -207,7 +195,7 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="message-img">
-                                                                        <img src="img/contact/1.jpg" alt="">
+                                                                       
                                                                     </div>
                                                                 </a>
                                                             </li>
@@ -231,7 +219,7 @@
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
-															<img src="img/product/pro4.jpg" alt="" />
+															
 															<span class="admin-name">My Page</span>
 															<i class="fa fa-angle-down edu-icon edu-down-arrow"></i>
 														</a>
@@ -267,7 +255,7 @@
                                             <form role="search" class="sr-input-func">
                                                 <div>
 			<!-- ### 여기다가 카테고리 제목 쓰에요 ###################################################################################### -->
-                                                	<h1><span id="카테고리 제목">board</span></h1>
+                                                	<h1><span id="카테고리 제목">관리자 추가</span></h1>
                                                 </div>
                                             </form>
                                         </div>
@@ -277,7 +265,7 @@
                                             <li><a href="/index.html">Home</a> <span class="bread-slash">/</span>
                                             </li>
 			<!-- ### 여기다가 카테고리 제목 쓰에요 ###################################################################################### -->
-                                            <li><span class="bread-blod" id="카테고리 제목">board</span>
+                                            <li><span class="bread-blod" id="카테고리 제목">관리자 추가</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -298,40 +286,24 @@
                                 <div class="main-sparkline13-hd">
                                 </div>
                             </div>
-									<!-- 상세보기 -->
-									
-									 <div class="row">
-										<div id="title" class="col"></div>	
-										<div id="user" class="col"></div>
-										<div id="update" class="col"></div>
-									</div>	
-							   		 <textarea cols="60" rows="10" readonly="readonly" id="content"></textarea>
-							   		 
-							   		 <!-- 삭제버튼 -->
-							   		 <br>
-							   		 <button type = "button" id = "getBoardList">목록</button>
-							   		 <button type = "button" id = "updateBtn">수정</button>
-							   		 <button type = "button" id = "removeBtn">삭제</button>
-							   		 <br><hr>
+								<form action="#" id="loginForm">
+		                            <div class="form-group">
+		                                <label class="control-label" for="username">관리자 이름</label>
+		                                <input type="text" name="adminId" id="adminId" class="form-control">
+		                            </div>
+		                            
+		                            <div class="form-group">
+		                                <label class="control-label" for="username">사용할 관리자 ID</label>
+		                                <input type="text" name="adminId" id="adminId" class="form-control">
+		                            </div>
+		                            <div class="form-group">
+		                                <label class="control-label" for="password">비밀번호</label>
+		                                <input type="password" name="adminPw" id="adminPw" class="form-control">  
+		                            </div>
+		                            
+		                            <button class="btn btn-success btn-block loginbtn">관리자 추가</button>
+	                            </form>
                             <div class="sparkline13-graph">
-                            	<!-- 댓글 -->
-							    <div>
-							    	작성자:<input type="text" id="commentUser">
-							    	비밀번호:<input type="password" id="commentPw">
-							    	<br>
-							    	<input type="hidden" id="CommentboardNo" readonly="readonly">
-							    	<span>
-								    	<textarea id="commentContent" rows="2" cols="50"></textarea>
-								    	<button type="button" id="addComment">댓글입력</button>
-								    </span>
-							    </div>
-							    
-							    <table class="table">
-							    	<tbody id="commentBody">
-							    		
-							    	</tbody>
-							    </table>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -402,6 +374,11 @@
 	<script src="/js/sparkline/jquery.sparkline.min.js"></script>
 	<script src="/js/sparkline/jquery.charts-sparkline.js"></script>
 	<script src="/js/sparkline/sparkline-active.js"></script>
+	<!-- calendar JS
+		============================================ -->
+	<script src="/js/calendar/moment.min.js"></script>
+	<script src="/js/calendar/fullcalendar.min.js"></script>
+	<script src="/js/calendar/fullcalendar-active.js"></script>
 	<!-- plugins JS
 		============================================ -->
 	<script src="/js/plugins.js"></script>
@@ -424,114 +401,6 @@
 <!-- jQuery -->
 <script>
 	// ### 여기다가 jquery 사용하세요 ####################################################################################################################################################################################################
-	
-	$(document).ready(function(){
-		function getParameterByName(name) {
-			    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-			    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
-			        results = regex.exec(location.search);
-			    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-			}
-			var boardNo = getParameterByName('boardNo');
-			$("#CommentboardNo").val(boardNo);
-			
-			$.ajax({
-				url:"/getBoardOne",
-				method:"POST",
-				data:{"boardNo" : boardNo},
-				success:function(json){
-					console.log("리스트 보기");
-					$("#title").text(json.boardTitle);
-					$("#user").text(json.boardUser);
-					$("#update").text(json.boardLastDate);
-					$("#content").val(json.boardContent);
-				}
-			});
-			// 수정하기 버튼
-			$("#updateBtn").click(function(){
-				location = "/Board/modifyBoard.html?boardNo="+boardNo;
-				console.log("log");
 
-			});
-			
-			$("#getBoardList").click(function(){
-				location = "/Board/selectBoardList.html";
-			});
-			
-			// 삭제버튼
-			$("#removeBtn").click(function(){
-				var input = prompt('삭제하려면 비밀번호를 입력하세요.');
-				// 확인 눌렀을시
-				if(input != null) {
-						$.ajax({
-							url:"/removeBoard",
-							method:"POST",
-							data:{"boardNo" : boardNo,
-								  "boardPw" : input},
-							success:function(json){
-								console.log(json);
-								if(json == 0){
-									alert("삭제실패!");
-								}else{
-									alert("삭제성공!");
-									location.href = "/Board/selectBoardList.html";
-								}
-							}
-						});
-					//삭제 취소시
-				}else {
-					console.log("false");
-					alert("삭제취소");
-				}
-			});
-			
-			$.ajax({
-				url:"/getCommentList",
-				method:"POST",
-				data:{"boardNo":boardNo},
-				success:function(json){
-					console.log(json);
-					$(json).each(function(index,item){
-						let html = "";
-						html += "<tr><td>"+item.commentUser+"</td><td>"+item.commentContent+"</td><td>";
-						html += "<input type='password' id='commentPw'"+item.commentNo+"'>";
-						html += "<button type='button' id='delComment' value='"+item.commentNo+"'>삭제</button></td></tr>";
-						$("#commentBody").append(html);
-					});
-				}
-			});
-
-			$(document).on("click","#delComment",function(){
-				console.log($(this).val());
-				console.log($(this).prev().val());
-				$.ajax({
-					url:"/removeComment",
-					method:"POST",
-					data:{"commentNo":$(this).val(), "commentPw":$(this).prev().val()},
-					success:function(){
-						location.reload();
-					}
-				});
-			});
-			
-			$("#addComment").click(function(){
-				//alert("test");
-				if($("#commentContent").val() == "" || $("#commentPw").val() ==""){
-					alert("댓글을 입력하세요.");
-				}
-				else{
-					$.ajax({
-						url:"/addComment",
-						method:"POST",
-						data:{"boardNo":$("#CommentboardNo").val() ,"commentContent": $("#commentContent").val(), 
-							  "commentPw": $("#commentPw").val(), "commentUser":$("#commentUser").val()},
-						success:function(json){
-							location.reload();	//수정: 댓글만 새로고침이되도록
-						}
-					});
-				}
-			});
-			
-	});
 </script>
 </html>
