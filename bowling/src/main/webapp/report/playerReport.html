@@ -110,9 +110,9 @@
 								class="mini-click-non">홈</span>
 						</a></li>
 						
-						 <li>
+						 <!-- <li>
                             <a href="/admin/news.html" aria-expanded="false"><span class="educate-icon educate-library icon-wrap"></span> <span class="mini-click-non">뉴스</span></a>
-                        </li>
+                        </li> -->
 						
 						<li>
                             <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-data-table icon-wrap"></span> <span class="mini-click-non">정보</span></a>
@@ -138,6 +138,22 @@
 						
 						<li>
                             <a  href="/stat/stat.html" aria-expanded="false"><span class="educate-icon educate-charts icon-wrap"></span> <span class="mini-click-non">통계</span></a>
+                        </li>
+                        
+                         <li>
+                            <a href="/Board/selectBoardList.html" aria-expanded="false"><span class="educate-icon educate-interface icon-wrap"></span> <span class="mini-click-non">피드백</span></a>
+                        </li>
+                        
+                        <li class="admin">
+                            <a class="has-arrow" href="/all-students.html" aria-expanded="false"><span class="educate-icon educate-student icon-wrap"></span> <span class="mini-click-non">관리자 입력</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                <li><a href="/admin/addAdmin.html"><span class="mini-sub-pro">관리자 추가</span></a></li>
+                                <li><a title="All Students" href="/admin/addPlayer.html"><span class="mini-sub-pro">선수 입력</span></a></li>
+                                <li><a title="Add Students" href="/admin/addTeam.html"><span class="mini-sub-pro">팀 입력</span></a></li>
+                                <li><a title="Edit Students" href="/admin/addReferee.html"><span class="mini-sub-pro">심판 입력</span></a></li>
+                                 <li><a title="Edit Students" href="/report/addReport.html"><span class="mini-sub-pro">경기 입력</span></a></li> 
+                      
+                            </ul>
                         </li>
 
 					</ul>
@@ -177,8 +193,8 @@
                                             <ul class="nav navbar-nav mai-top-nav">
                                                 <li class="nav-item"><a href="/index.html" class="nav-link">Home</a>
                                                 </li>
-                                                <li class="nav-item"><a href="/admin/news.html" class="nav-link">News</a>
-                                                </li>
+                                               <!--  <li class="nav-item"><a href="/admin/news.html" class="nav-link">News</a>
+                                                </li> -->
                                                 <li class="nav-item dropdown res-dis-nn">
                                                     <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">Information <span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
                                                     <div role="menu" class="dropdown-menu animated zoomIn">
@@ -198,6 +214,18 @@
                                                 <li class="nav-item"><a href="/schedule.html" class="nav-link">Schedule</a>
                                                 </li>
                                                 <li class="nav-item"><a href="/stat/stat.html" class="nav-link">Stat</a>
+                                                </li>
+                                                 <li class="nav-item"><a href="Board/selectBoardList.html" class="nav-link">Feed Back</a>
+                                                </li>
+                                                 <li class="nav-item dropdown res-dis-nn">
+                                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle admin">Admin Add<span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
+                                                    <div role="menu" class="dropdown-menu animated zoomIn">
+                                                        <a href="/admin/addAdmin.html" class="dropdown-item">Add Admin</a>
+                                                        <a href="/admin/addPlayer.html" class="dropdown-item">Add Player</a>
+                                                        <a href="/admin/addTeam.html" class="dropdown-item">Add Team</a>
+                                                        <a href="/admin/addReferee.html" class="dropdown-item">Add Referee</a>
+                                                        <a href="/report/addReport.html" class="nav-link">Add Report</a>
+                                                    </div>
                                                 </li>
                                             </ul>
                                         </div>
@@ -515,10 +543,10 @@
 							temp +="<td>"+item.winRate+"</td>";
 							temp +="<td>"+item.scoreAvg+"</td>";
 							temp +="<td>"+item.strikeAvg+"</td>";
-							temp +="<td><button type='button' class='chart' value="+item.playerNo+">상세보기</td>";
+							temp +="<td><button class='chart btn btn-default' value="+item.playerNo+">상세보기</td>";
 							temp +="</tr>";
 							$("#getTeamPlayer").append(temp);
-							
+
 						});
 						
 						//상세보기

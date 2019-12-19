@@ -44,7 +44,7 @@
    }
    #bowlingGame {
    		position:relative;
-   		bottom:450px;
+   		bottom:650px;
    		left:750px;
    }
    #allPinImg {
@@ -193,7 +193,8 @@
 </head>
 
 <body>
-	<!-- Start Left menu area -->
+
+	<!-- ### Left Menu Start 건드리지 마세요 ################################################################################################################################################################# -->
 	<div class="left-sidebar-pro">
 		<nav id="sidebar" class="">
 			<div class="sidebar-header">
@@ -209,12 +210,12 @@
 								class="mini-click-non">홈</span>
 						</a></li>
 						
-						 <li>
+						<!--  <li>
                             <a href="/admin/news.html" aria-expanded="false"><span class="educate-icon educate-library icon-wrap"></span> <span class="mini-click-non">뉴스</span></a>
-                        </li>
+                        </li> -->
 						
 						<li>
-                            <a class="has-arrow" href="mailbox.html" aria-expanded="false"><span class="educate-icon educate-data-table icon-wrap"></span> <span class="mini-click-non">정보</span></a>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-data-table icon-wrap"></span> <span class="mini-click-non">정보</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="Peity Charts" href="/information/teamInformation.html"><span class="mini-sub-pro">팀정보</span></a></li>
                                 <li><a title="Data Table" href="/information/playerInformation.html"><span class="mini-sub-pro">선수정보</span></a></li>
@@ -222,7 +223,7 @@
                         </li>
 						
 						<li>
-                            <a class="has-arrow" href="all-students.html" aria-expanded="false"><span class="educate-icon educate-student icon-wrap"></span> <span class="mini-click-non">기록/순위</span></a>
+                            <a class="has-arrow" href="/all-students.html" aria-expanded="false"><span class="educate-icon educate-student icon-wrap"></span> <span class="mini-click-non">기록/순위</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="All Students" href="/report/teamReport.html"><span class="mini-sub-pro">팀 기록</span></a></li>
                                 <li><a title="Add Students" href="/ranking/teamRanking.html"><span class="mini-sub-pro">팀 순위</span></a></li>
@@ -232,11 +233,27 @@
                         </li>
 						
 						<li>
-                            <a href="/schedule.html" aria-expanded="false"><span class="educate-icon educate-event icon-wrap sub-icon-mg" aria-hidden="true"></span> <span class="mini-click-non">일정/결과</span></a>
+                            <a href="/schedule/schedule.html" aria-expanded="false"><span class="educate-icon educate-event icon-wrap sub-icon-mg" aria-hidden="true"></span> <span class="mini-click-non">일정/결과</span></a>
                         </li>
 						
 						<li>
                             <a  href="/stat/stat.html" aria-expanded="false"><span class="educate-icon educate-charts icon-wrap"></span> <span class="mini-click-non">통계</span></a>
+                        </li>
+                        
+                        <li>
+                            <a href="/Board/selectBoardList.html" aria-expanded="false"><span class="educate-icon educate-interface icon-wrap"></span> <span class="mini-click-non">피드백</span></a>
+                        </li>
+                        
+                        <li class="admin">
+                            <a class="has-arrow" href="/all-students.html" aria-expanded="false"><span class="educate-icon educate-student icon-wrap"></span> <span class="mini-click-non">관리자 입력</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                <li><a href="/admin/addAdmin.html"><span class="mini-sub-pro">관리자 추가</span></a></li>
+                                <li><a title="All Students" href="/admin/addPlayer.html"><span class="mini-sub-pro">선수 입력</span></a></li>
+                                <li><a title="Add Students" href="/admin/addTeam.html"><span class="mini-sub-pro">팀 입력</span></a></li>
+                                <li><a title="Edit Students" href="/admin/addReferee.html"><span class="mini-sub-pro">심판 입력</span></a></li>
+                                 <li><a title="Edit Students" href="/report/addReport.html"><span class="mini-sub-pro">경기 입력</span></a></li> 
+                      
+                            </ul>
                         </li>
 
 					</ul>
@@ -244,232 +261,343 @@
 			</div>
 		</nav>
 	</div>
-	<!-- End Left menu area -->
-	<!-- Start Welcome area -->
-	<div class="all-content-wrapper">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="logo-pro">
-						<a href="index.html"><img class="main-logo"
-							src="/img/logo/logo.png" alt="" /></a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="header-advance-area">
-			<div class="header-top-area">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							<div class="header-top-wraper">
-								<div class="row">
-
-									<div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
-										<div class="header-top-menu tabl-d-n">
-											<ul class="nav navbar-nav mai-top-nav">
-												<li class="nav-item"><a href="#" class="nav-link">뉴스</a>
-												</li>
-												
-												<li class="nav-item dropdown res-dis-nn">
-                                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">정보 <span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
+	<!-- ### Left Menu END 건드리지 마세요 ################################################################################################################################################################# -->
+	
+	<!-- ### Top Menu Start 여기부터 건드리지 마세요 ########################################################################################################################################################################### -->
+    <div class="all-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="logo-pro">
+                        <a href="/index.html"><img class="main-logo" src="/img/logo/logo.png" alt="" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-advance-area">
+            <div class="header-top-area">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="header-top-wraper">
+                                <div class="row">
+                                    <div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
+                                        <div class="menu-switcher-pro">
+                                            <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+													<i class="educate-icon educate-nav"></i>
+												</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
+                                        <div class="header-top-menu tabl-d-n">
+                                            <ul class="nav navbar-nav mai-top-nav">
+                                                <li class="nav-item"><a href="/index.html" class="nav-link">Home</a>
+                                                </li>
+                                                <!-- <li class="nav-item"><a href="/admin/news.html" class="nav-link">News</a>
+                                                </li> -->
+                                                <li class="nav-item dropdown res-dis-nn">
+                                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">Information <span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
                                                     <div role="menu" class="dropdown-menu animated zoomIn">
-                                                        <a href="/information/teamInformation.html" class="dropdown-item">팀 정보</a>
-                                                        <a href="/information/playerInformation.html" class="dropdown-item">선수 정보</a>
+                                                        <a href="/information/teamInformation.html" class="dropdown-item">Team Information</a>
+                                                        <a href="/information/playerInformation.html" class="dropdown-item">Player Information</a>
                                                     </div>
                                                 </li>
-												
-												<li class="nav-item dropdown res-dis-nn">
-                                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">기록/순위 <span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
+                                                <li class="nav-item dropdown res-dis-nn">
+                                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">Report & Ranking<span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
                                                     <div role="menu" class="dropdown-menu animated zoomIn">
-                                                        <a href="/report/teamReport.html" class="dropdown-item">팀 기록</a>
-                                                        <a href="/ranking/teamRanking.html" class="dropdown-item">팀 순위</a>
-                                                        <a href="/report/playerReport.html" class="dropdown-item">선수 기록</a>
-                                                        <a href="/ranking/playerRanking.html" class="dropdown-item">선수 순위</a>
+                                                        <a href="/report/teamReport.html" class="dropdown-item">Team Report</a>
+                                                        <a href="/report/playerReport.html" class="dropdown-item">Player Report</a>
+                                                        <a href="/ranking/teamRanking.html" class="dropdown-item">Team Ranking</a>
+                                                        <a href="/ranking/playerRanking.html" class="dropdown-item">Player Ranking</a>
                                                     </div>
                                                 </li>
-												<li class="nav-item"><a href="/schedule.html" class="nav-link">일정/결과</a>
-												
-												<li class="nav-item"><a href="/stat/stat.html" class="nav-link">통계</a>
-												</li>
-											</ul>
+                                                <li class="nav-item"><a href="/schedule/schedule.html" class="nav-link">Schedule</a>
+                                                </li>
+                                                <li class="nav-item"><a href="/stat/stat.html" class="nav-link">Stat</a>
+                                                </li>
+                                                
+                                                <li class="nav-item"><a href="/Board/selectBoardList.html" class="nav-link">Feed Back</a>
+                                                </li>
+                                                 <li class="nav-item dropdown res-dis-nn">
+                                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle admin">Admin Add<span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
+                                                    <div role="menu" class="dropdown-menu animated zoomIn">
+                                                        <a href="/admin/addAdmin.html" class="dropdown-item">Add Admin</a>
+                                                        <a href="/admin/addPlayer.html" class="dropdown-item">Add Player</a>
+                                                        <a href="/admin/addTeam.html" class="dropdown-item">Add Team</a>
+                                                        <a href="/admin/addReferee.html" class="dropdown-item">Add Referee</a>
+                                                        <a href="/report/addReport.html" class="nav-link">Add Report</a>
+                                                    </div>
+                                                </li>
+                                                
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                                        <div class="header-right-info">
+                                            <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                                <li class="nav-item dropdown">
+                                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="educate-icon educate-message edu-chat-pro" aria-hidden="true"></i><span class="indicator-ms"></span></a>
+                                                    <div role="menu" class="author-message-top dropdown-menu animated zoomIn">
+                                                        <div class="message-single-top">
+                                                            <h1>Message</h1>
+                                                        </div>
+                                                        <ul class="message-menu">
+                                                            <li>
+                                                                <a href="#">
+                                                                    <div class="message-img">
+                                                                       
+                                                                    </div>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="message-view">
+                                                            <a href="#">수신받은 메세지가 없습니다</a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="educate-icon educate-bell" aria-hidden="true"></i><span class="indicator-nt"></span></a>
+                                                    <div role="menu" class="notification-author dropdown-menu animated zoomIn">
+                                                        <div class="notification-single-top">
+                                                            <h1>Notifications</h1>
+                                                        </div>
+                                                        <ul class="notification-menu">
+                                                        </ul>
+                                                        <div class="notification-view">
+                                                            <a href="#">새로운 알림이 없습니다</a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+															
+															<span class="admin-name">My Page</span>
+															<i class="fa fa-angle-down edu-icon edu-down-arrow"></i>
+														</a>
+                                                    <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                        <li><a href="#"><span id="login" class="edu-icon edu-locked author-log-ic"></span>Log In</a>
+                                                        </li>
+                                                        <li><a href="#"><span id="logOut" class="edu-icon edu-locked author-log-ic"></span>Log Out</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="nav-item nav-setting-open"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="educate-icon educate-menu"></i></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+	<!-- ### Top Menu End 여기까지 건드리지 마세요 ########################################################################################################################################################################### -->
+			
+			<!-- ### Content Start 내용입력하세요 ######################################################################################################################################################################################### -->
+            <div class="breadcome-area">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="breadcome-list single-page-breadcome">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <div class="breadcome-heading">
+                                            <form role="search" class="sr-input-func">
+                                                <div>
+			<!-- ### 여기다가 카테고리 제목 쓰에요 ###################################################################################### -->
+                                                	<h1><span id="카테고리 제목">경기추가</span></h1>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <ul class="breadcome-menu">
+                                            <li><a href="/index.html">Home</a> <span class="bread-slash">/</span>
+                                            </li>
+			<!-- ### 여기다가 카테고리 제목 쓰에요 ###################################################################################### -->
+                                            <li><span class="bread-blod" id="카테고리 제목">경기추가</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ### 내용 입력 하세요 ####################################################################################################  -->
+        <div class="data-table-area mg-b-15">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="sparkline13-list">
+                            <div class="sparkline13-hd">
+                                <div class="main-sparkline13-hd">
+                                </div>
+                            </div>
+                         			<div id="getGame">
+										<h2>경기 추가</h2>
+										<div>
+											<span id="getStadium"></span>
+										</div>
+										<!-- hometeam 선택 -->
+										<select id="getHomeTeam">
+											<option>팀 선택</option>
+										</select>
+										
+										<!-- hometeam 선수 선택 -->
+										<select id="getHomeTeamPlayer">
+											<option value=0>선수 선택</option>
+										</select>
+										
+										<!-- awayteam 선택 -->
+										<select id="getAwayTeam">
+											<option>팀 선택</option>
+										</select>
+										
+										<!-- awayteam 선수 선택 -->
+										<select id="getAwayTeamPlayer">
+											<option value=0>선수 선택</option>
+										</select>
+										<!-- 심판 선택 -->
+										<select id="getReferee">
+											<option>심판 선택</option>
+										</select>
+									</div>
+									<br>
+									<button id="gameStartBtn" class="btn btn-default">경기 시작</button>
+									
+									<div id="addPin">
+										<br>
+										<h2>기록 추가</h2>
+										<!-- 전광판 -->
+										<div>
+											<table id="board">
+										      <tr>
+										         <td class='backslash'><div>프레임</div>이름</td>
+										         <td colspan="2" style="width:60px;">1</td>
+										         <td colspan="2" style="width:60px;">2</td>
+										         <td colspan="2" style="width:60px;">3</td>
+										         <td colspan="2" style="width:60px;">4</td>
+										         <td colspan="2" style="width:60px;">5</td>
+										         <td colspan="2" style="width:60px;">6</td>
+										         <td colspan="2" style="width:60px;">7</td>
+										         <td colspan="2" style="width:60px;">8</td>
+										         <td colspan="2" style="width:60px;">9</td>
+										         <td colspan="3" style="width:90px;">10</td>
+										         <td id="totalScore">총 점수</td>
+										      </tr>
+										      <tr class="tr1">
+										         <td rowspan="2" id="homeTeamPlayer">이름1</td>
+										         <td id="hf1t1" style="width:30px;height:35px;"></td><td id="hf1t2" style="width:30px;height:35px;"></td>
+										         <td id="hf2t1" style="width:30px;height:35px;"></td><td id="hf2t2" style="width:30px;height:35px;"></td>
+										         <td id="hf3t1" style="width:30px;height:35px;"></td><td id="hf3t2" style="width:30px;height:35px;"></td>
+										         <td id="hf4t1" style="width:30px;height:35px;"></td><td id="hf4t2" style="width:30px;height:35px;"></td>
+										         <td id="hf5t1" style="width:30px;height:35px;"></td><td id="hf5t2" style="width:30px;height:35px;"></td>
+										         <td id="hf6t1" style="width:30px;height:35px;"></td><td id="hf6t2" style="width:30px;height:35px;"></td>
+										         <td id="hf7t1" style="width:30px;height:35px;"></td><td id="hf7t2" style="width:30px;height:35px;"></td>
+										         <td id="hf8t1" style="width:30px;height:35px;"></td><td id="hf8t2" style="width:30px;height:35px;"></td>
+										         <td id="hf9t1" style="width:30px;height:35px;"></td><td id="hf9t2" style="width:30px;height:35px;"></td>
+										         <td id="hf10t1" style="width:30px;height:35px;"></td><td id="hf10t2" style="width:30px;height:35px;"></td><td id="hf10t3" style="width:30px;height:35px;"></td>
+										         <td rowspan="2" id="homeScoreSum"></td>
+										      </tr>
+										      <tr class="tr2">
+										         <td colspan="2" class="hfs" id="hf1s" style="height:35px"></td>
+										         <td colspan="2" class="hfs" id="hf2s" style="height:35px"></td>
+										         <td colspan="2" class="hfs" id="hf3s" style="height:35px"></td>
+										         <td colspan="2" class="hfs" id="hf4s" style="height:35px"></td>
+										         <td colspan="2" class="hfs" id="hf5s" style="height:35px"></td>
+										         <td colspan="2" class="hfs" id="hf6s" style="height:35px"></td>
+										         <td colspan="2" class="hfs" id="hf7s" style="height:35px"></td>
+										         <td colspan="2" class="hfs" id="hf8s" style="height:35px"></td>
+										         <td colspan="2" class="hfs" id="hf9s" style="height:35px"></td>
+										         <td colspan="3" class="hfs" id="hf10s" style="height:35px"></td>
+										      </tr>
+										      <tr class="tr1">
+										         <td rowspan="2" id="awayTeamPlayer">이름2</td>
+										         <td id="af1t1" style="width:30px;height:35px;"></td><td id="af1t2" style="width:30px;height:35px;"></td>
+										         <td id="af2t1" style="width:30px;height:35px;"></td><td id="af2t2" style="width:30px;height:35px;"></td>
+										         <td id="af3t1" style="width:30px;height:35px;"></td><td id="af3t2" style="width:30px;height:35px;"></td>
+										         <td id="af4t1" style="width:30px;height:35px;"></td><td id="af4t2" style="width:30px;height:35px;"></td>
+										         <td id="af5t1" style="width:30px;height:35px;"></td><td id="af5t2" style="width:30px;height:35px;"></td>
+										         <td id="af6t1" style="width:30px;height:35px;"></td><td id="af6t2" style="width:30px;height:35px;"></td>
+										         <td id="af7t1" style="width:30px;height:35px;"></td><td id="af7t2" style="width:30px;height:35px;"></td>
+										         <td id="af8t1" style="width:30px;height:35px;"></td><td id="af8t2" style="width:30px;height:35px;"></td>
+										         <td id="af9t1" style="width:30px;height:35px;"></td><td id="af9t2" style="width:30px;height:35px;"></td>
+										         <td id="af10t1" style="width:30px;height:35px;"></td><td id="af10t2" style="width:30px;height:35px;"></td><td id="af10t3" style="width:30px;height:35px;"></td>
+										         <td rowspan="2" id="awayScoreSum"></td>
+										      </tr>
+										      <tr class="tr2">
+										         <td colspan="2" class="afs" id="af1s" style="height:35px"></td>
+										         <td colspan="2" class="afs" id="af2s" style="height:35px"></td>
+										         <td colspan="2" class="afs" id="af3s" style="height:35px"></td>
+										         <td colspan="2" class="afs" id="af4s" style="height:35px"></td>
+										         <td colspan="2" class="afs" id="af5s" style="height:35px"></td>
+										         <td colspan="2" class="afs" id="af6s" style="height:35px"></td>
+										         <td colspan="2" class="afs" id="af7s" style="height:35px"></td>
+										         <td colspan="2" class="afs" id="af8s" style="height:35px"></td>
+										         <td colspan="2" class="afs" id="af9s" style="height:35px"></td>
+										         <td colspan="3" class="afs" id="af10s" style="height:35px"></td>
+										      </tr>
+										   </table>
+										</div>
+										<br>
+										<div id="pinCheckBox">
+										<!-- addReport폼 생성, Check 박스 생성 -->
+											<span>7 <input class="pinCheck" type="checkbox" value="6"></span>
+											<span>8 <input class="pinCheck" type="checkbox" value="7"></span>
+											<span>9 <input class="pinCheck" type="checkbox" value="8"></span>
+											<span>10 <input class="pinCheck" type="checkbox" value="9"></span>
+											<br>
+											<span>4 <input class="pinCheck" type="checkbox" value="3"></span>
+											<span>5 <input class="pinCheck" type="checkbox" value="4"></span>
+											<span>6 <input class="pinCheck" type="checkbox" value="5"></span>
+											<br>
+											<span>2 <input class="pinCheck" type="checkbox" value="1"></span>
+											<span>3 <input class="pinCheck" type="checkbox" value="2"></span>
+											<br>
+											<span>1 <input class="pinCheck" type="checkbox" value="0"></span>
+										</div>
+										<br>
+										<button type="button" id="addPinBtn" class="btn btn-default">핀 입력</button>
+										<div>
+											<br>
+											<button type="button" id="strikeBtn" class="btn btn-default">스트라이크</button>
+											<button type="button" id="resetBtn" class="btn btn-default">초기화</button>
 										</div>
 									</div>
-									<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-										<div class="header-right-info">
-											<ul class="nav navbar-nav mai-top-nav header-right-menu">
-												<li class="nav-item"><a href="#" aria-expanded="false"
-													class="nav-link dropdown-toggle"> <span
-														class="admin-name">Prof.Anderson</span>
-												</a></li>
-											</ul>
-										</div>
-									</div>
-								</div>
 							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- 화면에서 나오는 페이지 -->
-		<div>
-
-			<h1>기록 추가</h1>
-				<div id="getGame">
-					<h2>경기 추가</h2>
-					<div>
-						<span id="getStadium"></span>
-					</div>
-					<!-- hometeam 선택 -->
-					<select id="getHomeTeam">
-						<option>팀 선택</option>
-					</select>
 					
-					<!-- hometeam 선수 선택 -->
-					<select id="getHomeTeamPlayer">
-						<option value=0>선수 선택</option>
-					</select>
-					
-					<!-- awayteam 선택 -->
-					<select id="getAwayTeam">
-						<option>팀 선택</option>
-					</select>
-					
-					<!-- awayteam 선수 선택 -->
-					<select id="getAwayTeamPlayer">
-						<option value=0>선수 선택</option>
-					</select>
-					<!-- 심판 선택 -->
-					<select id="getReferee">
-						<option>심판 선택</option>
-					</select>
-				</div>
-				<br>
-				<button id="gameStartBtn">경기 시작</button>
-				
-				<div id="addPin">
-					<br>
-					<h2>기록 추가</h2>
-					<!-- 전광판 -->
-					<div>
-						<table id="board">
-					      <tr>
-					         <td class='backslash'><div>프레임</div>이름</td>
-					         <td colspan="2" style="width:60px;">1</td>
-					         <td colspan="2" style="width:60px;">2</td>
-					         <td colspan="2" style="width:60px;">3</td>
-					         <td colspan="2" style="width:60px;">4</td>
-					         <td colspan="2" style="width:60px;">5</td>
-					         <td colspan="2" style="width:60px;">6</td>
-					         <td colspan="2" style="width:60px;">7</td>
-					         <td colspan="2" style="width:60px;">8</td>
-					         <td colspan="2" style="width:60px;">9</td>
-					         <td colspan="3" style="width:90px;">10</td>
-					         <td id="totalScore">총 점수</td>
-					      </tr>
-					      <tr class="tr1">
-					         <td rowspan="2" id="homeTeamPlayer">이름1</td>
-					         <td id="hf1t1" style="width:30px;height:35px;"></td><td id="hf1t2" style="width:30px;height:35px;"></td>
-					         <td id="hf2t1" style="width:30px;height:35px;"></td><td id="hf2t2" style="width:30px;height:35px;"></td>
-					         <td id="hf3t1" style="width:30px;height:35px;"></td><td id="hf3t2" style="width:30px;height:35px;"></td>
-					         <td id="hf4t1" style="width:30px;height:35px;"></td><td id="hf4t2" style="width:30px;height:35px;"></td>
-					         <td id="hf5t1" style="width:30px;height:35px;"></td><td id="hf5t2" style="width:30px;height:35px;"></td>
-					         <td id="hf6t1" style="width:30px;height:35px;"></td><td id="hf6t2" style="width:30px;height:35px;"></td>
-					         <td id="hf7t1" style="width:30px;height:35px;"></td><td id="hf7t2" style="width:30px;height:35px;"></td>
-					         <td id="hf8t1" style="width:30px;height:35px;"></td><td id="hf8t2" style="width:30px;height:35px;"></td>
-					         <td id="hf9t1" style="width:30px;height:35px;"></td><td id="hf9t2" style="width:30px;height:35px;"></td>
-					         <td id="hf10t1" style="width:30px;height:35px;"></td><td id="hf10t2" style="width:30px;height:35px;"></td><td id="hf10t3" style="width:30px;height:35px;"></td>
-					         <td rowspan="2" id="homeScoreSum"></td>
-					      </tr>
-					      <tr class="tr2">
-					         <td colspan="2" class="hfs" id="hf1s" style="height:35px"></td>
-					         <td colspan="2" class="hfs" id="hf2s" style="height:35px"></td>
-					         <td colspan="2" class="hfs" id="hf3s" style="height:35px"></td>
-					         <td colspan="2" class="hfs" id="hf4s" style="height:35px"></td>
-					         <td colspan="2" class="hfs" id="hf5s" style="height:35px"></td>
-					         <td colspan="2" class="hfs" id="hf6s" style="height:35px"></td>
-					         <td colspan="2" class="hfs" id="hf7s" style="height:35px"></td>
-					         <td colspan="2" class="hfs" id="hf8s" style="height:35px"></td>
-					         <td colspan="2" class="hfs" id="hf9s" style="height:35px"></td>
-					         <td colspan="3" class="hfs" id="hf10s" style="height:35px"></td>
-					      </tr>
-					      <tr class="tr1">
-					         <td rowspan="2" id="awayTeamPlayer">이름2</td>
-					         <td id="af1t1" style="width:30px;height:35px;"></td><td id="af1t2" style="width:30px;height:35px;"></td>
-					         <td id="af2t1" style="width:30px;height:35px;"></td><td id="af2t2" style="width:30px;height:35px;"></td>
-					         <td id="af3t1" style="width:30px;height:35px;"></td><td id="af3t2" style="width:30px;height:35px;"></td>
-					         <td id="af4t1" style="width:30px;height:35px;"></td><td id="af4t2" style="width:30px;height:35px;"></td>
-					         <td id="af5t1" style="width:30px;height:35px;"></td><td id="af5t2" style="width:30px;height:35px;"></td>
-					         <td id="af6t1" style="width:30px;height:35px;"></td><td id="af6t2" style="width:30px;height:35px;"></td>
-					         <td id="af7t1" style="width:30px;height:35px;"></td><td id="af7t2" style="width:30px;height:35px;"></td>
-					         <td id="af8t1" style="width:30px;height:35px;"></td><td id="af8t2" style="width:30px;height:35px;"></td>
-					         <td id="af9t1" style="width:30px;height:35px;"></td><td id="af9t2" style="width:30px;height:35px;"></td>
-					         <td id="af10t1" style="width:30px;height:35px;"></td><td id="af10t2" style="width:30px;height:35px;"></td><td id="af10t3" style="width:30px;height:35px;"></td>
-					         <td rowspan="2" id="awayScoreSum"></td>
-					      </tr>
-					      <tr class="tr2">
-					         <td colspan="2" class="afs" id="af1s" style="height:35px"></td>
-					         <td colspan="2" class="afs" id="af2s" style="height:35px"></td>
-					         <td colspan="2" class="afs" id="af3s" style="height:35px"></td>
-					         <td colspan="2" class="afs" id="af4s" style="height:35px"></td>
-					         <td colspan="2" class="afs" id="af5s" style="height:35px"></td>
-					         <td colspan="2" class="afs" id="af6s" style="height:35px"></td>
-					         <td colspan="2" class="afs" id="af7s" style="height:35px"></td>
-					         <td colspan="2" class="afs" id="af8s" style="height:35px"></td>
-					         <td colspan="2" class="afs" id="af9s" style="height:35px"></td>
-					         <td colspan="3" class="afs" id="af10s" style="height:35px"></td>
-					      </tr>
-					   </table>
-					</div>
-					<br>
-					<div id="pinCheckBox">
-					<!-- addReport폼 생성, Check 박스 생성 -->
-						<span>7 <input class="pinCheck" type="checkbox" value="6"></span>
-						<span>8 <input class="pinCheck" type="checkbox" value="7"></span>
-						<span>9 <input class="pinCheck" type="checkbox" value="8"></span>
-						<span>10 <input class="pinCheck" type="checkbox" value="9"></span>
-						<br>
-						<span>4 <input class="pinCheck" type="checkbox" value="3"></span>
-						<span>5 <input class="pinCheck" type="checkbox" value="4"></span>
-						<span>6 <input class="pinCheck" type="checkbox" value="5"></span>
-						<br>
-						<span>2 <input class="pinCheck" type="checkbox" value="1"></span>
-						<span>3 <input class="pinCheck" type="checkbox" value="2"></span>
-						<br>
-						<span>1 <input class="pinCheck" type="checkbox" value="0"></span>
-					</div>
-					<br>
-					<button type="button" id="addPinBtn">쓰러진 핀 입력</button>
-					<div>
-						<br>
-						<button type="button" id="strikeBtn">스트라이크</button>
-						<button type="button" id="resetBtn">초기화</button>
-					</div>
-				</div>
-		</div>
-
-		<!-- 볼링 핀 이미지 출력 -->
-		<div id="bowlingGame">
-			<img id="bowlingFloor" src="/img/floor.png">
-			<div id="allPinImg">
-				<span class="pinTag" id="pinImg7"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg8"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg9"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg10"><img class="pinImg" src="/img/pin.png"></span>
-				<span class="pinTag" id="pinImg4"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg5"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg6"><img class="pinImg" src="/img/pin.png"></span>
-				<span class="pinTag" id="pinImg2"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg3"><img class="pinImg" src="/img/pin.png"></span>
-				<span class="pinTag" id="pinImg1"><img class="pinImg" src="/img/pin.png"></span>
-			</div>
-			<div id="allPinImgCopy">
-				<span class="pinTag" id="pinImg7"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg8"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg9"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg10"><img class="pinImg" src="/img/pin.png"></span>
-				<span class="pinTag" id="pinImg4"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg5"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg6"><img class="pinImg" src="/img/pin.png"></span>
-				<span class="pinTag" id="pinImg2"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg3"><img class="pinImg" src="/img/pin.png"></span>
-				<span class="pinTag" id="pinImg1"><img class="pinImg" src="/img/pin.png"></span>
-			</div>
-			<div id="hitPinImg">
-				<img src="/img/hitPin.png">
-			</div>
-			<img id="bowlingBall" src="/img/ball.png">
-		</div>
+							<!-- 볼링 핀 이미지 출력 -->
+							<div id="bowlingGame">
+								<img id="bowlingFloor" src="/img/floor.png">
+								<div id="allPinImg">
+									<span class="pinTag" id="pinImg7"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg8"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg9"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg10"><img class="pinImg" src="/img/pin.png"></span>
+									<span class="pinTag" id="pinImg4"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg5"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg6"><img class="pinImg" src="/img/pin.png"></span>
+									<span class="pinTag" id="pinImg2"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg3"><img class="pinImg" src="/img/pin.png"></span>
+									<span class="pinTag" id="pinImg1"><img class="pinImg" src="/img/pin.png"></span>
+								</div>
+								<div id="allPinImgCopy">
+									<span class="pinTag" id="pinImg7"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg8"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg9"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg10"><img class="pinImg" src="/img/pin.png"></span>
+									<span class="pinTag" id="pinImg4"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg5"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg6"><img class="pinImg" src="/img/pin.png"></span>
+									<span class="pinTag" id="pinImg2"><img class="pinImg" src="/img/pin.png"></span><span class="pinTag" id="pinImg3"><img class="pinImg" src="/img/pin.png"></span>
+									<span class="pinTag" id="pinImg1"><img class="pinImg" src="/img/pin.png"></span>
+								</div>
+								<div id="hitPinImg">
+									<img src="/img/hitPin.png">
+								</div>
+								<img id="bowlingBall" src="/img/ball.png">
+							</div>
+                            <div class="sparkline13-graph">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ### Content End 내용입력하세요 ######################################################################################################################################################################################### -->
+ 	
 
 		<div class="footer-copyright-area">
 			<div class="container-fluid">
@@ -485,7 +613,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 
 	<!-- jquery
 		============================================ -->
@@ -569,7 +696,8 @@
 		};
 		
 		// 경기 시작 전 데이터 입력 폼 비활성화
-		//$("#addPin").hide();
+		$("#addPin").hide();
+		$("#bowlingGame").hide();
 		$("#hitPinImg").hide();
 		$("#allPinImgCopy").hide();
 		
@@ -583,6 +711,7 @@
 				$("#gameStartBtn").hide(); // 게임 시작 버튼 숨김
 				$("#getGame").hide(); // 팀과 선수와 심판을 선택하는 폼 숨김
 				$("#addPin").show(); // 경기의 데이터를 기록하는 현황판과 폼 숨김 해제
+				$("#bowlingGame").show();
 				
 				// ### 경기 기록 ######################################################################################################################
 				// game 테이블에 경기를 저장 후 해당 경기의 인덱스값인 game_no를 생성한 객체에 저장
