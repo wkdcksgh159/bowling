@@ -300,10 +300,13 @@
 							   		 		
 							   		 	</tbody>
 							   		 </table>
+							   		 
+							   		 
 							   		 <!-- 삭제버튼 -->
 							   		 <button type = "button" id = "getBoardList">목록</button>
 							   		 <button type = "button" id = "updateBtn">수정</button>
 							   		 <button type = "button" id = "removeBtn">삭제</button>
+							   		 <br><hr>
                             <div class="sparkline13-graph">
                             	<!-- 댓글 -->
 							    <div>
@@ -311,8 +314,10 @@
 							    	비밀번호:<input type="password" id="commentPw">
 							    	<br>
 							    	<input type="hidden" id="CommentboardNo" readonly="readonly">
-							    	<textarea id="commentContent" rows="2" cols="50"></textarea>
-							    	<button type="button" id="addComment">댓글입력</button>
+							    	<span>
+								    	<textarea id="commentContent" rows="2" cols="50"></textarea>
+								    	<button type="button" id="addComment">댓글입력</button>
+								    </span>
 							    </div>
 							    
 							    <table class="table">
@@ -531,7 +536,7 @@
 				}
 				else{
 					$.ajax({
-						url:"/addComment",	//spring @RestController
+						url:"/addComment",
 						method:"POST",
 						data:{"boardNo":$("#CommentboardNo").val() ,"commentContent": $("#commentContent").val(), 
 							  "commentPw": $("#commentPw").val(), "commentUser":$("#commentUser").val()},
