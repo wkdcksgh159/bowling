@@ -367,11 +367,11 @@
 			<br>
 			
 			<!-- 전광판 테이블 -->
-			<table id="scoreBoard" class="table table-dark">
+			<table id="scoreBoard" class="table table-dark" style="border-collapse: separate;"">
 				<thead>
-				<tr id="theWinner"></tr>
-				<tr id="boardPan1"></tr>
-				<tr id="boardPan2"></tr>
+				<tr id="theWinner" style="background-color: white"></tr>
+				<tr id="boardPan1" style="background-color: white"></tr>
+				<tr id="boardPan2" style="background-color: white"></tr>
 					<tr>
 				         <th class="backslash"><div>프레임</div>이름</th>
 				         <th colspan="2" style="width:60px">1</th>
@@ -603,13 +603,13 @@ $(document).ready(function(){
 									$("#boardPan2").empty();		
 									//선수 이미지 출력 
 									$("#boardPan1").append(
-											"<td colspan='8'><img style='width:400px; height:100%' src='"+hCountryImage+"'></td>"//h나라 이미지 출력
-											+"<td rowspan='2' colspan='7'><img style='width:100%; height:100%' src='/image/vs.png'></td>"//vs
-											+"<td colspan='8'><img style='width:400px; height:100%' src='"+aCountryImage+"'></td>");//a나라 이미지 출력
-											
+											"<td colspan='8' style='border: 1px solid #333333;'><img style='width:400px; height:100%' src='"+hCountryImage+"'></td>"//h나라 이미지 출력
+											+"<td rowspan='2' colspan='7' style='border: 1px solid #333333;'><img style='width:100%; height:100%' src='/image/vs.png'></td>"//vs
+											+"<td colspan='8' style='border: 1px solid #333333;'><img style='width:400px; height:100%' src='"+aCountryImage+"'></td>");//a나라 이미지 출력
+										
 									$("#boardPan2").append(
-											"<td colspan='8'><img style='width:400px; height:200px' src='"+hplayerImage+"'></td>"//h player 이미지 출력
-											+"<td colspan='8'><img style='width:400px; height:200px' src='"+aplayerImage+"'></td>");//a player 이미지 출력 
+											"<td colspan='8' style='border: 1px solid #333333;'><img style='width:400px; height:200px' src='"+hplayerImage+"'></td>"//h player 이미지 출력
+											+"<td colspan='8' style='border: 1px solid #333333;'><img style='width:400px; height:200px' src='"+aplayerImage+"'></td>");//a player 이미지 출력 
 									//홈팀 어웨이팀 선수이름 출력
 									$("#fTurn").append("<td rowspan='2' class='playerName' id='homeTeamPlayer'>"+json[0].playerName+"</td>");
 									$("#sTurn").append("<td rowspan='2' class='playerName' id='awayTeamPlayer'>"+json[json.length-1].playerName+"</td>");
@@ -659,16 +659,16 @@ $(document).ready(function(){
 											theWinner=json[0].playerName;
 											theWinCountry=json[0].playerCountry
 											$("#theWinner").empty();
-											$("#theWinner").append("<td colspan='23'><span style='font-size:30px;'>이번 경기에 승자는~! 바로 "+theWinCountry+"팀에 "+theWinner+" 선수 입니다 축하합니다! </span></td>");
+											$("#theWinner").append("<td colspan='23' style='border: 1px solid #333333;'><span style='font-size:30px; color: black;'>이번 경기에 승자는~! 바로 "+theWinCountry+"팀에 "+theWinner+" 선수 입니다 축하합니다! </span></td>");
 										}else if(fFrameSum==sFrameSum){//무승부
 											theWinner="무승부";
 											$("#theWinner").empty();
-											$("#theWinner").append("<td colspan='23'><span style='font-size:30px;'>이번 경기는 무승부입니다' </span></td>");
+											$("#theWinner").append("<td colspan='23' style='border: 1px solid #333333;'><span style='font-size:30px; color: black'>이번 경기는 무승부입니다' </span></td>");
 										}else{//어웨이팀 우승
 											theWinner=json[json.length-1].playerName;
 											theWinCountry=json[json.length-1].playerCountry
 											$("#theWinner").empty();
-											$("#theWinner").append("<td colspan='23'><span style='font-size:30px;'>이번 경기에 승자는~! 바로 "+theWinCountry+"팀에 "+theWinner+" 선수 입니다 축하합니다! </span></td>");
+											$("#theWinner").append("<td colspan='23' style='border: 1px solid #333333;'><span style='font-size:30px; color: black'>이번 경기에 승자는~! 바로 "+theWinCountry+"팀에 "+theWinner+" 선수 입니다 축하합니다! </span></td>");
 										}
 
 								}//~574 success(function(json))
